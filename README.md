@@ -54,6 +54,9 @@ Dependency
   
   # Calendar => http://drupal.org/project/calendar">calendar
   # Date => http://drupal.org/project/date">date
+  #Date Popup
+  #Relation
+  #PHP
 
 
 Installation:
@@ -76,7 +79,4 @@ This module was created by OSSCube Solutions Pvt Ltd <www dot osscube dot com>
 Guided by Bhupendra Singh <bhupendra at osscube dot com>
 Developed by Radhey Shyam <radhey at osscube dot com>
 and Navneet Kumar <navneet at osscube dot com >
-It was continued by Alexandre Realinho
-
-
-
+It was further continued by Alexandre Realinho

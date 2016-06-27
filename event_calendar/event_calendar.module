@@ -64,12 +64,7 @@ function event_calendar_help($path, $arg)
 	  Calendars creation for holiday marking and holidays.<br>
 Note: the view creation template is not usable, the import of code is in Vacations Calendar Others.<br>
 To create the holidays and automatically manage events created use the links below.<br>
-To enable comments for each event head over to /admin/structure/types/manage/event-calendar and open the comments.<br><br>
-	  Criação de Calendários para marcação de férias e feriados. 
-	  <br> Nota: o template de criação da view não é viável, o codigo de importe encontra-se em Vacations Calendar Others. 
-	  <br> Para criar os feriados automaticamente e gerir eventos criados use os links embaixo.
-	  <br>Para ativar comentários para cada evento diriga-se a /admin/structure/types/manage/event-calendar e poderá abrir os comentários.
-	  ") . '';
+To enable comments for each event head over to /admin/structure/types/manage/event-calendar and open the comments.<br><br>") . '';
             break;
     }
 }

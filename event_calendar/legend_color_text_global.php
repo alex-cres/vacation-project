@@ -7,7 +7,7 @@ if (module_exists("event_calendar_colors")) {
 	$w=1;
     foreach ($result_one as $vid) {
 	
-        $query  = db_select('taxonomy_term_data', 'ttd')->fields('ttd')->condition('vid', $vid->vid, '=');
+        $query  = db_select('taxonomy_term_data', 'ttd')->fields('ttd')->condition('vid', $vid->vid, '=')->orderBy('tid',"ASC");
         $result = $query->execute();
         foreach ($result as $fetch) {
             if($w%2==1){
