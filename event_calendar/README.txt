@@ -33,14 +33,16 @@ Features
  # A mailing integration for approval of event
  # In-place Add/Edit/View of events in pop-up
  # Different colors of events based on their status
+ # Vacation creation
+ # Counter for used days
+ # Submission and Cancel 
+ 
  
 Benefits
 ----------
 
  # No need to add content type and import views template
  # Easy to add events (if a user permits)
- # Simple Admin UI to manage mail subject, body separately for Admin and other
-   roles
  # Events status can be easily identified with the color of events
 
 
@@ -74,3 +76,4 @@ This module was created by OSSCube Solutions Pvt Ltd <www dot osscube dot com>
 Guided by Bhupendra Singh <bhupendra at osscube dot com>
 Developed by Radhey Shyam <radhey at osscube dot com>
 and Navneet Kumar <navneet at osscube dot com >
+It was continued by Alexandre Realinho
