@@ -1,0 +1,172 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the event calendar  module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function event_calendar_holi_counter_install()
+{
+    variable_set('ticket_event_calendar', 'CMS');
+}
+/**
+ * Implements hook_schema().
+ */
+function event_calendar_holi_counter_schema()
+{
+    $schema = array();
+    if (!db_table_exists('event_calendar_days_counter')) {
+        $schema['event_calendar_days_counter'] = array(
+            'description' => 'Stores data abour the users',
+            'fields' => array(
+                'user_id' => array(
+                    'type' => 'int',
+                    'length' => 10,
+                    'not null' => TRUE,
+                    'description' => 'User id',
+                    'translatable' => TRUE
+                ),
+                'user_name' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => 'User Name',
+                    'translatable' => TRUE
+                ),
+                'counter_id' => array(
+                    'type' => 'serial',
+                    'length' => 10,
+                    'not null' => TRUE,
+                    'description' => 'Counter id',
+                    'translatable' => TRUE
+                ),
+                'counter_days' => array(
+                    'type' => 'int',
+                    'length' => 10,
+                    'not null' => TRUE,
+                    'description' => 'Counter days',
+                    'translatable' => TRUE
+                ),
+                
+                'counter_year' => array(
+                    'type' => 'int',
+                    'length' => 4,
+                    'not null' => TRUE,
+                    'description' => 'Counter year',
+                    'translatable' => TRUE
+                ),
+                
+                'counter_days_used' => array(
+                    'type' => 'int',
+                    'length' => 10,
+                    'not null' => TRUE,
+                    'default' => 0,
+                    'description' => 'Counter used days',
+                    'translatable' => TRUE
+                ),
+				'counter_extra' => array(
+                    'type' => 'int',
+                    'length' => 10,
+                    'not null' => TRUE,
+                    'default' => 0,
+                    'description' => 'extra from last years',
+                    'translatable' => TRUE
+                ),
+                'counter_days_used_last' => array(
+                    'type' => 'int',
+                    'length' => 10,
+                    
+                    'default' => 0,
+                    'description' => 'Counter used days last submittion',
+                    'translatable' => TRUE
+                )
+            ),
+            'primary key' => array(
+                'counter_id'
+            )
+        );
+    }
+    if (!db_table_exists('event_calendar_request_counter')) {
+        
+        $schema['event_calendar_request_counter'] = array(
+            'description' => 'Stores data abour the users',
+            'fields' => array(
+                'user_id' => array(
+                    'type' => 'int',
+                    'length' => 10,
+                    'not null' => TRUE,
+                    'description' => 'User id',
+                    'translatable' => TRUE
+                ),
+                
+                'type_letter' => array(
+                    'type' => 'varchar',
+                    'length' => 30,
+                    'not null' => TRUE,
+                    'description' => 'Letter Type',
+                    'translatable' => TRUE
+                ),
+                'request_id' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => 'Counter id',
+                    'translatable' => TRUE
+                ),
+                'request_id_part' => array(
+                    'type' => 'int',
+                    'length' => 8,
+                    'not null' => TRUE,
+                    'description' => 'Counter',
+                    'translatable' => TRUE
+                ),
+                'request_year_part' => array(
+                    'type' => 'int',
+                    'length' => 4,
+                    'not null' => TRUE,
+                    'description' => 'Counter',
+                    'translatable' => TRUE
+                ),
+                'type_action' => array(
+                    'type' => 'varchar',
+                    'length' => 10,
+                    'not null' => TRUE,
+                    'description' => 'Action Type',
+                    'translatable' => TRUE
+                ),
+                'request_actions' => array(
+                    'type' => 'varchar',
+                    'length' => 1000,
+                    'not null' => TRUE,
+                    'description' => 'Alterations Made',
+                    'translatable' => TRUE
+                ),
+                
+                'request_date' => array(
+                    'type' => 'datetime',
+                    'mysql_type' => 'datetime',
+                    'not null' => TRUE,
+                    'description' => 'Date of request',
+                    'translatable' => TRUE
+                )
+            ),
+            'primary key' => array(
+                'request_id'
+            )
+        );
+    }
+    return $schema;
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function event_calendar_holi_counter_uninstall()
+{
+    db_drop_table("event_calendar_days_counter");
+    db_drop_table('event_calendar_request_counter');
+    
+}

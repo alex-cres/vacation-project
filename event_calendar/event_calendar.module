@@ -1,0 +1,685 @@
+<?php
+
+/**
+ * @file
+ * The module file that allows events to be created and required admin approval.
+ */
+
+// Machine name for our custom taxonomy.
+define('TAXONOMY_NAME', 'event_calendar_status');
+
+/**
+ * Implements hook_views_api().
+ */
+function event_calendar_views_api()
+{
+    return array(
+        'api' => 3.0,
+        'path' => drupal_get_path('module', 'event_calendar')
+    );
+    
+}
+
+
+
+/**
+ * Helper function to dynamically get the tid from the term_name
+ *
+ * @param $term_name Term name
+ * @param $vocabulary_name Name of the vocabulary to search the term in
+ *
+ * @return Term id of the found term or else FALSE
+ */
+function _get_term_from_name($term_name, $vocabulary_name)
+{
+    if ($vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_name)) {
+        $tree = taxonomy_get_tree($vocabulary->vid);
+        foreach ($tree as $term) {
+            if ($term->name == $term_name) {
+                return $term->tid;
+            }
+        }
+    }
+    
+    return FALSE;
+}
+
+
+/**
+ * Implements hook_help().
+ *
+ * Displays help and module information.
+ *
+ * @param path 
+ *   Which path of the site we're using to display help
+ * @param arg 
+ *   Array that holds the current path as returned from arg() function
+ */
+function event_calendar_help($path, $arg)
+{
+    
+    switch ($path) {
+        case "admin/help#event_calendar":
+            return "" . t("
+	  Calendars creation for holiday marking and holidays.<br>
+Note: the view creation template is not usable, the import of code is in Vacations Calendar Others.<br>
+To create the holidays and automatically manage events created use the links below.<br>
+To enable comments for each event head over to /admin/structure/types/manage/event-calendar and open the comments.<br><br>
+	  Criação de Calendários para marcação de férias e feriados. 
+	  <br> Nota: o template de criação da view não é viável, o codigo de importe encontra-se em Vacations Calendar Others. 
+	  <br> Para criar os feriados automaticamente e gerir eventos criados use os links embaixo.
+	  <br>Para ativar comentários para cada evento diriga-se a /admin/structure/types/manage/event-calendar e poderá abrir os comentários.
+	  ") . '';
+            break;
+    }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function event_calendar_menu()
+{
+    // Creating menu for configuration and event management pages.
+    $items['admin/config/date/manage-events']  = array(
+        'title' => 'Manage Vacations',
+        'description' => 'Find and manage Vacations.',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array(
+            'event_calendar_content'
+        ),
+        'access arguments' => array(
+            'administer event status'
+        ),
+        'weight' => -10,
+        'file' => 'event_calendar.list.inc'
+    );
+    $items['admin/config/date/event-settings'] = array(
+        'title' => 'Vacations Calendar Others',
+        'description' => 'Code for View, Ticket Settings',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array(
+            'event_calendar_settings'
+        ),
+        'access arguments' => array(
+            'administer nodes'
+        ),
+        'weight' => -10,
+        'file' => 'event_calendar.admin.inc'
+    );
+    $items['admin/config/date/holiday-manage'] = array(
+        'title' => 'Manage Holidays',
+        'description' => 'Find and manage Holidays.',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array(
+            'event_calendar_holidays'
+        ),
+        'access arguments' => array(
+            'administer nodes'
+        ),
+        'weight' => -10,
+        'file' => 'event_calendar.list.inc'
+    );
+    return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function event_calendar_permission()
+{
+    $perms = array(
+        'administer event status' => array(
+            'title' => t('Administer event status'),
+            'restrict access' => TRUE
+        )
+    );
+    return $perms;
+}
+
+/**
+ * Implements hook_node_insert().
+ *
+ * Sending mail to admins.
+ * @see drupal_mail()
+ * @see token_replace()
+ */
+/*
+function event_calendar_node_insert($node) {
+
+$node_type = variable_get('event_calendar_node_type', 'event_calendar');
+$check=variable_get('node_submitted_check_' . $node_type);
+$check2=variable_get('node_cancel_check_' . $node_type);
+if ($node->type == $node_type) {
+if($check==0 && $check2==0){
+$node->event_calendar_status['und'][0]['tid'] = _get_term_from_name("pending","event_calendar_status");
+$destination = $_SERVER['HTTP_REFERER'];
+drupal_goto($destination);
+}
+
+/*if(!module_exists("event_calendar_holi_counter")){
+$all_reciepents = variable_get('event_calendar_email_reciepents_list', array());
+$admin_rid = db_query("SELECT rid FROM {role} where name like :id", array(':id' => 'administrator'))->fetchField(0);
+$node_type = variable_get('event_calendar_node_type', 'event_calendar');
+// Collect parameters for sending email.
+if ($node->type == $node_type) {
+if( $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("holiday","event_calendar_status") || $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("important day","event_calendar_status")){//Holiday
+
+}
+else{	  
+$to = implode(",", _event_calendar_email_reciepents('admin'));
+if (!empty($to)) {
+// From e-mail address.
+$from = (string) variable_get('site_mail', '');
+$language = language_default();
+$subject = _event_calendar_email_text('admin_subject');
+$body = _event_calendar_email_text('admin_body');
+$params['subject'] = token_replace($subject, array('event_calendar' => $node, 'node' => $node));
+$params['body'] = token_replace($body, array('event_calendar' => $node, 'node' => $node));
+drupal_mail('event_calendar', 'admin', $to, $language, $params, $from, $send = TRUE);
+}
+}
+}
+
+}
+}
+*/
+/**
+ * Implements hook_node_update().
+ *
+ * Sending mail to users selected on module configuration page.
+ * @see drupal_mail()
+ * @see token_replace()
+ */
+
+function event_calendar_node_update($node)
+{
+    global $user;
+    $node_type = variable_get('event_calendar_node_type', 'event_calendar');
+    $check     = variable_get('node_submitted_check_' . $node_type);
+    $check2    = variable_get('node_cancel_check_' . $node_type);
+    
+    if ($node->type == $node_type) {
+        if ($check == 0 && $check2 == 0) {
+            if (!($node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("pending", "event_calendar_status") || $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("changed", "event_calendar_status"))) { //if state not pending/changed already
+                $query2 = db_select('node', 'n');
+                $query2->join('field_data_event_calendar_date', "ecs", "ecs.entity_id=n.nid");
+                $query2->join("field_data_event_calendar_status", "ecs2", "ecs2.entity_id=n.nid");
+                $query2->join("event_calendar_changed_delete", "ecs3", "ecs3.node_id=n.nid");
+                $query2->fields("n")->fields("ecs3")->condition("n.uid", $user->uid)->condition("ecs3.node_original_id", $node->nid)->condition("n.type", "event_calendar")->condition("ecs2.event_calendar_status_tid", _get_term_from_name("changed delete", "event_calendar_status"), "=")->addTag("");
+                $query = $query2->execute();
+                //delete node deleted
+                foreach ($query as $result) {
+                    variable_set('node_submitted_check_' . $node_type, 2);
+                    node_delete($result->nid);
+                    variable_set('node_submitted_check_' . $node_type, 0);
+                }
+                //delete changed delete connection
+                
+                $query2 = db_delete("event_calendar_changed_delete")->condition("user_id", $user->uid)->condition("node_original_id", $node->nid);
+                $query2->execute();
+                
+                $node2           = new stdClass(); // We create a new node object
+                $node2->type     = $node->type; // Or any other content type you want
+                $node2->title    = $node->title;
+                $node2->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+                $node2->uid      = $node->uid; // Or any id you wish		
+                node_object_prepare($node2); // Set some default values.
+                $node2->event_calendar_date['und'][0]['value']  = $node->event_calendar_date['und'][0]['value'];
+                $node2->event_calendar_date['und'][0]['value2'] = $node->event_calendar_date['und'][0]['value2'];
+                
+                $node2->event_calendar_status['und'][0]['tid'] = _get_term_from_name("changed", "event_calendar_status");
+                
+                variable_set('node_submitted_check_' . $node_type, 2); //normal creation with tid changed
+                $query2 = db_select('node', 'n');
+                $query2->join('field_data_event_calendar_date', "ecs", "ecs.entity_id=n.nid");
+                $query2->join("field_data_event_calendar_status", "ecs2", "ecs2.entity_id=n.nid");
+                $query2->join("event_calendar_changed", "ecs3", "ecs3.node_id=n.nid");
+                $query2->fields("n")->fields("ecs3")->condition("n.uid", $user->uid)->condition("n.type", "event_calendar")->condition("ecs3.node_original_id", $node->nid)->condition("ecs2.event_calendar_status_tid", _get_term_from_name("changed", "event_calendar_status"), "=")->addTag("");
+                $query  = $query2->execute();
+                $w      = 0;
+                $id_noe = 0;
+                
+                foreach ($query as $result) {
+                    $id_noe = $result->changed_id;
+                    node_delete($result->node_id);
+                    $w = 1;
+                }
+                
+                
+                $node2 = node_submit($node2); // Prepare node for a submit
+                node_save($node2);
+                $node3 = $node->original;
+                node_save($node3);
+                if ($w == 0) {
+                    $nid = db_insert('event_calendar_changed') // Table name no longer needs {}
+                        ->fields(array(
+                        'node_id' => $node2->nid,
+                        'node_original_id' => $node3->nid,
+                        'user_id' => $node2->uid
+                    ))->execute();
+                    
+                    variable_set('node_submitted_check_' . $node_type, 0);
+                } else {
+                    db_update('event_calendar_changed') // Table name no longer needs {}
+                        ->fields(array(
+                        'node_id' => $node2->nid,
+                        'node_original_id' => $node3->nid,
+                        'user_id' => $node2->uid
+                    ))->condition('changed_id', $id_noe)->execute();
+                    variable_set('node_submitted_check_' . $node_type, 0);
+                    $nar = explode("destination=", $_GET['destination']);
+                    drupal_goto($nar);
+                }
+            }
+        }
+        
+        /*if(!module_exists("event_calendar_holi_counter")){// NODE_TYPE && SELECTED && NOT_EXPIRED.
+        $node_type = variable_get('event_calendar_node_type', 'event_calendar');
+        if ($node->type == $node_type) {
+        $author = user_load($node->uid);
+        $to = $author->mail;
+        if (!empty($to)) {
+        $from = (string) variable_get('site_mail', '');
+        $language = language_default();
+        $subject = _event_calendar_email_text('users_subject');
+        $body = _event_calendar_email_text('users_body');
+        $params['subject'] = token_replace($subject, array('event_calendar' => $node->original, 'node' => $node->original));
+        $params['body'] = token_replace($body, array('event_calendar' => $node->original, 'node' => $node->original));
+        drupal_mail('event_calendar', 'users', $to, $language, $params, $from, $send = TRUE);
+        }	
+        }
+        $all_reciepents = variable_get('event_calendar_email_reciepents_list', array());
+        $admin_rid = db_query("SELECT rid FROM {role} where name like :id", array(':id' => 'administrator'))->fetchField(0);
+        $node_type = variable_get('event_calendar_node_type', 'event_calendar');
+        // Collect parameters for sending email.
+        if ($node->type == $node_type) {
+        $to = implode(",", _event_calendar_email_reciepents('admin'));
+        if (!empty($to)) {
+        // From e-mail address.
+        $from = (string) variable_get('site_mail', '');
+        $language = language_default();
+        $subject = _event_calendar_email_text('admin_alter_subject');
+        $body = _event_calendar_email_text('admin_alter_body');
+        $params['subject'] = token_replace($subject, array('event_calendar' => $node, 'node' => $node));
+        $params['body'] = token_replace($body, array('event_calendar' => $node, 'node' => $node));
+        drupal_mail('event_calendar', 'admin', $to, $language, $params, $from, $send = TRUE);
+        }
+        }*/
+        
+    }
+}
+
+/** 
+ *Implements hook_node_delete().
+ */
+
+function event_calendar_node_delete($node)
+{
+    global $user;
+    $node_type = variable_get('event_calendar_node_type', 'event_calendar');
+    $check     = variable_get('node_submitted_check_' . $node_type);
+    $check2    = variable_get('node_cancel_check_' . $node_type);
+    if ($node->type == $node_type) {
+        if ($check == 0 && $check2 == 0) {
+            if (!($node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("pending", "event_calendar_status") || $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("changed", "event_calendar_status") || $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("changed delete", "event_calendar_status"))) { //if state not pending/changed/changed_delete already
+                //search changed query 
+                $query2 = db_select('node', 'n');
+                $query2->join('field_data_event_calendar_date', "ecs", "ecs.entity_id=n.nid");
+                $query2->join("field_data_event_calendar_status", "ecs2", "ecs2.entity_id=n.nid");
+                $query2->join("event_calendar_changed", "ecs3", "ecs3.node_id=n.nid");
+                $query2->fields("n")->fields("ecs3")->condition("n.uid", $user->uid)->condition("ecs3.node_original_id", $node->nid)->condition("n.type", "event_calendar")->condition("ecs2.event_calendar_status_tid", _get_term_from_name("changed", "event_calendar_status"), "=")->addTag("");
+                $query = $query2->execute();
+                //delete node changed
+                foreach ($query as $result) {
+                    node_delete($result->nid);
+                }
+                //delete changed connection
+                $query2 = db_delete("event_calendar_changed")->condition("user_id", $user->uid)->condition("node_original_id", $node->nid);
+                $query2->execute();
+                $node2           = new stdClass(); // We create a new node object
+                $node2->type     = $node->type; // Or any other content type you want
+                $node2->title    = $node->title;
+                $node2->language = LANGUAGE_NONE; // Or any language code if Locale module is enabled. More on this below *
+                $node2->uid      = $node->uid; // Or any id you wish		
+                node_object_prepare($node2); // Set some default values.
+                $node2->event_calendar_date['und'][0]['value'] = $node->event_calendar_date['und'][0]['value'];
+                
+                $node2->event_calendar_date['und'][0]['value2'] = $node->event_calendar_date['und'][0]['value2'];
+                
+                $node2->event_calendar_status['und'][0]['tid'] = _get_term_from_name("changed delete", "event_calendar_status");
+                variable_set('node_submitted_check_' . $node_type, 2); //normal creation with tid changed_deleted
+                $node2 = node_submit($node2); // Prepare node for a submit
+                node_save($node2);
+                $node3 = $node;
+                node_save($node3);
+                $nid = db_insert('event_calendar_changed_delete') // Table name no longer needs {}
+                    ->fields(array(
+                    'node_id' => $node2->nid,
+                    'node_original_id' => $node3->nid,
+                    'user_id' => $node2->uid
+                ))->execute();
+                variable_set('node_submitted_check_' . $node_type, 0);
+                $nar = explode("destination=", $_GET['destination']);
+                drupal_goto($nar);
+            } elseif ($node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("changed delete", "event_calendar_status")) {
+                
+                $query2 = db_select('node', 'n');
+                $query2->join('field_data_event_calendar_date', "ecs", "ecs.entity_id=n.nid");
+                $query2->join("field_data_event_calendar_status", "ecs2", "ecs2.entity_id=n.nid");
+                $query2->join("event_calendar_changed_delete", "ecs3", "ecs3.node_id=n.nid");
+                $query2->fields("n")->fields("ecs3")->condition("n.uid", $user->uid)->condition("ecs3.node_id", $node->nid)->condition("n.type", "event_calendar")->condition("ecs2.event_calendar_status_tid", _get_term_from_name("changed delete", "event_calendar_status"), "=")->addTag("");
+                $query = $query2->execute();
+                //delete node changed
+                foreach ($query as $result) {
+                    $query2 = db_delete("event_calendar_changed_delete")->condition("user_id", $user->uid)->condition("node_id", $node->nid);
+                    $query2->execute();
+                }
+                variable_set('node_submitted_check_' . $node_type, 1);
+                node_delete($node->nid);
+                variable_set('node_submitted_check_' . $node_type, 0);
+                $nar = explode("destination=", $_GET['destination']);
+                drupal_goto($nar);
+                
+            } elseif ($node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("changed", "event_calendar_status")) {
+                
+                $query2 = db_select('node', 'n');
+                $query2->join('field_data_event_calendar_date', "ecs", "ecs.entity_id=n.nid");
+                $query2->join("field_data_event_calendar_status", "ecs2", "ecs2.entity_id=n.nid");
+                $query2->join("event_calendar_changed", "ecs3", "ecs3.node_id=n.nid");
+                $query2->fields("n")->fields("ecs3")->condition("n.uid", $user->uid)->condition("ecs3.node_id", $node->nid)->condition("n.type", "event_calendar")->condition("ecs2.event_calendar_status_tid", _get_term_from_name("changed", "event_calendar_status"), "=")->addTag("");
+                $query = $query2->execute();
+                //delete node changed
+                foreach ($query as $result) {
+                    $query2 = db_delete("event_calendar_changed")->condition("user_id", $user->uid)->condition("node_id", $node->nid);
+                    $query2->execute();
+                }
+                variable_set('node_submitted_check_' . $node_type, 1);
+                node_delete($node->nid);
+                variable_set('node_submitted_check_' . $node_type, 0);
+                $nar = explode("destination=", $_GET['destination']);
+                drupal_goto($nar);
+                
+            }
+        }
+        
+        
+        
+        /*	if(!module_exists("event_calendar_holi_counter")){
+        $node_type = variable_get('event_calendar_node_type', 'event_calendar');
+        $all_reciepents = variable_get('event_calendar_email_reciepents_list', array());
+        $admin_rid = db_query("SELECT rid FROM {role} where name like :id", array(':id' => 'administrator'))->fetchField(0);
+        $node_type = variable_get('event_calendar_node_type', 'event_calendar');
+        // Collect parameters for sending email.
+        if ($node->type == $node_type) {
+        $to = implode(",", _event_calendar_email_reciepents('admin'));
+        if (!empty($to)) {
+        // From e-mail address.
+        $from = (string) variable_get('site_mail', '');
+        $language = language_default();
+        $subject = _event_calendar_email_text('admin_delete_subject');
+        $body = _event_calendar_email_text('admin_delete_body');
+        $params['subject'] = token_replace($subject, array('event_calendar' => $node, 'node' => $node));
+        $params['body'] = token_replace($body, array('event_calendar' => $node, 'node' => $node));
+        drupal_mail('event_calendar', 'admin', $to, $language, $params, $from, $send = TRUE);
+        }
+        
+        }*/
+    }
+    
+}
+
+/**
+ * Implements hook_mail().
+ */
+function event_calendar_mail($key, &$message, $params)
+{
+    switch ($key) {
+        case 'admin':
+            $message['subject'] = $params['subject'];
+            $message['body'][]  = $params['body'];
+            break;
+        case 'users':
+            $message['subject'] = $params['subject'];
+            $message['body'][]  = $params['body'];
+            break;
+    }
+}
+
+/**
+ * Returns a list of email reciepents.
+ */
+function _event_calendar_email_reciepents($key)
+{
+    $all_reciepents = variable_get('event_calendar_email_reciepents_list', array());
+    $admin_rid      = db_query("SELECT rid FROM {role} where name like :id", array(
+        ':id' => 'administrator'
+    ))->fetchField(0);
+    $to             = array();
+    switch ($key) {
+        case 'admin':
+            if (in_array($admin_rid, $all_reciepents)) {
+                $to = fetch_emails($admin_rid);
+            } else {
+                $to = fetch_first_emails($admin_rid);
+            }
+            break;
+        
+        case 'users':
+            if (in_array($admin_rid, $all_reciepents)) {
+                unset($all_reciepents[$admin_rid]);
+            }
+            foreach ($all_reciepents as $rid) {
+                $emails = fetch_emails($rid);
+                $to     = array_merge($to, $emails);
+            }
+            break;
+    }
+    return $to;
+}
+
+/**
+ * Function to fetch emails from user table.
+ */
+function fetch_emails($rid)
+{
+    // Build query to fetch Emails.
+    $query = db_select('users', 'u');
+    $query->join('users_roles', 'ur', 'u.uid = ur.uid');
+    $query->fields('u', array(
+        'mail'
+    ))->condition('ur.rid', $rid);
+    $users  = $query->execute();
+    $emails = array();
+    foreach ($users as $user) {
+        $emails[] = $user->mail;
+    }
+    return $emails;
+}
+
+/**
+ * Function to fetch adminitrater email from user table.
+ */
+function fetch_first_emails($rid)
+{
+    // Build query to fetch Emails.
+    $query = db_select('users', 'u');
+    $query->join('users_roles', 'ur', 'u.uid = ur.uid');
+    $query->fields('u', array(
+        'mail'
+    ))->condition('ur.rid', $rid)->orderBy('u.uid', 'ASC')->range(0, 1);
+    $users  = $query->execute();
+    $emails = array();
+    foreach ($users as $user) {
+        $emails[] = $user->mail;
+    }
+    return $emails;
+}
+
+/**
+ * Returns a mail string for a variable name.
+ */
+function _event_calendar_email_text($key)
+{
+    if ($admin_setting = variable_get('event_calendar_email_' . $key, FALSE)) {
+        // An admin setting overrides the default string.
+        $text = $admin_setting;
+    } else {
+        // No override, return default string.
+        switch ($key) {
+            case 'admin_body':
+                $text = t("Hello,
+
+A new event [node:title] is created at [site:name] by [node:author]
+Start Date: [event_calendar:start_date]
+End Date: [event_calendar:end_date]
+Days: [event_calendar:total_days] days,[event_calendar:working_days] working days. 
+Holidays:[event_calendar:holi_days] 
+Please give your approval to sucessfully organize this event at [event_calendar:approval_url].
+
+
+--  [site:name] team");
+                break;
+            
+            case 'users_body':
+                $text = t("Hello,
+
+A new event [node:title] at [site:name] by [node:author]
+
+Start Date: [event_calendar:start_date]
+End Date: [event_calendar:end_date]
+
+--  [site:name] team");
+                break;
+            case 'admin_alter_body':
+                $text = t("Hello,
+A event has been modified [node:title] at [site:name].
+New Parameters:
+Start Date: [event_calendar:start_date]
+End Date: [event_calendar:end_date]
+Days: [event_calendar:total_days] days,[event_calendar:working_days] working days. 
+Holidays:[event_calendar:holi_days] 
+Please give your approval to sucessfully organize this event at [event_calendar:approval_url].
+		
+		
+		--  [site:name] team");
+                break;
+            case 'admin_delete_body':
+                $text = t("Hello,
+A event has been deleted [node:title] at [site:name].
+		
+		
+		--  [site:name] team");
+                break;
+            
+            case 'admin_subject':
+                $text = t("New Event: [node:title]");
+                break;
+            case 'admin_alter_subject':
+                $text = t("Modified Event: [node:title]");
+                break;
+            
+            case 'admin_delete_subject':
+                $text = t("Eliminated Event: [node:title]");
+                break;
+            
+            case 'users_subject':
+                $text = t("New Event: [node:title]");
+                break;
+        }
+    }
+    return $text;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Set access FALSE for not to delete module defined terms.
+ * Make term name 'readonly'.
+ */
+function event_calendar_form_taxonomy_form_term_alter(&$form, &$form_state, $form_id)
+{
+    // Build query to fetch available terms.
+    $vid   = db_query("SELECT vid FROM {taxonomy_vocabulary} WHERE machine_name = :machine_name", array(
+        ':machine_name' => TAXONOMY_NAME
+    ))->fetchField();
+    // Disable access to delete and set readonly.
+    // List of term added default.
+    $terms = array(
+        'approved' => 'approved',
+        'pending' => 'pending'
+        
+    );
+    if (isset($form['#vocabulary']->vid) && $form['#vocabulary']->vid == $vid) {
+        if (@$form_state['values']['op'] != 'Delete') {
+            if (in_array($form['#term']['name'], $terms)) {
+                $form['name']['#attributes']['readonly'] = 'readonly';
+                $form['actions']['delete']['#access']    = FALSE;
+            }
+        }
+    }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ *
+ * Set access FALSE for not to delete module defined vocabulary.
+ * Make vocabulary name 'readonly'.
+ */
+function event_calendar_form_taxonomy_form_vocabulary_alter(&$form, &$form_state, $form_id)
+{
+    // Build query to fetch available terms.
+    $vid = db_query("SELECT vid FROM {taxonomy_vocabulary} WHERE machine_name = :machine_name", array(
+        ':machine_name' => TAXONOMY_NAME
+    ))->fetchField();
+    // Disable access to delete and set readonly.
+    if (isset($form['#vocabulary']->vid) && $form['#vocabulary']->vid == $vid) {
+        $form['machine_name']['#attributes']['readonly'] = 'readonly';
+        $form['actions']['delete']['#access']            = FALSE;
+    }
+}
+
+/**
+ * Implements hook_form_alter().
+ *
+ * Make taxonomy select field invisible.
+ */
+function event_calendar_form_alter(&$form, &$form_state, $form_id)
+{
+    $node_type = variable_get('event_calendar_node_type', 'event_calendar');
+    $id        = $node_type . '_node_form';
+    if ($form_id == $id) {
+        $language                                          = $form['event_calendar_status']['#language'];
+        $form['event_calendar_status'][$language]['#type'] = 'value';
+    }
+    
+}
+
+/**
+ * Callback: Events dates.
+ */
+function is_event_expired($node, $key)
+{
+    // Collect event end date and current date.
+    if ($key == 'load') {
+        $field_lang_code = field_language('node', $node, 'event_calendar_date', LANGUAGE_NONE);
+        $date1           = isset($node->event_calendar_date[$field_lang_code]['0']['value']) ? $node->event_calendar_date[$field_lang_code]['0']['value'] : NULL;
+        $date2           = isset($node->event_calendar_date[$field_lang_code]['0']['value2']) ? $node->event_calendar_date[$field_lang_code]['0']['value2'] : NULL;
+    } elseif ($key == 'update') {
+        $dataObj         = $node->original;
+        $field_lang_code = field_language('node', $dataObj, 'event_calendar_date', LANGUAGE_NONE);
+        $date1           = $node->original->event_calendar_date[$field_lang_code]['0']['value'];
+        $date2           = $node->original->event_calendar_date[$field_lang_code]['0']['value2'];
+    }
+    if (!empty($date2)) {
+        $event_end_time = $date2;
+    } else {
+        $event_end_time = $date1;
+    }
+    $current_time = date("Y-m-d H:i:s");
+    // Compare event end date and currebt date.
+    if ($current_time > $event_end_time) {
+        return TRUE;
+    } else {
+        return FALSE;
+    }
+}

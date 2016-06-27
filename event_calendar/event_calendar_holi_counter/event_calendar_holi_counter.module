@@ -1,0 +1,277 @@
+<?php
+/**
+ * @file
+ * Defines a custom widget for storing meta information of a node.
+ */
+
+/**
+ * Implements hook_help().
+ *
+ * Displays help and module information.
+ *
+ * @param path 
+ *   Which path of the site we're using to display help
+ * @param arg 
+ *   Array that holds the current path as returned from arg() function
+ */
+function event_calendar_holi_counter_help($path, $arg)
+{
+    
+    switch ($path) {
+        case "admin/help#event_calendar_holi_counter":
+            return t("Creation of User working days table, you can select how many days a user can take of in each year, <br>
+	  It doesn't take the value of unused days from other years.
+	  ");
+            break;
+    }
+}
+
+/**
+ * Implements hook_menu().
+ */
+function event_calendar_holi_counter_menu()
+{
+    $items                                     = array();
+    $items['admin/config/date/eventholi']      = array(
+        'title' => 'Vacation Manage Users',
+        'description' => 'Administer Users settings.',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array(
+            'event_calendar_holi_counter_content'
+        ),
+        'access arguments' => array(
+            'administer'
+        ),
+        'weight' => -10,
+        'file' => 'event_calendar_holi_counter.list.inc'
+    );
+    $items['admin/config/date/event_user_act'] = array(
+        'title' => 'Users Actions',
+        'description' => 'Users Actions.',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array(
+            'event_calendar_holi_counter_user_content'
+        ),
+        'access arguments' => array(
+            'administer'
+        ),
+        'weight' => -10,
+        'file' => 'event_calendar_holi_counter.list.inc'
+    );
+    return $items;
+}
+
+
+// /**
+// * Implements hook_node_insert().
+// *
+// */
+// function event_calendar_holi_counter_node_insert($node) {
+// $node_type = variable_get('event_calendar_node_type', 'event_calendar');
+// if ($node->type == $node_type) {
+// $action="Node->".$node->nid;
+// $query2 = db_select('users', 'n');
+// $nids2 = $query2
+// ->fields('n')
+// ->condition('uid', $node->uid)
+// ->addTag('node_access')
+// ->execute()
+// ->fetchAssoc();
+
+// $action.="<br>Author ".$nids2['name'];
+// $query = db_select('node', 'n');
+// $query->join('field_data_event_calendar_date', 'ecs2', 'ecs2.entity_id = n.nid');
+
+// $nids = $query
+// ->fields('n')
+// ->fields('ecs2')
+// ->condition('nid', $node->nid)
+// ->addTag('node_access')
+// ->execute()
+// ->fetchAssoc();
+// $action.="<br>Name ".$nids['title'];
+// $action.="<br>State:". _get_term_from_id($node->event_calendar_status['und'][0]['tid'],"event_calendar_status");
+// $action.="<br>Date->".$nids['event_calendar_date_value'];
+// $action.=" to ".$nids['event_calendar_date_value2'];
+// $query = db_select('event_calendar_request_counter', 'n');
+
+// $nids = $query
+// ->fields('n')
+// ->condition('request_year_part', date("Y"))
+// ->orderBy("request_id_part",'DESC')
+// ->range(0,1)
+// ->addTag('node_access')
+// ->execute()
+// ->fetchAssoc();
+// if(!isset($nids['request_id_part'])){
+// $id=1;
+// }else{
+// $id=$nids['request_id_part']+1;
+// }
+// $request=variable_get('ticket_event_calendar').'-'.date("Y")."-".sprintf('%08d', $id);
+// $nid = db_insert('event_calendar_request_counter') // Table name no longer needs {}
+// ->fields(array(
+// 'user_id' => $node->uid, 
+// 'node_id' => $node->nid,
+// 'type_letter' => variable_get('ticket_event_calendar'),
+// 'type_action' => "Creation",
+// 'request_id_part'=> $id,
+// 'request_actions' => $action,
+// 'request_year_part' =>date("Y"),
+// 'request_date' => date("Y-m-d H:i:s"),
+// 'request_id' =>$request,
+// ))
+// ->execute();
+
+// }
+// drupal_set_message("Action saved with ticket: \"".$request."\"");
+// }
+
+// /*
+// *
+// * Implements hook_node_delete().
+// *
+// */
+// function event_calendar_holi_counter_node_delete($node){
+// $node_type = variable_get('event_calendar_node_type', 'event_calendar');
+// if ($node->type == $node_type) {
+// $action="Node->".$node->nid;
+// $query2 = db_select('users', 'n');
+// $nids2 = $query2
+// ->fields('n')
+// ->condition('uid', $node->uid)
+// ->addTag('node_access')
+// ->execute()
+// ->fetchAssoc();
+
+// $action.="<br>Author ".$nids2['name'];
+// $query = db_select('node', 'n');
+// $query->join('field_data_event_calendar_date', 'ecs2', 'ecs2.entity_id = n.nid');
+
+// $nids = $query
+// ->fields('n')
+// ->fields('ecs2')
+// ->condition('nid', $node->nid)
+// ->addTag('node_access')
+// ->execute()
+// ->fetchAssoc();
+// $action.="<br>Name ".$nids['title'];
+// $action.="<br>State:". _get_term_from_id($node->event_calendar_status['und'][0]['tid'],"event_calendar_status");
+// $action.="<br>Date->".$nids['event_calendar_date_value'];
+// $action.=" to ".$nids['event_calendar_date_value2'];
+// $query = db_select('event_calendar_request_counter', 'n');
+
+// $nids = $query
+// ->fields('n')
+// ->condition('request_year_part', date("Y"))
+// ->orderBy("request_id_part",'DESC')
+// ->range(0,1)
+// ->addTag('node_access')
+// ->execute()
+// ->fetchAssoc();
+// if(!isset($nids['request_id_part'])){
+// $id=1;
+// }else{
+// $id=$nids['request_id_part']+1;
+// }
+// $request=variable_get('ticket_event_calendar').'-'.date("Y")."-".sprintf('%08d', $id);
+// $nid = db_insert('event_calendar_request_counter') // Table name no longer needs {}
+// ->fields(array(
+// 'user_id' => $node->uid, 
+// 'node_id' => $node->nid,
+// 'type_letter' => variable_get('ticket_event_calendar'),
+// 'type_action' => "Delete",
+// 'request_id_part'=> $id,
+// 'request_year_part' =>date("Y"),
+// 'request_actions' => $action,
+// 'request_date' => date("Y-m-d H:i:s"),
+// 'request_id' => $request,
+// ))
+// ->execute();
+// drupal_set_message("Action saved with ticket: \"".$request."\"");
+// }
+// }
+// /*
+// *
+// * Implements hook_node_update().
+// *
+// */
+// function event_calendar_holi_counter_node_update($node){
+// $node_type = variable_get('event_calendar_node_type', 'event_calendar');
+// if ($node->type == $node_type) {
+// $action="Node->".$node->nid;
+// $query2 = db_select('users', 'n');
+// $nids2 = $query2
+// ->fields('n')
+// ->condition('uid', $node->uid)
+// ->addTag('node_access')
+// ->execute()
+// ->fetchAssoc();
+
+// $action.="<br>Author ".$nids2['name'];
+// $action.="<br>Old Name: ".$node->original->title;
+
+// $query = db_select('node', 'n');
+// $query->join('field_data_event_calendar_date', 'ecs2', 'ecs2.entity_id = n.nid');
+
+// $nids = $query
+// ->fields('n')
+// ->fields('ecs2')
+// ->condition('nid', $node->nid)
+// ->addTag('node_access')
+// ->execute()
+// ->fetchAssoc();
+
+// $action.="<br>New Name ".$nids['title'];
+// $action.="<br>Old State:". _get_term_from_id($node->original->event_calendar_status['und'][0]['tid'],"event_calendar_status");
+// $action.="<br>New State:". _get_term_from_id($node->event_calendar_status['und'][0]['tid'],"event_calendar_status");
+// $action.="<br>Old Date->".$node->original->event_calendar_date['und'][0]['value']." to ";
+// $action.=$node->original->event_calendar_date['und'][0]['value2'];
+// $action.="<br>New Date->".$nids['event_calendar_date_value'];
+// $action.=" to ".$nids['event_calendar_date_value2'];
+// $query = db_select('event_calendar_request_counter', 'n');
+
+// $nids = $query
+// ->fields('n')
+// ->condition('request_year_part', date("Y"))
+// ->orderBy("request_id_part",'DESC')
+// ->range(0,1)
+// ->addTag('node_access')
+// ->execute()
+// ->fetchAssoc();
+// if(!isset($nids['request_id_part'])){
+// $id=1;
+// }else{
+// $id=$nids['request_id_part']+1;
+// }
+// $request=variable_get('ticket_event_calendar').'-'.date("Y")."-".sprintf('%08d', $id);
+// $nid = db_insert('event_calendar_request_counter') // Table name no longer needs {}
+// ->fields(array(
+// 'user_id' => $node->uid, 
+// 'node_id' => $node->nid,
+// 'type_letter' => variable_get('ticket_event_calendar'),
+// 'type_action' => "Alter",
+// 'request_id_part'=> $id,
+// 'request_actions' => $action,
+// 'request_year_part' =>date("Y"),
+// 'request_date' => date("Y-m-d H:i:s"),
+// 'request_id' => $request,
+// ))
+// ->execute();
+
+// drupal_set_message("Action saved with ticket: \"".$request."\"");
+// }
+
+// }
+// function _get_term_from_id($term_id, $vocabulary_name) {
+// if ($vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_name)) {
+// $tree = taxonomy_get_tree($vocabulary->vid);
+// foreach ($tree as $term) {
+// if ($term->tid == $term_id) {
+// return $term->name;
+// }
+// }
+// }
+
+// return FALSE;
+// }

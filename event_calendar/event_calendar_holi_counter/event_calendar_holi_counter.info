@@ -1,0 +1,8 @@
+name = Vacation Calendar User Days
+description = Manage days for users.
+package = Vacation Calendar
+
+dependencies[] = event_calendar
+dependencies[] = core_table_cms
+configure = admin/config/date/eventholi
+core = 7.x

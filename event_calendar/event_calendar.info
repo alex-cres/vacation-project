@@ -1,0 +1,18 @@
+name = Vacation Calendar
+description = Creation of Holidays and Absence days through a calendar view.
+package = Vacation Calendar
+core = 7.x
+dependencies[] = calendar
+dependencies[] = date
+dependencies[] = date_popup
+dependencies[] = relation
+dependencies[] = php
+
+configure = admin/config/date/event-settings
+
+; Information added by Drupal.org packaging script on 2014-04-14
+version = "7.x-1.9"
+core = "7.x"
+project = "event_calendar"
+datestamp = "1397468354"
+
