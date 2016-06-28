@@ -122,13 +122,13 @@ function event_calendar_menu()
         ),
         'weight' => -10,
 		'page callback' => 'system_admin_menu_block_page',
-		'file' => 'system.admin.inc',
 		'file path' => drupal_get_path('module', 'system'),
+		'file' => 'system.admin.inc',
+		
         'access arguments' => array(
             'administer event status'
         ),
-        
-        'file' => 'event_calendar.list.inc'
+
     );
     return $items;
 }
