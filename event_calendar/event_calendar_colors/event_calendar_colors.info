@@ -3,7 +3,7 @@ description = Manage colors for events.
 package = Vacation Calendar
 
 dependencies[] = event_calendar
-configure = vacation_calenda/eventcolors
+configure = vacation_calendar/eventcolors
 core = 7.x
 
 ; Information added by Drupal.org packaging script on 2014-04-14

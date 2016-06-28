@@ -38,7 +38,7 @@ function event_calendar_colors_permission()
 function event_calendar_colors_menu()
 {
     $items                                  = array();
-    $items['vacation_calenda/eventcolors'] = array(
+    $items['vacation_calendar/eventcolors'] = array(
         'title' => 'Vacation Colors',
         'description' => 'Administer Colors setting',
         'access arguments' => array(
