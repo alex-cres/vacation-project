@@ -4,5 +4,5 @@ package = Vacation Calendar
 
 dependencies[] = event_calendar
 dependencies[] = core_table_cms
-configure = admin/config/date/eventholi
+configure = vacation_calenda/eventholi
 core = 7.x

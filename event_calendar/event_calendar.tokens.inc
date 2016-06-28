@@ -160,7 +160,7 @@ function event_calendar_tokens($type, $tokens, array $data = array(), array $opt
                     break;
                 
                 case 'approval_url':
-                    $replacements[$original] = url("admin/config/date/manage-events", $url_options);
+                    $replacements[$original] = url("vacation_calendar/manage-events", $url_options);
                     break;
             }
         }

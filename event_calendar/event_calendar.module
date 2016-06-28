@@ -75,9 +75,9 @@ To enable comments for each event head over to /admin/structure/types/manage/eve
 function event_calendar_menu()
 {
     // Creating menu for configuration and event management pages.
-    $items['admin/config/date/manage-events']  = array(
-        'title' => 'Manage Vacations',
-        'description' => 'Find and manage Vacations.',
+    $items['vacation_calendar/manage-events']  = array(
+        'title' => t('Manage Vacations'),
+        'description' => t('Find and manage Vacations.'),
         'page callback' => 'drupal_get_form',
         'page arguments' => array(
             'event_calendar_content'
@@ -88,30 +88,46 @@ function event_calendar_menu()
         'weight' => -10,
         'file' => 'event_calendar.list.inc'
     );
-    $items['admin/config/date/event-settings'] = array(
-        'title' => 'Vacations Calendar Others',
-        'description' => 'Code for View, Ticket Settings',
+    $items['vacation_calendar/event-settings'] = array(
+        'title' => t('Vacations Calendar Others'),
+        'description' => t('Code for View, Ticket Settings'),
         'page callback' => 'drupal_get_form',
         'page arguments' => array(
             'event_calendar_settings'
         ),
         'access arguments' => array(
-            'administer nodes'
+            'administer event status'
         ),
         'weight' => -10,
         'file' => 'event_calendar.admin.inc'
     );
-    $items['admin/config/date/holiday-manage'] = array(
-        'title' => 'Manage Holidays',
-        'description' => 'Find and manage Holidays.',
+    $items['vacation_calendar/holiday-manage'] = array(
+        'title' => t('Manage Holidays'),
+        'description' => t('Find and manage Holidays.'),
         'page callback' => 'drupal_get_form',
         'page arguments' => array(
             'event_calendar_holidays'
         ),
         'access arguments' => array(
-            'administer nodes'
+            'administer event status'
         ),
         'weight' => -10,
+        'file' => 'event_calendar.list.inc'
+    );
+	$items['vacation_calendar'] = array(
+        'title' => t('Administer Vacations'),
+        'description' => 'Find and manage Holidays.',
+        'page arguments' => array(
+            'core_table_cms_content'
+        ),
+        'weight' => -10,
+		'page callback' => 'system_admin_menu_block_page',
+		'file' => 'system.admin.inc',
+		'file path' => drupal_get_path('module', 'system'),
+        'access arguments' => array(
+            'administer event status'
+        ),
+        
         'file' => 'event_calendar.list.inc'
     );
     return $items;
@@ -124,7 +140,7 @@ function event_calendar_permission()
 {
     $perms = array(
         'administer event status' => array(
-            'title' => t('Administer event status'),
+            'title' => t('Administer Vacation Calendar'),
             'restrict access' => TRUE
         )
     );

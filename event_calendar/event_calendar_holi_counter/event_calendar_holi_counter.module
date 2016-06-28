@@ -32,7 +32,7 @@ function event_calendar_holi_counter_help($path, $arg)
 function event_calendar_holi_counter_menu()
 {
     $items                                     = array();
-    $items['admin/config/date/eventholi']      = array(
+    $items['vacation_calenda/eventholi']      = array(
         'title' => 'Vacation Manage Users',
         'description' => 'Administer Users settings.',
         'page callback' => 'drupal_get_form',
@@ -40,12 +40,12 @@ function event_calendar_holi_counter_menu()
             'event_calendar_holi_counter_content'
         ),
         'access arguments' => array(
-            'administer'
+            'administer event status'
         ),
         'weight' => -10,
         'file' => 'event_calendar_holi_counter.list.inc'
     );
-    $items['admin/config/date/event_user_act'] = array(
+    $items['vacation_calenda/event_user_act'] = array(
         'title' => 'Users Actions',
         'description' => 'Users Actions.',
         'page callback' => 'drupal_get_form',
@@ -53,7 +53,7 @@ function event_calendar_holi_counter_menu()
             'event_calendar_holi_counter_user_content'
         ),
         'access arguments' => array(
-            'administer'
+            'administer event status'
         ),
         'weight' => -10,
         'file' => 'event_calendar_holi_counter.list.inc'

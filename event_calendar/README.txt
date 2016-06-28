@@ -68,7 +68,7 @@ Installation:
 
 Configuration:
 --------------
-At the 'admin/config/date/event-settings' page enable Event Calendar
+At the 'vacation_calenda/event-settings' page enable Event Calendar
 for event settings.
 
 

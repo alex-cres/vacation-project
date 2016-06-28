@@ -8,7 +8,7 @@ dependencies[] = date_popup
 dependencies[] = relation
 dependencies[] = php
 
-configure = admin/config/date/event-settings
+configure = vacation_calendar/event-settings
 
 ; Information added by Drupal.org packaging script on 2014-04-14
 version = "7.x-1.9"
