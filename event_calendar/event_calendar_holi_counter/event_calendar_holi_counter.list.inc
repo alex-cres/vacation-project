@@ -621,7 +621,7 @@ $admin_access = user_access('administer nodes');
             
             $form['options10']['days' . $nid] = array(
                 '#type' => 'textfield',
-                '#title' => t("User " . $node['user_name'] . " chief"),
+                '#title' => t("User " . $node['user_name'] . " chief emails"),
                 '#default_value' => $node['chief_emails']
             );
         }
@@ -700,7 +700,7 @@ function event_calendar_chief_submit(&$form, &$form_state)
               
            
         }else{
-		  drupal_set_message("Form had invalid email enntries \"" . $ev['days'] . "\" for " . "#" . $ev['id'], 'error');
+		  drupal_set_message("Form had invalid email entries \"" . $ev['days'] . "\" for " . "#" . $ev['id'], 'error');
                $error = true;
 		}
         }
