@@ -64,7 +64,7 @@ function event_calendar_holi_counter_content($form, $form_state)
         $options = array();
         while ($node = $nids->fetchAssoc()) {
             $options[$node['counter_id']] = array(
-                'user_id' => $node['counter_id'],
+                'user_id' => sprintf('%03d', $node['counter_id']),
                 'user_name' => $node['user_name'],
                 'counter_days' => $node['counter_days'],
                 'counter_year' => $node['counter_year'],
@@ -411,6 +411,7 @@ function _get_term_from_name2($term_name, $vocabulary_name)
 
 function event_calendar_holi_counter_user_content($form, $form_state)
 {
+
     $admin_access = user_access('administer nodes');
     $node_type    = variable_get('event_calendar_node_type', 'event_calendar');
     $path         = current_path();
@@ -534,3 +535,235 @@ function event_calendar_holi_counter_headers(){
     }
 	return $options;
 }
+
+
+
+function event_calendar_holi_counter_content_chief($form, $form_state){
+
+$admin_access = user_access('administer nodes');
+    $node_type    = variable_get('event_calendar_node_type', 'event_calendar');
+    $path         = current_path();
+    if (!isset($form_state['storage']['confirm'])) {
+        _update_table_chiefs();
+        // Build the sortable table header.
+        $header = array(
+            'user_id' => array(
+                'data' => t('#'),
+                'field' => 'n.user_id'
+            ),
+            'user_name' => array(
+                'data' => t('User'),
+                'field' => 'n.user_name'
+            ),
+           
+           
+            
+			'chief_emails'=> array(
+                'data' => t('Chiefs Emails'),
+                'field' => 'n.chief_emails'
+            )
+            
+        );
+        
+        $query = db_select('event_calendar_chief_counter', 'n')->extend('PagerDefault')->extend('TableSort');
+        $nids = $query->fields('n')->limit(50)->orderByHeader($header)->addTag('Execute_Calm_Wave/#Azaptia')->execute();
+        
+        $options = array();
+        while ($node = $nids->fetchAssoc()) {
+		
+            $options[$node['user_id']] = array(
+                'user_id' => sprintf('%03d', $node['user_id']),
+                'user_name' => $node['user_name'],
+				'chief_emails'=> $node['chief_emails'],
+            );
+        }
+        $form['events'] = array(
+            '#type' => 'tableselect',
+            '#header' => $header,
+            '#options' => $options,
+            '#empty' => t('No content available.')
+        );
+        //event_admin_del('.$node['holiday_id'].')
+        $form['pager']  = array(
+            '#markup' => theme('pager')
+        );
+        
+        $form['edit'] = array(
+            '#type' => 'submit',
+            '#value' => t('Edit Selected'),
+            '#validate' => array(
+                'event_admin_events_validate'
+            ),
+            '#submit' => array(
+                'event_calendar_chief_submit'
+            )
+            
+        );
+        
+        
+        
+        return $form;
+    } else {
+        $events            = array_filter($_SESSION['our_variable']);
+        $form['options10'] = array(
+            '#type' => 'fieldset',
+            '#title' => t('Edit Settings'),
+            '#access' => $admin_access
+        );
+        foreach ($events as $nid) {
+            
+            $query = db_select('event_calendar_chief_counter', 'n');
+            
+            $nids = $query->fields('n')->condition('user_id', $nid, "=")->addTag('Execute_Calm_Wave/#Azaptia')->execute();
+            $node = $nids->fetchAssoc();
+            // Unset 'any' option.
+            // Sort options array.
+            
+            $form['options10']['days' . $nid] = array(
+                '#type' => 'textfield',
+                '#title' => t("User " . $node['user_name'] . " chief"),
+                '#default_value' => $node['chief_emails']
+            );
+        }
+        $form['confirm'] = array(
+            '#type' => 'submit',
+            '#value' => t('Confirm'),
+            '#submit' => array(
+                'event_calendar_chief_submit'
+            )
+            
+        );
+        $form['cancel']  = array(
+            '#value' => t('Cancel')
+            
+        );
+        
+        
+        
+        return $form;
+    }
+    
+    
+}
+
+
+
+
+
+function event_calendar_chief_submit(&$form, &$form_state)
+{
+    // Filter out unchecked event nodes.
+	
+    if (!isset($form_state['storage']['confirm'])) {
+        // not confirmed yet.
+        $_SESSION['our_variable']         = $form_state['values']['events']; // add our field into a session variable to keep it around for later
+        // NOTE: The variable is no longer in $form_state['values']['your-field'] by the time I'm printing out the final confirmation message. I'm
+        // not sure session variables are the best solution, but this worked for me.
+        $form_state['storage']['confirm'] = TRUE; // this will cause the form to be rebuilt, entering the confirm part of the form
+        $form_state['rebuild']            = TRUE;
+        
+    }
+    
+    else {
+        $events2 = array_filter($_SESSION['our_variable']);
+        $events  = array_filter($form_state['values']);
+		
+        $i       = 0;
+        
+        foreach ($events2 as $ev) {
+		
+            if (is_numeric($ev)) {
+                $text[$i]=array('id' => $ev,'days' => $events['days'.$ev]);
+                $i++;
+				
+            }
+        }
+		
+        $error = false;
+        foreach ($text as $ev) {
+             $emails      = explode(",", $ev['days']);
+        $email_error = FALSE;
+        foreach ($emails as $rd) {
+            if (!valid_email_address(trim($rd))) {
+                if(!$rd==""){
+				$email_error = TRUE;
+				}
+            }
+           }
+       
+		if(!$email_error){
+                $num_updated = db_update('event_calendar_chief_counter') // Table name no longer needs {}
+                    ->fields(array(
+                    'chief_emails' => $ev['days']
+                ))->condition('user_id', $ev['id'], '=')->execute();
+           
+              
+           
+        }else{
+		  drupal_set_message("Form had invalid email enntries \"" . $ev['days'] . "\" for " . "#" . $ev['id'], 'error');
+               $error = true;
+		}
+        }
+		if ($error) {
+            drupal_set_message("The remaining Edits have been efectuated.");
+        } else {
+            drupal_set_message("All Edits have been efectuated.");
+            
+        }
+        
+        
+        
+    }
+	
+	
+	
+}
+
+//todo:pass this when submiting
+ function _update_table_chiefs(){
+	
+    $user       = array();
+    $user_id    = array();
+    $query2     = db_select('users', 'n')->fields('n')->condition("n.uid", '0', '<>')->addTag('Execute_Calm_Wave/#Azaptia first second')->execute();
+    while ($result2 = $query2->fetchAssoc()) {
+        
+        $user[$result2['uid']]    = $result2['name'];
+        $user_id[$result2['uid']] = $result2['uid'];
+        
+        $query = db_select('event_calendar_chief_counter', 'n')->fields('n')->addTag('Execute_Calm_Wave/#Azaptia first')->execute();
+        while ($result = $query->fetchAssoc()) {
+		    if ($user_id[$result2['uid']] == $result['user_id']) {
+			
+                unset($user_id[$result2['uid']]);
+                unset($user[$result2['uid']]);
+                break;
+            }
+        }
+    }
+    foreach ($user_id as $nigg) {
+        $query = db_select('event_calendar_chief_counter', 'n')->fields('n')->condition('user_id', $nigg, '=')->addTag('Execute_Calm_Wave/#Azaptia first')->execute();
+        
+        $nid = db_insert('event_calendar_chief_counter') // Table name no longer needs {}
+            ->fields(array(
+            'user_id' => $nigg,
+            'user_name' => $user[$nigg],
+			'chief_emails' => "",
+        ))->execute();
+		
+       
+    }
+    
+    $query = db_select('event_calendar_chief_counter', 'n')->fields('n')->addTag('Execute_Calm_Wave/#Azaptia first')->execute();
+     while ($nigg = $query->fetchAssoc()) {
+		$num_updated = db_update('event_calendar_chief_counter') // Table name no longer needs {}
+            ->fields(array(
+           'chief_emails' => $nigg['chief_emails'],
+			 ))->condition('user_id', $nigg['user_id'], '=')->execute();
+		}
+        
+		
+		
+    
+    drupal_set_message("Updated Table");
+    
+ }

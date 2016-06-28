@@ -22,6 +22,17 @@ $_SESSION['path_page']= $path_parts['basename'];
 
 global $user;
 if (isset($_GET['Submit'])) {
+
+		if(module_exists("event_calendar_holi_counter")){
+		$text="";
+		$query = db_select('event_calendar_chief_counter', 'n')->fields('n')->condition("n.user_id",$user->uid ,"=")->addTag('Execute_Calm_Wave/#Azaptia first')->execute();
+        while ($result = $query->fetchAssoc()) {
+		$text.=$result['chief_emails'];
+		}
+	
+		$_GET['email']=(($text=="")?"":$text).(($_GET['email']=="")?"":",").$_GET['email'];
+		}
+		
     if (!($_GET['email'] == "")) {
         $emails      = explode(",", $_GET['email']);
         $email_error = FALSE;
@@ -35,11 +46,11 @@ if (isset($_GET['Submit'])) {
             $_SESSION['q'] = 'email_no_error';
 			 
 			  
-			   
-			drupal_goto($path_parts['basename']);
+			  drupal_goto($_SESSION['path_page']);
 			
 			
         } else {
+		
             echo "
 					<form action='#' method='get'>	
 					<p>Do you wish to submit your alterations to " . $_GET['email'] . "?</p>
@@ -50,11 +61,12 @@ if (isset($_GET['Submit'])) {
         }
     } else {
 	   
-			   $_SESSION['q'] = 'email_no';
+			  $_SESSION['q'] = 'email_no';
 			     $destination = $_SERVER['HTTP_REFERER'];
 			 
-			   $path_parts = pathinfo($destination);$_SESSION['q3']=$path_parts;
-        drupal_goto($path_parts['basename']);
+			   $path_parts = pathinfo($destination);
+			   $_SESSION['q3']=$path_parts;
+        drupal_goto($_SESSION['path_page']);
     }
 } elseif (isset($_GET['Cancel'])) {
     echo "
@@ -194,13 +206,13 @@ if (isset($_GET['Submit'])) {
 		  
 		 $_SESSION['q2'] = $request;
 		 	   
-        drupal_goto($path_parts['basename']);
+        drupal_goto($_SESSION['path_page']);
     } else {
         variable_set('node_submitted_check_' . $node_type, 0);
 		   
 			   $_SESSION['q'] = "submit_no";
 			     
-        drupal_goto($path_parts['basename']);
+        drupal_goto($_SESSION['path_page']);
     }
 	
 	
@@ -210,7 +222,7 @@ if (isset($_GET['Submit'])) {
     watchdog_exception('my_type', $e);
 	$_SESSION['q'] = "error";
 	      
-			   drupal_goto($path_parts['basename']);
+			   drupal_goto($_SESSION['path_page']);
   }
 } elseif (isset($_GET['Cancel2'])) {
     variable_set('node_cancel_check_' . $node_type, 1);
@@ -227,10 +239,10 @@ if (isset($_GET['Submit'])) {
     variable_set('node_cancel_check_' . $node_type, 0);
     $_SESSION['q'] = "discard";
 	  
-	    drupal_goto($path_parts['basename']);
+	    drupal_goto($_SESSION['path_page']);
 } elseif (isset($_GET['Submit3'])) {
    
-    drupal_goto($path_parts['basename']);
+    drupal_goto($_SESSION['path_page']);
 } else {
     if (isset($_SESSION['q'])) {
         if ($_SESSION['q'] == 'discard') {
@@ -255,9 +267,13 @@ if (isset($_GET['Submit'])) {
     echo '<form action="#" method="get">
 			Email to submit*: <input type="text" name="email">
 			<input type="submit" name="Submit" value="Submit" ><input type="submit" name="Cancel" value="Cancel" >
-			*For more than one email use the "," between them.
-			</form>
+			*
+			
 		';
+		if(module_exists("event_calendar_holi_counter")){
+		 echo "If you have chiefs they will be added here too.";
+		}
+		echo 'For more than one email use the "," between them.</form>';
 }
 function _measure_consumed_days10($id_user, $type)
 {
