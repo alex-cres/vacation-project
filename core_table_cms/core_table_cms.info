@@ -1,0 +1,9 @@
+name = CMS Core Table
+description = Core Table for CMS
+package = CMS Table
+core = 7.x
+
+dependencies[] = php
+
+
+
