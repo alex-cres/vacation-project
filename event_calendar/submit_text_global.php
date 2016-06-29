@@ -76,7 +76,7 @@ if (isset($_GET['Submit'])) {
 			<p>";
 			echo t("
 			Do you really wish to cancel all alterations?")."</p>
-			<input type='submit' name='Cancel2' value='Yes'><input type='submit' name='Submit3' value='".t('No')."' >
+			<input type='submit' name='Cancel2' value='".t('Yes')."'><input type='submit' name='Submit3' value='".t('No')."' >
 			</form>
 		";
 } elseif (isset($_GET['Submit2'])) {
