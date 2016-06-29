@@ -32,6 +32,7 @@ Features
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
  # A mailing integration for approval of event.
  # In-place Add/Edit/View of events in pop-up.
  # Different colors of events based on their status.
@@ -41,6 +42,8 @@ Features
 =======
 =======
 >>>>>>> master
+=======
+>>>>>>> refs/remotes/origin/master
  *  A mailing integration for approval of event.
  *  In-place Add/Edit/View of events in pop-up.
  *  Different colors of events based on their status.
@@ -48,14 +51,18 @@ Features
  *  Counter for used days.
  *  Submission and Cancel.
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> origin/implementation_chief
 =======
 >>>>>>> master
+=======
+>>>>>>> refs/remotes/origin/master
  
  
 Benefits
 ----------
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
  # No need to add content type and import views template.
@@ -71,6 +78,11 @@ Benefits
  * Easy to add events (if a user permits).
  * Events status can be easily identified with the color of events.
 >>>>>>> master
+=======
+ * No need to add content type and import views template.
+ * Easy to add events (if a user permits).
+ * Events status can be easily identified with the color of events.
+>>>>>>> refs/remotes/origin/master
 
 
 Dependency
@@ -81,6 +93,7 @@ Dependency
   
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   # Calendar => http://drupal.org/project/calendar" .
   # Date => http://drupal.org/project/date" .
   # Date Popup.
@@ -89,15 +102,20 @@ Dependency
 =======
 =======
 >>>>>>> master
+=======
+>>>>>>> refs/remotes/origin/master
   * Calendar => http://drupal.org/project/calendar .
   * Date => http://drupal.org/project/date .
   * Date Popup.
   * Relation.
   * PHP.
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> origin/implementation_chief
 =======
 >>>>>>> master
+=======
+>>>>>>> refs/remotes/origin/master
 
 
 Installation:
@@ -118,6 +136,7 @@ CREDITS
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 This module was created by OSSCube Solutions Pvt Ltd. 
 Guided by Bhupendra Singh. 
 Developed by Radhey Shyam and Navneet Kumar. 
@@ -125,11 +144,16 @@ It was further continued by Alexandre Realinho.
 =======
 =======
 >>>>>>> master
+=======
+>>>>>>> refs/remotes/origin/master
 * This module was created by OSSCube Solutions Pvt Ltd. 
 * Guided by Bhupendra Singh. 
 * Developed by Radhey Shyam and Navneet Kumar. 
 * It was further continued by Alexandre Realinho.
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> origin/implementation_chief
 =======
 >>>>>>> master
+=======
+>>>>>>> refs/remotes/origin/master
