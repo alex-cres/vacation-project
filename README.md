@@ -31,6 +31,7 @@ Features
 ----------
 
 <<<<<<< HEAD
+<<<<<<< HEAD
  # A mailing integration for approval of event.
  # In-place Add/Edit/View of events in pop-up.
  # Different colors of events based on their status.
@@ -38,18 +39,24 @@ Features
  # Counter for used days.
  # Submission and Cancel.
 =======
+=======
+>>>>>>> master
  *  A mailing integration for approval of event.
  *  In-place Add/Edit/View of events in pop-up.
  *  Different colors of events based on their status.
  *  Vacation creation.
  *  Counter for used days.
  *  Submission and Cancel.
+<<<<<<< HEAD
 >>>>>>> origin/implementation_chief
+=======
+>>>>>>> master
  
  
 Benefits
 ----------
 
+<<<<<<< HEAD
 <<<<<<< HEAD
  # No need to add content type and import views template.
  # Easy to add events (if a user permits).
@@ -59,6 +66,11 @@ Benefits
  * Easy to add events (if a user permits).
  * Events status can be easily identified with the color of events.
 >>>>>>> origin/implementation_chief
+=======
+ * No need to add content type and import views template.
+ * Easy to add events (if a user permits).
+ * Events status can be easily identified with the color of events.
+>>>>>>> master
 
 
 Dependency
@@ -68,18 +80,24 @@ Dependency
   requires Date-pop also.
   
 <<<<<<< HEAD
+<<<<<<< HEAD
   # Calendar => http://drupal.org/project/calendar" .
   # Date => http://drupal.org/project/date" .
   # Date Popup.
   # Relation.
   # PHP.
 =======
+=======
+>>>>>>> master
   * Calendar => http://drupal.org/project/calendar .
   * Date => http://drupal.org/project/date .
   * Date Popup.
   * Relation.
   * PHP.
+<<<<<<< HEAD
 >>>>>>> origin/implementation_chief
+=======
+>>>>>>> master
 
 
 Installation:
@@ -99,13 +117,19 @@ CREDITS
 --------
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 This module was created by OSSCube Solutions Pvt Ltd. 
 Guided by Bhupendra Singh. 
 Developed by Radhey Shyam and Navneet Kumar. 
 It was further continued by Alexandre Realinho.
 =======
+=======
+>>>>>>> master
 * This module was created by OSSCube Solutions Pvt Ltd. 
 * Guided by Bhupendra Singh. 
 * Developed by Radhey Shyam and Navneet Kumar. 
 * It was further continued by Alexandre Realinho.
+<<<<<<< HEAD
 >>>>>>> origin/implementation_chief
+=======
+>>>>>>> master
