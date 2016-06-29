@@ -30,20 +30,20 @@ DESCRIPTION/FEATURES
 Features
 ----------
 
- # A mailing integration for approval of event
- # In-place Add/Edit/View of events in pop-up
- # Different colors of events based on their status
- # Vacation creation
- # Counter for used days
- # Submission and Cancel 
+ # A mailing integration for approval of event.
+ # In-place Add/Edit/View of events in pop-up.
+ # Different colors of events based on their status.
+ # Vacation creation.
+ # Counter for used days.
+ # Submission and Cancel.
  
  
 Benefits
 ----------
 
- # No need to add content type and import views template
- # Easy to add events (if a user permits)
- # Events status can be easily identified with the color of events
+ # No need to add content type and import views template.
+ # Easy to add events (if a user permits).
+ # Events status can be easily identified with the color of events.
 
 
 Dependency
@@ -52,11 +52,11 @@ Dependency
   depends on the Calendar module. If you want to use dates in pop-up then it
   requires Date-pop also.
   
-  # Calendar => http://drupal.org/project/calendar">calendar
-  # Date => http://drupal.org/project/date">date
-  #Date Popup
-  #Relation
-  #PHP
+  # Calendar => http://drupal.org/project/calendar" .
+  # Date => http://drupal.org/project/date" .
+  # Date Popup.
+  # Relation.
+  # PHP.
 
 
 Installation:
@@ -75,8 +75,7 @@ for event settings.
 CREDITS
 --------
 
-This module was created by OSSCube Solutions Pvt Ltd <www dot osscube dot com>
-Guided by Bhupendra Singh <bhupendra at osscube dot com>
-Developed by Radhey Shyam <radhey at osscube dot com>
-and Navneet Kumar <navneet at osscube dot com >
-It was further continued by Alexandre Realinho
+This module was created by OSSCube Solutions Pvt Ltd. 
+Guided by Bhupendra Singh. 
+Developed by Radhey Shyam and Navneet Kumar. 
+It was further continued by Alexandre Realinho.
