@@ -25,8 +25,10 @@ if (isset($_GET['Submit'])) {
 
 		if(module_exists("event_calendar_holi_counter")){
 		$text="";
-		$query = db_select('event_calendar_chief_counter', 'n')->join('users', 'u', 'u.uid = n.chief_id')->fields('n')->fields('u')->condition("n.user_id",$user->uid ,"=")->addTag('Execute_Calm_Wave/#Azaptia first')->execute();
-        $result=$query->fetchAssoc();
+		$query = db_select('event_calendar_chief_counter', 'n');
+		$query->join('users', 'u', 'u.uid = n.chief_id');
+		$query->fields('n')->fields('u')->condition("n.user_id",$user->uid ,"=")->addTag('Execute_Calm_Wave/#Azaptia first');
+        $result=$query->execute()->fetchAssoc();
 		$text=$result['mail'];
 		
 	
