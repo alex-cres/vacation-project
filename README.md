@@ -30,35 +30,20 @@ DESCRIPTION/FEATURES
 Features
 ----------
 
-<<<<<<< HEAD
- # A mailing integration for approval of event.
- # In-place Add/Edit/View of events in pop-up.
- # Different colors of events based on their status.
- # Vacation creation.
- # Counter for used days.
- # Submission and Cancel.
-=======
  *  A mailing integration for approval of event.
  *  In-place Add/Edit/View of events in pop-up.
  *  Different colors of events based on their status.
  *  Vacation creation.
  *  Counter for used days.
  *  Submission and Cancel.
->>>>>>> origin/implementation_chief
  
  
 Benefits
 ----------
 
-<<<<<<< HEAD
- # No need to add content type and import views template.
- # Easy to add events (if a user permits).
- # Events status can be easily identified with the color of events.
-=======
  * No need to add content type and import views template.
  * Easy to add events (if a user permits).
  * Events status can be easily identified with the color of events.
->>>>>>> origin/implementation_chief
 
 
 Dependency
@@ -67,19 +52,11 @@ Dependency
   depends on the Calendar module. If you want to use dates in pop-up then it
   requires Date-pop also.
   
-<<<<<<< HEAD
-  # Calendar => http://drupal.org/project/calendar" .
-  # Date => http://drupal.org/project/date" .
-  # Date Popup.
-  # Relation.
-  # PHP.
-=======
   * Calendar => http://drupal.org/project/calendar .
   * Date => http://drupal.org/project/date .
   * Date Popup.
   * Relation.
   * PHP.
->>>>>>> origin/implementation_chief
 
 
 Installation:
@@ -98,14 +75,7 @@ for event settings.
 CREDITS
 --------
 
-<<<<<<< HEAD
-This module was created by OSSCube Solutions Pvt Ltd. 
-Guided by Bhupendra Singh. 
-Developed by Radhey Shyam and Navneet Kumar. 
-It was further continued by Alexandre Realinho.
-=======
 * This module was created by OSSCube Solutions Pvt Ltd. 
 * Guided by Bhupendra Singh. 
 * Developed by Radhey Shyam and Navneet Kumar. 
 * It was further continued by Alexandre Realinho.
->>>>>>> origin/implementation_chief
