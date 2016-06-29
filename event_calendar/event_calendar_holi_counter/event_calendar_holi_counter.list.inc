@@ -746,3 +746,5 @@ function event_calendar_chief_submit(&$form, &$form_state)
 	}
     
  }
+ 
+ 

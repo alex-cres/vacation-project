@@ -629,10 +629,10 @@ function event_calendar_content($form, $form_state)
     // Form elements to provide status explaination.
     $form['event_calendar_note'] = event_calendar_status_note();
     if(module_exists("event_calendar_holi_counter")){
-		if(function_exists("event_calendar_holi_counter_manage_events")){
 			$form=array();
+			include("event_calendar_holi_counter/event_calendar_holi_counter_manager.inc");
 			event_calendar_holi_counter_manage_events($form, $form_state);
-		}
+		
 	}
 	return $form;
 }
