@@ -57,7 +57,7 @@ if (isset($_GET['Submit'])) {
 					<form action='#' method='get'>	<p>";
 					echo t("Do you wish to submit your alterations to ") . $_GET['email'] . "?</p>
 					<input type='hidden' value='" . $_GET['email'] . "' name='email'>
-					<input type='submit' name='Submit2' value='OK'><input type='submit' name='Submit3' value='".t("Cancel")."' >
+					<input type='submit' name='Submit2' value='".t('OK')."'><input type='submit' name='Submit3' value='".t("Cancel")."' >
 					</form>	
 				";
         }
@@ -74,7 +74,7 @@ if (isset($_GET['Submit'])) {
     echo "
 			<form action='#' method='get'>
 			<p>Do you really wish to cancel all alterations?</p>
-			<input type='submit' name='Cancel2' value='Yes'><input type='submit' name='Submit3' value='No' >
+			<input type='submit' name='Cancel2' value='Yes'><input type='submit' name='Submit3' value='".t('No')."' >
 			</form>
 		";
 } elseif (isset($_GET['Submit2'])) {
@@ -243,7 +243,6 @@ if (isset($_GET['Submit'])) {
 	  
 	    drupal_goto($_SESSION['path_page']);
 } elseif (isset($_GET['Submit3'])) {
-   
     drupal_goto($_SESSION['path_page']);
 } else {
     if (isset($_SESSION['q'])) {
@@ -267,15 +266,15 @@ if (isset($_GET['Submit'])) {
 	  
 	
     echo '<form action="#" method="get">
-			Email to submit*: <input type="text" name="email">
-			<input type="submit" name="Submit" value="Submit" ><input type="submit" name="Cancel" value="Cancel" >
+			'.t('Email to submit').'*: <input type="text" name="email">
+			<input type="submit" name="Submit" value="'.t('Submit').'" ><input type="submit" name="Cancel" value="Cancel" >
 			*
 			
 		';
 		if(module_exists("event_calendar_holi_counter")){
-		 echo "If you have chiefs they will be added here too.";
+		 echo t("Chief will be added automaticaly.");
 		}
-		echo 'For more than one email use the "," between them.</form>';
+		echo t('For more than one email use the "," between them.').'</form>';
 }
 function _measure_consumed_days10($id_user, $type)
 {
