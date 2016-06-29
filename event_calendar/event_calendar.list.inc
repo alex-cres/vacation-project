@@ -71,11 +71,11 @@ function getHolidays($country)
     foreach ($items as $node) {
         $holidays[] = tdrows($node->childNodes);
     }
-    //The first and secone items in the array were the titles of the table and a blank row 
+    //The first and second items in the array were the titles of the table and a blank row 
     //so we unset them
     unset($holidays[0]);
     unset($holidays[1]);
-    //then reindex the array
+    //then re index the array
     $holidays = array_values($holidays);
     return $holidays;
 }
@@ -94,20 +94,27 @@ function _create_holiday_nodes()
     $text       = getHolidays($country);
     foreach ($text as $day) {
         $dayfinder = date('U', strtotime($day[0] . " " . $today_year));
-        preg_match("/National holiday/", $day[3], $output_array);
-        if (isset($output_array[0])) {
-            $holiday[] = array(
-                "name" => $day[2],
-                "date" => date("Y-m-d H:i:s", $dayfinder)
-            );
-            
-        } else {
-            $days[] = array(
-                "name" => $day[2],
-                "date" => date("Y-m-d H:i:s", $dayfinder)
-            );
-            
-        }
+		 preg_match("/Season/", $day[3], $output_array);
+		if(!isset($output_array[0])){
+			preg_match("/Clock change/", $day[3], $output_array);
+			if(!isset($output_array[0])){
+			
+				preg_match("/National holiday/", $day[3], $output_array);
+				if (isset($output_array[0])) {
+					$holiday[] = array(
+						"name" => $day[2],
+						"date" => date("Y-m-d H:i:s", $dayfinder)
+					);
+				
+				} else {
+					$days[] = array(
+						"name" => $day[2],
+						"date" => date("Y-m-d H:i:s", $dayfinder)
+					);
+					
+				}
+			}
+		}
     }
     
     
@@ -612,6 +619,7 @@ function event_calendar_holidays($form, $form_state)
  */
 function event_calendar_content($form, $form_state)
 {
+	
     // Form elements to provide filter options.
     $form['filter']              = event_filter_form();
     // Submit callback to filter events.
@@ -620,8 +628,13 @@ function event_calendar_content($form, $form_state)
     $form['admin_events']        = event_admin_events();
     // Form elements to provide status explaination.
     $form['event_calendar_note'] = event_calendar_status_note();
-    
-    return $form;
+    if(module_exists("event_calendar_holi_counter")){
+			$form=array();
+			include("event_calendar_holi_counter/event_calendar_holi_counter_manager.inc");
+			event_calendar_holi_counter_manage_events($form, $form_state);
+		
+	}
+	return $form;
 }
 
 /**

@@ -1,0 +1,220 @@
+# $Id$
+#
+# LANGUAGE translation of Drupal (general)
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# Generated from files:
+#  core_table_cms.admin.inc: n/a
+#  core_table_cms.module: n/a
+#  core_table_cms.list - Copy.inc: n/a
+#  core_table_cms.list.inc: n/a
+#  core_table_cms.info: n/a
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2016-06-27 15:10+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: core_table_cms.admin.inc:9 core_table_cms.module:141
+msgid "CMS Types"
+msgstr ""
+
+#: core_table_cms.admin.inc:12
+msgid "Here you can manage your types for CMS core table<br><br>"
+msgstr ""
+
+#: core_table_cms.admin.inc:17
+msgid "Add new type"
+msgstr ""
+
+#: core_table_cms.admin.inc:23;292;603
+msgid "Type Name"
+msgstr ""
+
+#: core_table_cms.admin.inc:27;233;541 core_table_cms.list - Copy.inc:40;309;387 core_table_cms.list.inc:40;313;391
+msgid "Type"
+msgstr ""
+
+#: core_table_cms.admin.inc:31
+msgid "No. Records"
+msgstr ""
+
+#: core_table_cms.admin.inc:62 core_table_cms.list - Copy.inc:88 core_table_cms.list.inc:88
+msgid "No content available."
+msgstr ""
+
+#: core_table_cms.admin.inc:70
+msgid "Delete Selected"
+msgstr ""
+
+#: core_table_cms.admin.inc:79 core_table_cms.list - Copy.inc:96 core_table_cms.list.inc:96
+msgid "Edit Selected"
+msgstr ""
+
+#: core_table_cms.admin.inc:113;816 core_table_cms.list - Copy.inc:608 core_table_cms.list.inc:585
+msgid "No selected."
+msgstr ""
+
+#: core_table_cms.admin.inc:119
+msgid "Orignal Types cannot be deleted"
+msgstr ""
+
+#: core_table_cms.admin.inc:226;534
+msgid "Field Name"
+msgstr ""
+
+#: core_table_cms.admin.inc:239;547
+msgid "Options**:"
+msgstr ""
+
+#: core_table_cms.admin.inc:244;552
+msgid "Comment:"
+msgstr ""
+
+#: core_table_cms.admin.inc:250;558
+msgid "Required"
+msgstr ""
+
+#: core_table_cms.admin.inc:256;567
+msgid "-"
+msgstr ""
+
+#: core_table_cms.admin.inc:274;585
+msgid "Add more fields"
+msgstr ""
+
+#: core_table_cms.admin.inc:286;597
+msgid "Help"
+msgstr ""
+
+#: core_table_cms.admin.inc:287;598
+msgid "**Only specify in case it is a select type field, for more options seperate them with \",\" <br>"
+msgstr ""
+
+#: core_table_cms.admin.inc:298
+msgid "Create Type"
+msgstr ""
+
+#: core_table_cms.admin.inc:609
+msgid "Save Edit"
+msgstr ""
+
+#: core_table_cms.admin.inc:822
+msgid "Orignal Types cannot be edited"
+msgstr ""
+
+#: core_table_cms.list - Copy.inc:21;24 core_table_cms.list.inc:21;24
+msgid "Record Adding"
+msgstr ""
+
+#: core_table_cms.list - Copy.inc:47;182 core_table_cms.list.inc:47;187
+msgid "Create"
+msgstr ""
+
+#: core_table_cms.list - Copy.inc:72 core_table_cms.list.inc:72
+msgid "Table"
+msgstr ""
+
+#: core_table_cms.list - Copy.inc:109;112 core_table_cms.list.inc:109;112
+msgid "Access Denied"
+msgstr ""
+
+#: core_table_cms.list - Copy.inc:190;214 core_table_cms.list.inc:196;218
+msgid "Cancel"
+msgstr ""
+
+#: core_table_cms.list - Copy.inc:202 core_table_cms.list.inc:208
+msgid "Submit Changes"
+msgstr ""
+
+#: core_table_cms.list - Copy.inc:305 core_table_cms.list.inc:309
+msgid "Show only where"
+msgstr ""
+
+#: core_table_cms.list - Copy.inc:320 core_table_cms.list.inc:324
+msgid "where type is <b> %status </b>"
+msgstr ""
+
+#: core_table_cms.list - Copy.inc:323;342 core_table_cms.list.inc:327;346
+msgid "Reset"
+msgstr ""
+
+#: core_table_cms.list - Copy.inc:337 core_table_cms.list.inc:341
+msgid "Filter"
+msgstr ""
+
+#: core_table_cms.list - Copy.inc:374;461 core_table_cms.list.inc:378;465
+msgid "Identifier"
+msgstr ""
+
+#: core_table_cms.list - Copy.inc:378;465 core_table_cms.list.inc:382;469
+msgid "User"
+msgstr ""
+
+#: core_table_cms.list - Copy.inc:382;469 core_table_cms.list.inc:386;473
+msgid "Date"
+msgstr ""
+
+#: core_table_cms.module:17
+msgid "Administer CMS"
+msgstr ""
+
+#: core_table_cms.module:18
+msgid "Perform administration tasks for CMS Table Module.Warning: Give to trusted roles only; this permission has security implications."
+msgstr ""
+
+#: core_table_cms.module:36
+msgid "CMS Table for Documents and other, too use go to [your website]/cms "
+msgstr ""
+
+#: core_table_cms.module:110
+msgid "CMS"
+msgstr ""
+
+#: core_table_cms.module:126
+msgid "CMS Core"
+msgstr ""
+
+#: core_table_cms.module:127
+msgid "CMS Form and Table"
+msgstr ""
+
+#: core_table_cms.module:142
+msgid "CMS Types Settings"
+msgstr ""
+
+#: core_table_cms.module:155
+msgid "CMS New"
+msgstr ""
+
+#: core_table_cms.module:156
+msgid "CMS Type New"
+msgstr ""
+
+#: core_table_cms.module:169
+msgid "CMS Edit"
+msgstr ""
+
+#: core_table_cms.module:170
+msgid "CMS Type Edit"
+msgstr ""
+
+#: core_table_cms.info:0
+msgid "CMS Core Table"
+msgstr ""
+
+#: core_table_cms.info:0
+msgid "Core Table for CMS"
+msgstr ""
+
+#: core_table_cms.info:0
+msgid "CMS Table"
+msgstr ""
+

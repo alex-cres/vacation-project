@@ -1,0 +1,193 @@
+<?php
+/**
+ * @file
+ * 
+ */
+
+ 
+ 
+ /**
+ *Implements hook_permission().
+ *
+ */
+ 
+ function core_table_cms_permission() {
+  return array(
+    'administer core table cms' => array(
+      'title' => t('Administer CMS'),
+      'description' => t('Perform administration tasks for CMS Table Module.Warning: Give to trusted roles only; this permission has security implications.'),
+    ),
+  );
+}
+/**
+ * Implements hook_help().
+ *
+ * Displays help and module information.
+ *
+ * @param path 
+ *   Which path of the site we're using to display help
+ * @param arg 
+ *   Array that holds the current path as returned from arg() function
+ */
+function core_table_cms_help($path, $arg)
+{
+    switch ($path) {
+        case "admin/help#core_table_cms":
+           return t("CMS Table for Documents and other, too use go to [your website]/cms ");
+           break;
+    }
+}
+function core_table_cms_fill_cms_table($user_id, $action)
+{
+$error=false;
+$text="";
+  // The transaction opens here.
+  $transaction = db_transaction();
+$number=0;
+  $today = date("Y");
+  try {
+	$query= db_select('core_table_cms_type', 'n')->fields('n')->condition('n.type_id',$action)->addTag('record_access')->execute()->fetchAssoc();
+	if(isset($query['type_id'])){
+	
+	$nid     = db_insert('core_table_cms') // Table name no longer needs {}
+        ->fields(array(
+        'user_id' => $user_id,
+        'type_action_id' => $action,
+       'year_part' => $today,
+        'date' => date("Y-m-d H:i:s"),
+       
+    ))->execute();
+
+    $query= db_select('core_table_cms', 'n')->fields('n',array('id_part'))->condition('n.year_part', $today)->condition('n.year_part', $today)->condition("n.identifier",$nid-1)->addTag('record_access')->execute()->fetchAssoc();
+		if (!isset($query['id_part'])) {
+			$id = 1;
+		} else {
+			$id =  $query['id_part'] + 1;
+		}    
+	$num_updated = db_update('core_table_cms') // Table name no longer needs {}
+            ->fields(array(
+            'id_part' => $id,
+		
+        ))->condition("identifier",$nid,"=")->execute();
+$number=$id;
+  }else{
+	$error=true;
+	$text=" The Type no longer exists or has been edited";
+  }
+  }
+  catch (Exception $e) {
+    $transaction->rollback();
+    watchdog_exception('my_type', $e);
+	$error=true;
+	$text=$e;
+  }
+
+  
+
+    if($error){
+	 return array(
+        'error' => true,
+		'error_text' => $text
+		
+    );
+	}else{
+	$request = 'CMS-' . $today . "-" . sprintf('%05d',$number);
+    return array(
+        'id' => $number,
+        'request' => $request
+    );
+	}
+}
+
+
+
+
+function core_table_cms_menu()
+{	
+    $items = array();
+    
+    $items['cms']            = array(
+        'title' => 'CMS',
+        'description' => '',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array(
+            'core_table_cms_content'
+        ),
+        'weight' => -10,
+        'access arguments' => array(
+            'access content'
+        ),
+		'page callback' => 'system_admin_menu_block_page',
+		'file' => 'system.admin.inc',
+		'file path' => drupal_get_path('module', 'system'),
+        
+    );
+    $items['cms/core_table'] = array(
+        'title' => 'CMS Core',
+        'description' => 'CMS Form and Table',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array(
+            'core_table_cms_content'
+            
+        ),
+        'access arguments' => array(
+            'access content'
+        ),
+        'weight' => -10,
+        'file' => 'core_table_cms.list.inc'
+    );
+	
+	$items['cms/types']            = array(
+        'title' => 'CMS Types',
+        'description' => 'CMS Types Settings',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array(
+            'core_table_cms_admin_types'
+        ),
+        'weight' => -10,
+        'access arguments' => array(
+            'administer core table cms'
+        ),
+		'file' => 'core_table_cms.admin.inc',
+		
+    );
+	$items['cms/types/new']            = array(
+        'title' => 'CMS New',
+        'description' => 'CMS Type New',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array(
+            'core_table_cms_admin_types_new'
+        ),
+        'weight' => -10,
+        'access arguments' => array(
+            'administer core table cms'
+        ),
+		'file' => 'core_table_cms.admin.inc',
+		
+    );
+	$items['cms/types/edit']            = array(
+        'title' => 'CMS Edit',
+        'description' => 'CMS Type Edit',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array(
+            'core_table_cms_admin_types_edit'
+        ),
+        'weight' => -10,
+        'access arguments' => array(
+            'administer core table cms'
+        ),
+		'file' => 'core_table_cms.admin.inc',
+		
+    );
+	
+    
+    return $items;
+}
+
+
+
+
+//experimental code
+
+
+

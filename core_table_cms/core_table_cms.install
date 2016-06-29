@@ -1,0 +1,493 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the core_table_cms  module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function core_table_cms_install()
+{
+
+core_table_cms_schema();
+$actions=array();
+$actions[]='vacations';
+$actions[]='documents';
+$actions[]='proposals';
+$actions[]='tickets';
+$actions[]='projects';
+$actions[]='inventories';
+$nids=array();
+$result = db_truncate('core_table_cms_type')->execute();
+foreach($actions as $part){
+
+    $nid     = db_insert('core_table_cms_type') // Table name no longer needs {}
+        ->fields(array(
+		'type_original' => 'Yes',
+        'type_action' => $part,
+    ))->execute();
+	$nids[$part]=$nid;
+	
+	
+}
+//defining variables that control the tables and forms
+//0 -> defines table
+//1- infinity -> defines fields that the table has
+//display_name -> name that is displayed
+//field -> field in table
+//type -> type of field
+//select_table, order -> type select from a table
+//select_options -> type select from special options
+//date_format -> type date_select date format 
+//required -> sets required state for the field
+variable_set("core_table_cms_type_".$nids['documents'],array(//done
+array("table" =>"core_table_cms_type_documents","display_name_table" => "documents"),
+array("display_name" => "Identifier", "field" =>"identifier_cms", "type" => "hidden", "required" => true),
+array("display_name" => "Type of Document", "field" =>"type_document", "type" => "textfield", "required" => true),
+array("display_name" => "Location", "field" =>"location", "type" => "textfield", "required" => true),
+array("display_name" => "Project Id", "required" => true, "field" =>"project_cms_id", "type" => "select", "select_table" => "core_table_cms_type_projects", "order" =>"ASC"),
+array("display_name" => "External Id", "field" =>"exter_id", "comment" => "When a document needs to be referenced outside of the company", "type" => "textfield"),
+array("display_name" => "Description", "field" =>"description_doc", "type" => "textfield"),
+));
+variable_set("core_table_cms_type_".$nids['proposals'],array(//done
+array("table" =>"core_table_cms_type_proposals","display_name_table" => "proposals"),
+array("display_name" => "Identifier", "required" => true, "field" =>"identifier_cms", "type" => "hidden"),
+array("display_name" => "Limit Date", "field" =>"date_limit", "type" => "date_select","date_format" => "Y-m-d"),
+array("display_name" => "Customer", "required" => true,"field" =>"customer","type" => "textfield"),
+array("display_name" => "Description", "field" =>"description_proposal", "type" => "textfield"),
+));
+variable_set("core_table_cms_type_".$nids['tickets'],array(//done
+array("table" =>"core_table_cms_type_tickets","display_name_table" => "tickets"),
+array("display_name" => "Identifier", "required" => true, "field" =>"identifier_cms", "type" => "hidden"),
+array("display_name" => "Description", "field" =>"description_ticket", "type" => "textfield"),
+));
+variable_set("core_table_cms_type_".$nids['projects'],array(//done
+array("table" =>"core_table_cms_type_projects","display_name_table" => "projects"),
+array("display_name" => "Identifier", "required" => true, "field" =>"identifier_cms", "type" => "hidden"),
+array("display_name" => "Project Name", "field" =>"name_pro", "type" => "textfield"),
+array("display_name" => "Acronym", "field" =>"acronym", "type" => "textfield"),
+array("display_name" => "Begin Date", "field" =>"date_begin", "type" => "date_select","date_format" => "Y-m-d H:i:s"),
+array("display_name" => "End Date", "field" =>"date_end", "type" => "date_select","date_format" => "Y-m-d H:i:s"),
+array("display_name" => "Customer", "required" => true, "field" =>"customer", "type" => "textfield"),
+array("display_name" => "Customer Contact", "field" =>"contact_customer", "type" => "textfield"),
+array("display_name" => "Project Manager", "required" => true, "field" =>"p_manager", "type" => "textfield"),
+array("display_name" => "Users in Project", "field" =>"users_array", "type" => "textfield"),
+array("display_name" => "Has Warranty", "field" =>"warranty", "type" => "select", "select_options" =>array("Yes","No")),
+array("display_name" => "Has Maintainence", "field" =>"main_project", "type" => "select", "select_options" =>array("Yes","No")),
+array("display_name" => "Description", "field" =>"description_project", "type" => "textfield"),
+
+));
+variable_set("core_table_cms_type_".$nids['inventories'],array(//done
+array("table" =>"core_table_cms_type_inventories","display_name_table" => "inventories"),
+array("display_name" => "Identifier", "required" => true, "field" =>"identifier_cms", "type" => "hidden"),
+
+array("display_name" => "Receipt", "field" =>"receipt", "type" => "textfield", "required" => True),
+array("display_name" => "Revison Date", "field" =>"revison_date", "type" => "date_select","date_format" => "Y-m-d H:i:s", "comment" => "In case an item needs to be checked"),
+array("display_name" => "Serial Number", "field" =>"serial_number", "type" => "textfield","comment" =>"A number that the item has that identifies it"),
+
+array("display_name" => "Description", "field" =>"description_inventory", "type" => "textfield"),
+));
+
+}
+/**
+ * Implements hook_schema().
+ */
+function core_table_cms_schema()
+{
+    $schema = array();
+    if (!db_table_exists('core_table_cms')) {
+        $schema['core_table_cms'] = array(
+            'description' => 'Stores data abour the users',
+            'fields' => array(
+                'user_id' => array(
+                    'type' => 'int',
+                    'length' => 10,
+                    'not null' => TRUE,
+                    'description' => 'User id',
+                    'translatable' => TRUE
+                ),
+                'identifier' => array(
+                    'type' => 'serial',
+                    'length' => 5,
+                    'not null' => TRUE,
+                    'description' => 'Counter',
+                    'translatable' => TRUE
+                ),
+                'id_part' => array(
+                    'type' => 'int',
+                    'length' => 5,
+                    'description' => 'Counter',
+                    'translatable' => TRUE
+                ),
+                'year_part' => array(
+                    'type' => 'int',
+                    'length' => 4,
+                    'not null' => TRUE,
+                    'description' => 'Counter',
+                    'translatable' => TRUE
+                ),
+                
+                'date' => array(
+                    'type' => 'datetime',
+                    'mysql_type' => 'datetime',
+                    'not null' => TRUE,
+                    'description' => 'Date of request',
+                    'translatable' => TRUE
+                ),
+				'type_action_id' => array(
+                    'type' => 'int',
+                    'length' => 4,
+                    'not null' => TRUE,
+                    'description' => 'Type',
+                    'translatable' => TRUE
+                ),
+            ),
+            'primary key' => array(
+                'identifier'
+            )
+        );
+    }
+	if (!db_table_exists('core_table_cms_type')) {
+        $schema['core_table_cms_type'] = array(
+            'description' => 'Stores data abour the users',
+            'fields' => array(
+               
+               'type_id' => array(
+                    'type' => 'serial',
+                    'length' => 4,
+                    'not null' => TRUE,
+                    'description' => 'Counter',
+                    'translatable' => TRUE
+                ),
+                
+                
+				'type_action' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => 'Action',
+                    'translatable' => TRUE
+                ),
+				'type_original' => array(
+                    'type' => 'varchar',
+                    'length' => 4,
+                    'not null' => TRUE,
+                    'description' => 'Action',
+                    'translatable' => TRUE
+                ),
+            ),
+            'primary key' => array(
+                'type_id'
+            )
+        );
+    }
+	
+	if (!db_table_exists('core_table_cms_type_documents')) {
+        $schema['core_table_cms_type_documents'] = array(
+            'description' => 'Stores data abour the users',
+            'fields' => array(
+               'identifier_cms' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => 'Counter',
+                    'translatable' => TRUE
+                ),
+				'description_doc' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => 'Action',
+                    'translatable' => TRUE
+                ),
+				'location' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => 'Action',
+                    'translatable' => TRUE
+                ),
+				'project_cms_id' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => 'Action',
+                    'translatable' => TRUE
+                ),
+				'exter_id' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => 'Action',
+                    'translatable' => TRUE
+                ),
+				'type_document' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => 'Action',
+                    'translatable' => TRUE
+                ),
+				
+            ),
+            'primary key' => array(
+                'identifier_cms'
+            )
+        );
+    }
+	
+	if (!db_table_exists('core_table_cms_type_projects')) {
+        $schema['core_table_cms_type_projects'] = array(
+            'description' => 'Stores data abour the users',
+            'fields' => array(
+               
+               'identifier_cms' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => 'Counter',
+                    'translatable' => TRUE
+                ),
+                'description_project' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+                
+				'name_pro' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+				'users_array' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+				'acronym' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+				'date_begin' => array(
+                     'type' => 'datetime',
+                    'mysql_type' => 'datetime',
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+				'date_end' => array(
+                     'type' => 'datetime',
+                    'mysql_type' => 'datetime',
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+				'customer' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+				'contact_customer' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+					'p_manager' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+					'warranty' => array(
+                    'type' => 'varchar',
+                    'length' => 3,
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+					'main_project' => array(
+                    'type' => 'varchar',
+                    'length' => 3,
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),				
+            ),
+            'primary key' => array(
+                'identifier_cms'
+            )
+        );
+    }
+	if (!db_table_exists('core_table_cms_type_inventories')) {
+        $schema['core_table_cms_type_inventories'] = array(
+            'description' => 'Stores data abour the users',
+            'fields' => array(
+               
+               'identifier_cms' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => 'Counter',
+                    'translatable' => TRUE
+                ),
+                
+                
+				'description_inventory' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+				'receipt' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+				'serial_number' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+				'revison_date' => array(
+                     'type' => 'date',
+                    'mysql_type' => 'date',
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+				
+
+
+				
+            ),
+            'primary key' => array(
+                'identifier_cms'
+            )
+        );
+    }
+	if (!db_table_exists('core_table_cms_type_proposals')) {
+        $schema['core_table_cms_type_proposals'] = array(
+            'description' => 'Stores data abour the users',
+            'fields' => array(
+               
+               'identifier_cms' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => 'Counter',
+                    'translatable' => TRUE
+                ),
+                
+                
+				'description_proposal' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+				'date_limit' => array(
+                     'type' => 'date',
+                    'mysql_type' => 'date',
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+				'customer' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+				
+				
+            ),
+            'primary key' => array(
+                'identifier_cms'
+            )
+        );
+    }
+	
+	if (!db_table_exists('core_table_cms_type_tickets')) {
+        $schema['core_table_cms_type_tickets'] = array(
+            'description' => 'Stores data abour the users',
+            'fields' => array(
+               
+               'identifier_cms' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => 'Counter',
+                    'translatable' => TRUE
+                ),
+                
+                
+				'description_ticket' => array(
+                    'type' => 'varchar',
+                    'length' => 255,
+                    'not null' => TRUE,
+                    'description' => '',
+                    'translatable' => TRUE
+                ),
+				
+				
+            ),
+            'primary key' => array(
+                'identifier_cms'
+            )
+        );
+    }
+	
+	
+    return $schema;
+}
+
+
+
+/**
+ * Implements hook_uninstall().
+ */
+function core_table_cms_uninstall()
+{
+	db_drop_table("core_table_cms"); 
+
+	
+$result = db_select('core_table_cms_type', 'c')
+    ->fields('c',array("type_id"))
+    ->execute();
+
+
+
+	while($w=$result->fetchAssoc()){
+	$nid=variable_get("core_table_cms_type_".$w["type_id"]);
+	db_drop_table($nid[0]['table']); 
+	variable_del("core_table_cms_type_".$w["type_id"]);
+	
+	}
+	db_drop_table("core_table_cms_type"); 
+	 
+}
+
+

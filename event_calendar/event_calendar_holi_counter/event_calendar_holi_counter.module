@@ -58,6 +58,22 @@ function event_calendar_holi_counter_menu()
         'weight' => -10,
         'file' => 'event_calendar_holi_counter.list.inc'
     );
+	
+	$items['vacation_calendar/chiefs']      = array(
+        'title' => 'Vacation Manage Chief',
+        'description' => 'Administer Chief settings.',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array(
+            'event_calendar_holi_counter_content_chief'
+        ),
+        'access arguments' => array(
+            'administer event status'
+        ),
+        'weight' => -10,
+        'file' => 'event_calendar_holi_counter.list.inc'
+    );
+	
+	
     return $items;
 }
 
