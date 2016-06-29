@@ -177,11 +177,10 @@ function event_calendar_holi_counter_schema()
                     'description' => 'User Name',
                     'translatable' => TRUE
                 ),
-				'chief_emails' => array(
-                    'type' => 'varchar',
-                    'length' => 1000,
-                   
-                    'description' => 'Chief Emails',
+				'chief_id' => array(
+                    'type' => 'int',
+                    'length' => 10,
+                    'description' => 'Chief Id',
                     'translatable' => TRUE
                 ),
             ),    

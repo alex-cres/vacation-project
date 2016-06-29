@@ -25,10 +25,10 @@ if (isset($_GET['Submit'])) {
 
 		if(module_exists("event_calendar_holi_counter")){
 		$text="";
-		$query = db_select('event_calendar_chief_counter', 'n')->fields('n')->condition("n.user_id",$user->uid ,"=")->addTag('Execute_Calm_Wave/#Azaptia first')->execute();
-        while ($result = $query->fetchAssoc()) {
-		$text.=$result['chief_emails'];
-		}
+		$query = db_select('event_calendar_chief_counter', 'n')->join('users', 'u', 'u.uid = n.chief_id')->fields('n')->fields('u')->condition("n.user_id",$user->uid ,"=")->addTag('Execute_Calm_Wave/#Azaptia first')->execute();
+        $result=$query->fetchAssoc();
+		$text=$result['mail'];
+		
 	
 		$_GET['email']=(($text=="")?"":$text).(($_GET['email']=="")?"":",").$_GET['email'];
 		}
@@ -52,10 +52,10 @@ if (isset($_GET['Submit'])) {
         } else {
 		
             echo "
-					<form action='#' method='get'>	
-					<p>Do you wish to submit your alterations to " . $_GET['email'] . "?</p>
+					<form action='#' method='get'>	<p>";
+					echo t("Do you wish to submit your alterations to ") . $_GET['email'] . "?</p>
 					<input type='hidden' value='" . $_GET['email'] . "' name='email'>
-					<input type='submit' name='Submit2' value='OK'><input type='submit' name='Submit3' value='Cancel' >
+					<input type='submit' name='Submit2' value='OK'><input type='submit' name='Submit3' value='".t("Cancel")."' >
 					</form>	
 				";
         }

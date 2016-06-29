@@ -3,8 +3,8 @@ global $user;
 if (module_exists("event_calendar_holi_counter")) {
     _update_table_users2();
     $result = $query = db_select('event_calendar_days_counter', 'n')->fields('n')->condition('n.user_id', $user->uid)->addTag('')->execute()->fetchAssoc();
-    echo "Total in ".date("Y").": " . (int)( (int) $result['counter_days'] +  (int) $result['counter_extra']);
-    echo "   Available: ".(int)( (int) $result['counter_days'] - (int) _measure_consumed_days2($user->uid, 1) );
+    echo t("Total in ").date("Y").": " . (int)( (int) $result['counter_days'] +  (int) $result['counter_extra']);
+    echo t("   Available: ").(int)( (int) $result['counter_days'] - (int) _measure_consumed_days2($user->uid, 1) );
      
    
 }

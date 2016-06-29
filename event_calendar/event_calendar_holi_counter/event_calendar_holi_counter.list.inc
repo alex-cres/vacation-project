@@ -412,7 +412,7 @@ function _get_term_from_name2($term_name, $vocabulary_name)
 function event_calendar_holi_counter_user_content($form, $form_state)
 {
 
-    $admin_access = user_access('administer nodes');
+    $admin_access = user_access('administer event status');
     $node_type    = variable_get('event_calendar_node_type', 'event_calendar');
     $path         = current_path();
     
@@ -540,7 +540,7 @@ function event_calendar_holi_counter_headers(){
 
 function event_calendar_holi_counter_content_chief($form, $form_state){
 
-$admin_access = user_access('administer nodes');
+$admin_access = user_access('administer event status');
     $node_type    = variable_get('event_calendar_node_type', 'event_calendar');
     $path         = current_path();
     if (!isset($form_state['storage']['confirm'])) {
@@ -558,23 +558,24 @@ $admin_access = user_access('administer nodes');
            
            
             
-			'chief_emails'=> array(
-                'data' => t('Chiefs Emails'),
-                'field' => 'n.chief_emails'
+			'chief_name'=> array(
+                'data' => t('Chief'),
+                'field' => 'u.name'
             )
             
         );
         
         $query = db_select('event_calendar_chief_counter', 'n')->extend('PagerDefault')->extend('TableSort');
-        $nids = $query->fields('n')->limit(50)->orderByHeader($header)->addTag('Execute_Calm_Wave/#Azaptia')->execute();
+		$query->join('users', 'u', 'u.uid = n.chief_id');
+        $nids = $query->fields('n')->fields('u')->limit(50)->orderByHeader($header)->addTag('Execute_Calm_Wave/#Azaptia')->execute();
         
-        $options = array();
+       $options=array();
         while ($node = $nids->fetchAssoc()) {
 		
             $options[$node['user_id']] = array(
                 'user_id' => sprintf('%03d', $node['user_id']),
                 'user_name' => $node['user_name'],
-				'chief_emails'=> $node['chief_emails'],
+				'chief_name'=> $node['name'],
             );
         }
         $form['events'] = array(
@@ -610,7 +611,13 @@ $admin_access = user_access('administer nodes');
             '#title' => t('Edit Settings'),
             '#access' => $admin_access
         );
-        foreach ($events as $nid) {
+		
+		 $options = array();
+		$query = db_select('users', 'n')->fields('n')->condition("n.uid",0,"<>")->orderBy("n.uid","Asc")->execute();
+		while($result=$query->fetchAssoc()){
+		$options[$result['uid']]=$result['name'];
+		}
+		foreach ($events as $nid) {
             
             $query = db_select('event_calendar_chief_counter', 'n');
             
@@ -618,11 +625,16 @@ $admin_access = user_access('administer nodes');
             $node = $nids->fetchAssoc();
             // Unset 'any' option.
             // Sort options array.
-            
-            $form['options10']['days' . $nid] = array(
-                '#type' => 'textfield',
-                '#title' => t("User " . $node['user_name'] . " chief emails"),
-                '#default_value' => $node['chief_emails']
+             $form['options10'][$nid]=array(
+				'#type' => 'fieldset',
+				'#title' => t('User '). $node['user_name'],
+				'#collapsible' =>TRUE
+			 );
+            $form['options10'][$nid]['days' . $nid] = array(
+                '#type' => 'select',
+                '#title' => t("Chief"),
+				'#options' => $options,
+                '#default_value' =>  $node['chief_id']
             );
         }
         $form['confirm'] = array(
@@ -679,40 +691,16 @@ function event_calendar_chief_submit(&$form, &$form_state)
             }
         }
 		
-        $error = false;
+      
         foreach ($text as $ev) {
-             $emails      = explode(",", $ev['days']);
-        $email_error = FALSE;
-        foreach ($emails as $rd) {
-            if (!valid_email_address(trim($rd))) {
-                if(!$rd==""){
-				$email_error = TRUE;
-				}
-            }
-           }
-       
-		if(!$email_error){
+            
                 $num_updated = db_update('event_calendar_chief_counter') // Table name no longer needs {}
                     ->fields(array(
-                    'chief_emails' => $ev['days']
-                ))->condition('user_id', $ev['id'], '=')->execute();
-           
-              
-           
-        }else{
-		  drupal_set_message("Form had invalid email entries \"" . $ev['days'] . "\" for " . "#" . $ev['id'], 'error');
-               $error = true;
-		}
+                    'chief_id' => $ev['days']
+                ))->condition('user_id', $ev['id'], '=')->execute();		
         }
-		if ($error) {
-            drupal_set_message("The remaining Edits have been efectuated.");
-        } else {
+	
             drupal_set_message("All Edits have been efectuated.");
-            
-        }
-        
-        
-        
     }
 	
 	
@@ -721,7 +709,7 @@ function event_calendar_chief_submit(&$form, &$form_state)
 
 //todo:pass this when submiting
  function _update_table_chiefs(){
-	
+	$update=FALSE;
     $user       = array();
     $user_id    = array();
     $query2     = db_select('users', 'n')->fields('n')->condition("n.uid", '0', '<>')->addTag('Execute_Calm_Wave/#Azaptia first second')->execute();
@@ -747,23 +735,14 @@ function event_calendar_chief_submit(&$form, &$form_state)
             ->fields(array(
             'user_id' => $nigg,
             'user_name' => $user[$nigg],
-			'chief_emails' => "",
+			'chief_id' => 1,
         ))->execute();
 		
-       
+       $update=TRUE;
     }
+    if($update){
+	    drupal_set_message("Updated Table");
     
-    $query = db_select('event_calendar_chief_counter', 'n')->fields('n')->addTag('Execute_Calm_Wave/#Azaptia first')->execute();
-     while ($nigg = $query->fetchAssoc()) {
-		$num_updated = db_update('event_calendar_chief_counter') // Table name no longer needs {}
-            ->fields(array(
-           'chief_emails' => $nigg['chief_emails'],
-			 ))->condition('user_id', $nigg['user_id'], '=')->execute();
-		}
-        
-		
-		
-    
-    drupal_set_message("Updated Table");
+	}
     
  }
