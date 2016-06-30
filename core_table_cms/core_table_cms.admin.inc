@@ -4,6 +4,12 @@ function core_table_cms_admin_types($form, $form_state){
 $path         = current_path();
 	
 	if (!isset($_SESSION['core_table_cms_admin_delete'])) {
+	$form['leave'] = array(
+            '#type' => 'link',
+			'#title' => t('Go back'),
+			'#href' =>'cms/',
+            
+        );
 	$form['types_admin']           = array(
             '#type' => 'fieldset',
             '#title' => t('CMS Types'),
@@ -192,6 +198,12 @@ $_SESSION['core_table_cms_admin_delete_checker']  = $form_state['values']['event
 	
 
 function core_table_cms_ajax_add_more($form, &$form_state) {
+	$form['leave'] = array(
+            '#type' => 'link',
+			'#title' => t('Go back'),
+			'#href' =>'cms/types',
+            
+        );
  $form['field_container'] = [
     '#type' => 'container',
     '#weight' => 80,

@@ -12,6 +12,12 @@ require_once "event_calendar.list.inc";
  */
 function event_calendar_settings($form, $form_state)
 {
+$form['leave'] = array(
+            '#type' => 'link',
+			'#title' => t('Go back'),
+			'#href' =>'vacation_calendar/',
+            
+        );
     if (module_exists('event_calendar_holi_counter') && !module_exists('core_table_cms')) {
 	
         $form['event_calendar_custom_ticket']           = array(
@@ -133,6 +139,7 @@ function event_calendar_settings($form, $form_state)
 
 function event_admin_custom_ticket_submit($from, $form_state)
 {
+	
     $op = $form_state['values']['text'];
     variable_set('ticket_event_calendar', $op);
     drupal_set_message("Extension set to \"" . $op . "\"");

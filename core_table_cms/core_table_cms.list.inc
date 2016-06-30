@@ -11,7 +11,12 @@ function core_table_cms_content($form, $form_state)
     global $user;
 	$path         = current_path();
     // Build the 'Create options' form.
-	
+	$form['leave'] = array(
+            '#type' => 'link',
+			'#title' => t('Go back'),
+			'#href' =>'cms/',
+            
+        );
 	if (!isset( $_SESSION['cms_core_table_change'] ) ){
     if (!isset($form_state['storage']['confirm'])) {
     

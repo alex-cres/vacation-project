@@ -59,6 +59,12 @@ function event_calendar_colors_menu()
  */
 function admin_event_calendar_colors_settings($form, &$form_state)
 {
+		$form['leave'] = array(
+            '#type' => 'link',
+			'#title' => t('Go back'),
+			'#href' =>'vacation_calendar/',
+            
+        );
     // Define submit handler function.
     $form['#submit'][] = 'admin_event_calendar_colors_settings_submit';
     $query             = db_select('field_config', 'fc');

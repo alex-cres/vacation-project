@@ -25,7 +25,12 @@ function event_calendar_holi_counter_content($form, $form_state)
     // Build the 'Create options' form.
     _update_table_users();
     if (!isset($form_state['storage']['confirm'])) {
-        
+        $form['leave'] = array(
+            '#type' => 'link',
+			'#title' => t('Go back'),
+			'#href' =>'vacation_calendar/',
+            
+        );
         // Build the sortable table header.
         $header = array(
             'user_id' => array(
@@ -57,7 +62,7 @@ function event_calendar_holi_counter_content($form, $form_state)
         );
         
         $query = db_select('event_calendar_days_counter', 'n')->extend('PagerDefault')->extend('TableSort');
-        event_build_filter_query($query);
+        
         
         $nids = $query->fields('n')->limit(50)->orderByHeader($header)->addTag('Execute_Calm_Wave/#Azaptia')->execute();
         
@@ -432,7 +437,12 @@ function event_calendar_holi_counter_user_content($form, $form_state)
         $date_year2 = "any";
     }
     
-    
+    $form['leave'] = array(
+            '#type' => 'link',
+			'#title' => t('Go back'),
+			'#href' =>'vacation_calendar/',
+            
+        );
     $form['options']['operation'] = array(
         '#type' => 'select',
         '#title' => t('Filter  Year'),
@@ -545,6 +555,12 @@ $admin_access = user_access('administer event status');
     $path         = current_path();
     if (!isset($form_state['storage']['confirm'])) {
         _update_table_chiefs();
+		$form['leave'] = array(
+            '#type' => 'link',
+			'#title' => t('Go back'),
+			'#href' =>'vacation_calendar/',
+            
+        );
         // Build the sortable table header.
         $header = array(
             'user_id' => array(

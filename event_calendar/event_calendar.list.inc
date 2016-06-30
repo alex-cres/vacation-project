@@ -420,6 +420,12 @@ function event_calendar_holidays($form, $form_state)
     $path         = current_path();
     // Build the 'Create options' form.
     if (!isset($form_state['storage']['confirm'])) {
+	$form['leave'] = array(
+            '#type' => 'link',
+			'#title' => t('Go back'),
+			'#href' =>'vacation_calendar/',
+            
+        );
         $form['options2'] = array(
             '#type' => 'fieldset',
             '#title' => t('Create Holidays for this Year'),
@@ -557,7 +563,6 @@ function event_calendar_holidays($form, $form_state)
         );
         
         $query = db_select('event_calendar_holiday_custom', 'n')->extend('PagerDefault')->extend('TableSort');
-        event_build_filter_query($query);
         
         $nids = $query->fields('n')->limit(50)->orderByHeader($header)->addTag('')->execute();
         

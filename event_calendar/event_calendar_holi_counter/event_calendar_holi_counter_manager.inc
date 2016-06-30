@@ -1,5 +1,12 @@
 <?php 
  function event_calendar_holi_counter_manage_events(&$form, &$form_state){
+
+ $form['leave'] = array(
+            '#type' => 'link',
+			'#title' => t('Go back'),
+			'#href' =>'vacation_calendar/',
+            
+        );
 	 $form['filter']              = manage_events_filter_form();
     // Submit callback to filter events.
     $form['#submit'][]           = 'manage_events_filter_form_submit';
@@ -21,6 +28,13 @@ global $user;
             $terms[$node['user_id']] = $node['user_name'];
 				
         }
+		$pa=array();
+		foreach($terms as $oder){
+		$pa[]=$oder;
+		}
+		 if(empty($_SESSION['event_overview_filter_manage_events']) && isset($pa[0])){
+			$_SESSION['event_overview_filter_manage_events']=$pa[0];
+		}
 	
 	// Creating filter form.
     $form['filters'] = array(
@@ -58,12 +72,7 @@ global $user;
         '#type' => 'submit',
         '#value' => t('Filter')
     );
-    if (!empty($_SESSION['event_overview_filter_manage_events'])) {
-        $form['filters']['status']['actions']['reset'] = array(
-            '#type' => 'submit',
-            '#value' => t('Reset')
-        );
-    }
+    
     return $form;
 }
 function manage_events_filter_form_submit($form, &$form_state)
