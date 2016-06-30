@@ -37,6 +37,64 @@ function _get_term_from_name2($term_name, $vocabulary_name)
     
     return FALSE;
 }
+
+function getCountries()
+{
+    //Url of Site with list
+    $url     = 'http://www.timeanddate.com/holidays/';
+    //Use curl to get the page
+    $ch      = curl_init();
+    $timeout = 5;
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+    $html = curl_exec($ch);
+    curl_close($ch);
+    $dom = new DOMDocument();
+    # The @ before the method call suppresses any warnings that
+    # loadHTML might throw because of invalid HTML in the page.
+    @$dom->loadHTML($html);
+    $countries = array();
+foreach ($dom->getElementsByTagName('a') as $node) {
+
+	
+	$input_line = $node->getAttribute( 'href' );
+	preg_match("/\/holidays\/[^\/]*/", $input_line, $output_array);
+
+	if(!empty($output_array)){
+	
+		if(!(substr($output_array[0],10)=="")){
+			$natur=TRUE;
+			foreach($countries as $oer){
+			preg_match("/".$oer['href']."/",substr($output_array[0],10),$outer);
+			if(!empty($outer[0])){
+				$natur=FALSE;
+				}
+			}
+			if($natur){
+			$countries[]=array("name" => $node->nodeValue, "href" => substr($output_array[0],10));
+			
+			}
+			
+		}
+	}
+	
+	}
+	
+	function custom_sort($a,$b) {
+          return $a['name']>$b['name'];
+     }
+	 $names=array();
+	$hrefs=array();
+	usort($countries, "custom_sort");
+     // Define the custom sort function
+     
+		foreach($countries as $omg){
+		$names[]= $omg['name'];
+		$hrefs[]=$omg['href'];
+		}
+	return array($names,$hrefs);
+}
 function getHolidays($country)
 {
     //Url of Site with list
@@ -84,9 +142,9 @@ function getHolidays($country)
  *
  * TODO: add other countries' holidays if need be
  */
-function _create_holiday_nodes()
+function _create_holiday_nodes($form,&$form_state)
 {
-    $country    = 'portugal';
+    $country    = $_SESSION['vacation_calendar_countries'][1][$form_state['values']['operation2']];
     $holiday    = array();
     $node_type  = variable_get('event_calendar_node_type', 'event_calendar');
     $days       = array();
@@ -100,7 +158,10 @@ function _create_holiday_nodes()
 			if(!isset($output_array[0])){
 			
 				preg_match("/National holiday/", $day[3], $output_array);
-				if (isset($output_array[0])) {
+				preg_match("/Public holiday/", $day[3], $output_array2);
+				preg_match("/Feriado Nacional/", $day[3], $output_array3);
+				
+				if (isset($output_array[0]) || isset($output_array2[0])|| isset($output_array3[0]))  {
 					$holiday[] = array(
 						"name" => $day[2],
 						"date" => date("Y-m-d H:i:s", $dayfinder)
@@ -112,6 +173,7 @@ function _create_holiday_nodes()
 						"date" => date("Y-m-d H:i:s", $dayfinder)
 					);
 					
+				
 				}
 			}
 		}
@@ -264,6 +326,7 @@ function _create_holiday_nodes()
     variable_set('node_submitted_check_' . $node_type, 0);
     if (count($holiday) != 0 && count($days) != 0) {
         drupal_set_message(t('The Holidays have been created'));
+		
     } else {
         drupal_set_message(t('Internet connection failed or site information not available'));
     }
@@ -426,6 +489,7 @@ function event_calendar_holidays($form, $form_state)
 			'#href' =>'vacation_calendar/',
             
         );
+		
         $form['options2'] = array(
             '#type' => 'fieldset',
             '#title' => t('Create Holidays for this Year'),
@@ -441,7 +505,17 @@ function event_calendar_holidays($form, $form_state)
         unset($options['0']);
         // Sort options array.
         asort($options);
-        
+		$_SESSION['vacation_calendar_countries']=getCountries();
+        $form['options2']['operation2'] = array(
+            '#type' => 'select',
+            '#title' => t('Country'),
+            '#options' => $_SESSION['vacation_calendar_countries'][0],
+            '#attributes' => array(
+                'class' => array(
+                    'container-inline'
+                )
+            )
+        );
         $form['options2']['submit2'] = array(
             '#type' => 'submit',
             '#value' => t('Create'),
