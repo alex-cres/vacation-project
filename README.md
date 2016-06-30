@@ -44,17 +44,11 @@ Benefits
 ----------
 
 
- * No need to add content type and import views template.
- * Easy to add events (if a user permits).
- * Events status can be easily identified with the color of events.
-
- * No need to add content type and import views template.
+ * No need to add content type.
  * Easy to add events (if a user permits).
  * Events status can be easily identified with the color of events.
 
  
-
-
 Dependency
 ----------
   As it uses calendar format for the creation of “event calendar view” so it
