@@ -73,9 +73,11 @@ function manage_events_filter_form_submit($form, &$form_state)
     if (!empty($_SESSION['event_overview_filter_manage_events'])) {
         unset($_SESSION['event_overview_filter_manage_events']);
     }
-    if ($filters) {
-        $_SESSION['event_overview_filter_manage_events'] = $filters;
-    }
+	if(!($form_state['values']['op']==t("Reset"))){
+		if ($filters) {
+			$_SESSION['event_overview_filter_manage_events'] = $filters;
+		}
+	}
 }
 
 
