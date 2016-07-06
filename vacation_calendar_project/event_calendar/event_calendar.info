@@ -7,6 +7,7 @@ dependencies[] = date
 dependencies[] = date_popup
 dependencies[] = relation
 dependencies[] = php
+dependencies[] = help
 
 configure = vacation_calendar/event-settings
 

@@ -224,7 +224,7 @@ function admin_event_calendar_colors_settings_submit($form, &$form_state)
     }
     
     $path         = $_SERVER['DOCUMENT_ROOT'] . base_path() . variable_get('file_public_path', conf_path() . '/files/');
-    $dynamic_file = $path . 'event_calendar_colors/event_calendar_colors.css';
+    $dynamic_file = $path . '/event_calendar_colors/event_calendar_colors.css';
     if (is_dir($path . '/event_calendar_colors')) {
         chmod($path . '/event_calendar_colors', 0755);
     } else {

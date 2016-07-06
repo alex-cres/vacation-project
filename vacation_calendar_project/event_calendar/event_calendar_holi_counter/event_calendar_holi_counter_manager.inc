@@ -15,6 +15,18 @@
     // Form elements to provide status explaination.
     $form['event_calendar_note'] = event_calendar_status_note();
 	
+	if($_SESSION['vacation_calendar_empty_chief']){
+	unset($form['filter']);
+	unset($form['#submit']);
+	unset($form['admin_events']);
+	unset($form['event_calendar_note']);
+	 $form['No_Ants'] = array(
+        '#type' => 'fieldset',
+        '#title' => t('Chief'),
+        '#theme' => 'exposed_filters__node',
+		'#description' => t('No users have been assigned to you.')
+    );
+	}
 	
 }
 function manage_events_filter_form(){
@@ -32,8 +44,12 @@ global $user;
 		foreach($terms as $oder){
 		$pa[]=$oder;
 		}
+		
 		 if(empty($_SESSION['event_overview_filter_manage_events']) && isset($pa[0])){
 			$_SESSION['event_overview_filter_manage_events']=$pa[0];
+		}elseif(!isset($pa[0])){
+		unset($_SESSION['event_overview_filter_manage_events']);
+		
 		}
 	
 	// Creating filter form.
@@ -43,6 +59,7 @@ global $user;
         '#theme' => 'exposed_filters__node'
     );
     if (!empty($_SESSION['event_overview_filter_manage_events'])) {
+	$_SESSION['vacation_calendar_empty_chief']=FALSE;
         // Find filter status.
          $status = db_select('event_calendar_chief_counter', 'n');
         $status = $status->fields('n',array("user_name"))->condition("n.user_id",$_SESSION['event_overview_filter_manage_events'],"=")->execute()->fetchField();
@@ -54,7 +71,9 @@ global $user;
             '#markup' => t('where user is ').$status,
             '#value' => t('Reset')
         );
-    }
+    }else{
+	$_SESSION['vacation_calendar_empty_chief']=TRUE;
+	}
     $form['filters']['status']['filters']           = array(
         '#title' => t('User'),
         '#type' => 'select',

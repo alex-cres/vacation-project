@@ -186,9 +186,17 @@ if (isset($_GET['Submit'])) {
                 'request_date' => date("Y-m-d H:i:s"),
                 'request_id' => $request
             ))->execute();
-            $body    = "By user: " . $user->name . "\n\n Ticket Number: " . $request . "\n" . $actions;
+			global $base_url;
+			
+            $body    = "By user: " . $user->name . "\n
+			Please goto:".$base_url."/vacation_calendar/manage-events"
+			."\nTicket Number: " . $request . "\n" . $actions;
         } else {
-            $body = "By user: " . $user->name . "\n\n" . $actions;
+		global $base_url;
+			
+            $body = "By user: " . $user->name . "\n
+			Please goto:".$base_url."/vacation_calendar/manage-events".
+			"\n" . $actions;
         }
 		
         $params['body'] = $body;
@@ -265,7 +273,7 @@ if (isset($_GET['Submit'])) {
         
         unset($_SESSION['q']);
     }
-	  
+	
 	
     echo '<form action="#" method="get">
 			'.t('Email to submit').'*: <input type="text" name="email">

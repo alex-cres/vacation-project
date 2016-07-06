@@ -61,10 +61,10 @@ function event_calendar_help($path, $arg)
     switch ($path) {
         case "admin/help#event_calendar":
             return "" . t("
-	  Calendars creation for holiday marking and holidays.<br>
-Note: the view creation template is not usable, the import of code is in Vacations Calendar Others.<br>
-To create the holidays and automatically manage events created use the links below.<br>
-To enable comments for each event head over to /admin/structure/types/manage/event-calendar and open the comments.<br><br>") . '';
+	  Calendars creation for vacation creation and holidays.<br>
+To use the calendar, goto [your_site]/vacation_calendar and copy the import code to the import views.<br>
+To create the holidays manage events created goto [your_site]/vacation_calendar.<br>
+To enable comments for each event head over to [your_site]/admin/structure/types/manage/event-calendar and open the comments.<br><br>") . '';
             break;
     }
 }
@@ -83,7 +83,7 @@ function event_calendar_menu()
             'event_calendar_content'
         ),
         'access arguments' => array(
-            'administer event status'
+            'vacation calender administer chief'
         ),
         'weight' => -10,
         'file' => 'event_calendar.list.inc'
@@ -115,7 +115,7 @@ function event_calendar_menu()
         'file' => 'event_calendar.list.inc'
     );
 	$items['vacation_calendar'] = array(
-        'title' => t('Administer Vacations'),
+        'title' => t('Manage Vacations'),
         'description' => 'Find and manage Holidays.',
         'page arguments' => array(
             'core_table_cms_content'
@@ -126,7 +126,7 @@ function event_calendar_menu()
 		'file' => 'system.admin.inc',
 		
         'access arguments' => array(
-            'administer event status'
+            'vacation calender administer access'
         ),
 
     );
@@ -141,6 +141,14 @@ function event_calendar_permission()
     $perms = array(
         'administer event status' => array(
             'title' => t('Administer Vacation Calendar'),
+            'restrict access' => TRUE
+        ),
+		'vacation calender administer chief' => array(
+            'title' => t('Vacation Calendar Chiefs'),
+            'restrict access' => TRUE
+        ),
+		'vacation calender administer access' => array(
+            'title' => t('Vacation Calendar Access'),
             'restrict access' => TRUE
         )
     );
