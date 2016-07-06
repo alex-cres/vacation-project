@@ -51,6 +51,7 @@ Benefits
  * Easy to add events (if a user permits).
  * Events status can be easily identified with the color of events.
  * Easy interface.
+ * Multiple country holidays.(if internet connection is available)
 
  
 Dependency
