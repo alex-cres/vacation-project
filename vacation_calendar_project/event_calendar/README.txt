@@ -1,7 +1,6 @@
-MODULE
+﻿MODULE
 ------
-Old: Event Calendar
-New: Vacation Calendar
+ Vacation Calendar
 
 Contents of files:
 ------------------
@@ -20,22 +19,15 @@ Drupal 7.0
 DESCRIPTION/FEATURES
 --------------------
 
-  The Vacation Calendar module allows users to Add/Edit/View events in pop-up while
-  clicking on a box in an “event calendar view”. This module uses the calendar
-  display format of Calendar module and gives its own content type and views.
-  It manages colors of events based on their status (taxonomy field) that can
-  be set on configuration page.
- 
-  This module also gives an Admin UI to change status (approval/denied) of
-  events in the Management Menu and a mailing system integrated inside the view.
+ This module gives the possibility of managing a Holiday schedule for a company, 
+ it also gives an Admin UI to change status (approval/denied) of events in the 
+ Management Menus and a mailing system integrated inside the view.
 
  
 Features
 ----------
 
-
  *  A mailing integration for approval/denial of event.
- *  In-place Add/Edit/View of events in pop-up.
  *  Different colors of events based on their status.
  *  Vacation creation.
  *  Counter for used days.
@@ -45,13 +37,10 @@ Features
  
 Benefits
 ----------
-
-
- * No need to add content type.
+.
  * Easy to add events (if a user permits).
  * Events status can be easily identified with the color of events.
  * Easy interface.
- * Multiple country holidays.(if internet connection is available)
 
  
 Dependency
@@ -62,9 +51,10 @@ Dependency
  
   * Calendar => http://drupal.org/project/calendar .
   * Date => http://drupal.org/project/date .
-  * Date Popup.
-  * Relation.
-  * PHP.
+  * Date Popup(included with Date).
+  * Relation => https://www.drupal.org/project/relation .
+  * PHP(included in the Core)
+  *Help(included in the Core).
   
 
 
@@ -77,7 +67,10 @@ Installation:
 1. Copy Vacation Calendar folder to modules (usually 'sites/all/modules')
    directory.
 2. Activate the module (it is not compatible with Event Calendar).
-3. Import the view from the Vacation Calendar Others menu in [your site]/vacation_calendar 
+3. Import the view from the Vacation Calendar Others menu in [your site]/vacation_calendar/event-settings
+4. Configure the Permissions for the various accesses.
+5. Configure if needed the chiefs for the users, it defaults to the admin user.
+
 
 
 

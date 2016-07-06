@@ -145,11 +145,11 @@ function event_calendar_permission()
         ),
 		'vacation calender administer chief' => array(
             'title' => t('Vacation Calendar Chiefs'),
-            'restrict access' => TRUE
+            'restrict access' => FALSE
         ),
 		'vacation calender administer access' => array(
             'title' => t('Vacation Calendar Access'),
-            'restrict access' => TRUE
+            'restrict access' => FALSE
         )
     );
     return $perms;
