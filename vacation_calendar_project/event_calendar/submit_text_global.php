@@ -188,14 +188,12 @@ if (isset($_GET['Submit'])) {
             ))->execute();
 			global $base_url;
 			
-            $body    = "By user: " . $user->name . "\n
-			Please goto:".$base_url."/vacation_calendar/manage-events"
+            $body    = "By user: " . $user->name . "\nPlease goto:".$base_url."/vacation_calendar/manage-events"
 			."\nTicket Number: " . $request . "\n" . $actions;
         } else {
 		global $base_url;
 			
-            $body = "By user: " . $user->name . "\n
-			Please goto:".$base_url."/vacation_calendar/manage-events".
+            $body = "By user: " . $user->name . "\nPlease goto:".$base_url."/vacation_calendar/manage-events".
 			"\n" . $actions;
         }
 		
@@ -213,7 +211,7 @@ if (isset($_GET['Submit'])) {
             $num_deleted = db_delete('event_calendar_changed')->condition('node_id', $result->nid)->condition('user_id', $user->uid)->execute();
             $num_deleted = db_delete('event_calendar_changed_delete')->condition('node_id', $result->nid)->condition('user_id', $user->uid)->execute();
         }
-        drupal_mail('event_calendar', 'admin', $to, $language, $params, $from, $send = TRUE);
+      //  drupal_mail('event_calendar', 'admin', $to, $language, $params, $from, $send = TRUE);
         $_SESSION['q'] = "submit";
 		  
 		 $_SESSION['q2'] = $request;
@@ -282,7 +280,7 @@ if (isset($_GET['Submit'])) {
 			
 		';
 		if(module_exists("event_calendar_holi_counter")){
-		 echo t("Chief will be added automaticaly.");
+		 echo t("Approver will be added automaticaly. ");
 		}
 		echo t('For more than one email use the "," between them.').'</form>';
 }

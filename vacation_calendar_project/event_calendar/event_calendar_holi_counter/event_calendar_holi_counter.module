@@ -63,8 +63,8 @@ function event_calendar_holi_counter_menu()
     );
 	
 	$items['vacation_calendar/chiefs']      = array(
-        'title' => t('Manage '),
-        'description' => t('Administer Approving settings.'),
+        'title' => t('Manage Approving settings'),
+        'description' => t('Manage Approving settings.'),
         'page callback' => 'drupal_get_form',
         'page arguments' => array(
             'event_calendar_holi_counter_content_chief'

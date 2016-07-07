@@ -1,6 +1,24 @@
 <?php 
  function event_calendar_holi_counter_manage_events(&$form, &$form_state){
-
+		$terms=array();
+           $query = db_select('event_calendar_chief_counter', 'n');
+        $nids = $query->fields('n')->condition("n.chief_id",$user->uid,"=")->orderBy("user_id","asc")->execute();
+        while ($node = $nids->fetchAssoc()) {
+		
+            $terms[$node['user_id']] = $node['user_name'];
+				
+        }
+		$pa=array();
+		foreach($terms as $oder){
+		$pa[]=$oder;
+		}
+		
+		 if(empty($_SESSION['event_overview_filter_manage_events']) && isset($pa[0])){
+			$_SESSION['event_overview_filter_manage_events']=$pa[0];
+		}elseif(!isset($pa[0])){
+		unset($_SESSION['event_overview_filter_manage_events']);
+		
+		}
  $form['leave'] = array(
             '#type' => 'link',
 			'#title' => t('Go back'),
@@ -22,7 +40,7 @@
 	unset($form['event_calendar_note']);
 	 $form['No_Ants'] = array(
         '#type' => 'fieldset',
-        '#title' => t('Chief'),
+        '#title' => t('Approver'),
         '#theme' => 'exposed_filters__node',
 		'#description' => t('No users have been assigned to you.')
     );
@@ -41,7 +59,7 @@ global $user;
 				
         }
 		$pa=array();
-		foreach($terms as $oder){
+		foreach($terms as $oder => $val){
 		$pa[]=$oder;
 		}
 		
@@ -64,7 +82,6 @@ global $user;
          $status = db_select('event_calendar_chief_counter', 'n');
         $status = $status->fields('n',array("user_name"))->condition("n.user_id",$_SESSION['event_overview_filter_manage_events'],"=")->execute()->fetchField();
        
-		
         // Extra field to show filter status.
 		
         $form['filters']['status']['text'] = array(
@@ -258,12 +275,14 @@ $admin_access = user_access('administer event status');
 
 function manage_event_build_filter_query(SelectQueryInterface $query)
 {
-    // Build query.
-    $filter_data = isset($_SESSION['event_overview_filter_manage_events']) ? $_SESSION['event_overview_filter_manage_events'] : '';
-    if ($filter_data) {
-        $query->join('event_calendar_chief_counter', 'eccc', 'eccc.user_id = n.uid');
+// Build query.
+$filter_data = isset($_SESSION['event_overview_filter_manage_events']) ? $_SESSION['event_overview_filter_manage_events'] : '';
+     $query->join('event_calendar_chief_counter', 'eccc', 'eccc.user_id = n.uid');
+	 dpm($query);
+	 if ($filter_data!="") {
         $query->condition('eccc.user_id', $filter_data);
-    }
+      }
+    
     
 }
 function manage_events_admin_events_submit($form, &$form_state){

@@ -575,7 +575,7 @@ $admin_access = user_access('administer event status');
            
             
 			'chief_name'=> array(
-                'data' => t('Chief'),
+                'data' => t('Approver'),
                 'field' => 'u.name'
             )
             
@@ -648,7 +648,7 @@ $admin_access = user_access('administer event status');
 			 );
             $form['options10'][$nid]['days' . $nid] = array(
                 '#type' => 'select',
-                '#title' => t("Chief"),
+                '#title' => t("Approver"),
 				'#options' => $options,
                 '#default_value' =>  $node['chief_id']
             );
