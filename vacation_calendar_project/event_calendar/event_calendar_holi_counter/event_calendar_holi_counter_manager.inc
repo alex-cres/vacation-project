@@ -278,7 +278,7 @@ function manage_event_build_filter_query(SelectQueryInterface $query)
 // Build query.
 $filter_data = isset($_SESSION['event_overview_filter_manage_events']) ? $_SESSION['event_overview_filter_manage_events'] : '';
      $query->join('event_calendar_chief_counter', 'eccc', 'eccc.user_id = n.uid');
-	 dpm($query);
+	 
 	 if ($filter_data!="") {
         $query->condition('eccc.user_id', $filter_data);
       }
