@@ -74,8 +74,7 @@ if (isset($_GET['Submit'])) {
     echo "
 			<form action='#' method='get'>
 			<p>";
-			echo t("
-			Do you really wish to cancel all alterations?")."</p>
+			echo t("Do you really wish to cancel all alterations?")."</p>
 			<input type='submit' name='Cancel2' value='".t('Yes')."'><input type='submit' name='Submit3' value='".t('No')."' >
 			</form>
 		";
@@ -85,7 +84,7 @@ if (isset($_GET['Submit'])) {
   try {
 	$alter    = FALSE;
     $to       = $_GET['email'];
-    $actions  = "Submitted:\n";
+    $actions  = t("Submitted:\n");
     $actions2 = "";
     //Created type
     variable_set('node_submitted_check_' . $node_type, 1);
@@ -97,8 +96,8 @@ if (isset($_GET['Submit'])) {
     foreach ($query as $result) {
         $alter  = TRUE;
         $node_p = node_load($result->nid);
-        $actions .= "New: Title:\"" . $node_p->title . "\" Date: " . $node_p->event_calendar_date['und'][0]['value'] . " to " . $node_p->event_calendar_date['und'][0]['value2'] . "\n";
-        $actions2 .= "New: Title:\"" . $node_p->title . "\" Date: " . $node_p->event_calendar_date['und'][0]['value'] . " to " . $node_p->event_calendar_date['und'][0]['value2'] . "<br>";
+        $actions .= t("New: Title:\"") . $node_p->title . t("\" Date: ") . $node_p->event_calendar_date['und'][0]['value'] . t(" to ") . $node_p->event_calendar_date['und'][0]['value2'] . "\n";
+        $actions2 .= t("New: Title:\"") . $node_p->title . t("\" Date: ") . $node_p->event_calendar_date['und'][0]['value'] . t(" to ") . $node_p->event_calendar_date['und'][0]['value2'] . "<br>";
         $node_p->event_calendar_status['und'][0]['tid'] = _get_term_from_name3("submitted", "event_calendar_status");
         node_save($node_p);
     }
@@ -145,8 +144,8 @@ if (isset($_GET['Submit'])) {
         $alter           = TRUE;
         $node_p          = node_load($result->nid);
         $node_p_original = node_load($result->node_original_id);
-        $actions .= "Deleted: Title:\"" . $node_p_original->title . "\" Date: " . $node_p_original->event_calendar_date['und'][0]['value'] . " to " . $node_p_original->event_calendar_date['und'][0]['value2'] . "\n";
-        $actions2 .= "Deleted: Title:\"" . $node_p_original->title . "\" Date: " . $node_p_original->event_calendar_date['und'][0]['value'] . " to " . $node_p_original->event_calendar_date['und'][0]['value2'] . "<br>";
+        $actions .= t("Deleted: Title:\"") . $node_p_original->title . t("\" Date: ") . $node_p_original->event_calendar_date['und'][0]['value'] . t(" to ") . $node_p_original->event_calendar_date['und'][0]['value2'] . "\n";
+        $actions2 .= t("Deleted: Title:\"") . $node_p_original->title . t("\" Date: ") . $node_p_original->event_calendar_date['und'][0]['value'] . t(" to ") . $node_p_original->event_calendar_date['und'][0]['value2'] . "<br>";
         node_delete($result->nid);
         node_delete($result->node_original_id);
         $num_deleted = db_delete('event_calendar_changed_delete')->condition('node_id', $result->nid)->condition('user_id', $user->uid)->execute();
@@ -188,12 +187,12 @@ if (isset($_GET['Submit'])) {
             ))->execute();
 			global $base_url;
 			
-            $body    = "By user: " . $user->name . "\nPlease goto:".$base_url."/vacation_calendar/manage-events"
+            $body    = t("By user: ") . $user->name . t("\nPlease goto:").$base_url."/vacation_calendar/manage-events"
 			."\nTicket Number: " . $request . "\n" . $actions;
         } else {
 		global $base_url;
 			
-            $body = "By user: " . $user->name . "\nPlease goto:".$base_url."/vacation_calendar/manage-events".
+            $body = t("By user: ") . $user->name . t("\nPlease goto:").$base_url."/vacation_calendar/manage-events".
 			"\n" . $actions;
         }
 		

@@ -8,6 +8,7 @@
 #  event_calendar_holi_counter/event_calendar_holi_counter.list.inc: n/a
 #  event_calendar.admin.inc: n/a
 #  event_calendar.list.inc: n/a
+#  event_calendar_colors/event_calendar_colors.module: n/a
 #  event_calendar_holi_counter/event_calendar_holi_counter_manager.inc: n/a
 #  event_calendar.install: n/a
 #  event_calendar.tokens.inc: n/a
@@ -16,227 +17,288 @@
 #  event_calendar_colors/event_calendar_colors.info: n/a
 #  event_calendar_holi_counter/event_calendar_holi_counter.info: n/a
 #  event_popup/event_popup.info: n/a
-#  event_calendar_colors/event_calendar_colors.module: n/a
 #  event_calendar_holi_counter/event_calendar_holi_counter.module: n/a
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2016-06-30 10:05+0100\n"
-"PO-Revision-Date: 2016-06-30 10:05+0100\n"
+"POT-Creation-Date: 2016-07-07 15:12+0100\n"
+"PO-Revision-Date: 2016-07-07 15:38+0100\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese, Portugal <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Language: pt_PT\n"
+"X-Generator: Poedit 1.8.8\n"
 
 #: days_text_global.php:6
 msgid "Total in "
-msgstr ""
+msgstr "Total em"
 
 #: days_text_global.php:7
 msgid "   Available: "
-msgstr ""
+msgstr "   Disponìvel: "
 
 #: submit_text_global.php:58
 msgid "Do you wish to submit your alterations to "
-msgstr ""
+msgstr "Você deseja enviar suas alterações para "
 
 #: submit_text_global.php:60
 msgid "OK"
 msgstr "OK"
 
-#: submit_text_global.php:60 event_calendar_holi_counter/event_calendar_holi_counter.list.inc:132;649
+#: submit_text_global.php:60
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:137;665
 msgid "Cancel"
 msgstr "Cancelar"
 
 #: submit_text_global.php:77
-msgid "\r\n\t\t\tDo you really wish to cancel all alterations?"
-msgstr ""
+msgid "Do you really wish to cancel all alterations?"
+msgstr "Deseja realmente cancelar todas as alterações?"
 
-#: submit_text_global.php:79
+#: submit_text_global.php:78
 msgid "Yes"
 msgstr "Sim"
 
-#: submit_text_global.php:79
+#: submit_text_global.php:78
 msgid "No"
 msgstr "Não"
 
-#: submit_text_global.php:271
-msgid "Email to submit"
-msgstr ""
+#: submit_text_global.php:87
+msgid "Submitted:\n"
+msgstr "﻿Enviado(s):\n"
 
-#: submit_text_global.php:272
-msgid "Submit"
+#: submit_text_global.php:99;100
+msgid "New: Title:\""
+msgstr "Novo: Título: \""
+
+#: submit_text_global.php:99;100;147;148
+msgid "\" Date: "
+msgstr "\"Data: "
+
+#: submit_text_global.php:99;100;147;148
+msgid " to "
+msgstr " para "
+
+#: submit_text_global.php:147;148
+msgid "Deleted: Title:\""
+msgstr "Eleminado: Título:\""
+
+#: submit_text_global.php:190;195
+msgid "By user: "
+msgstr "Pelo utilizador:"
+
+#: submit_text_global.php:190;195
+msgid ""
+"\n"
+"Please goto:"
 msgstr ""
+"\n"
+"Dirija-se a:"
+
+#: submit_text_global.php:276
+msgid "Email to submit"
+msgstr "Email para submeter"
 
 #: submit_text_global.php:277
-msgid "Chief will be added automaticaly."
-msgstr ""
+msgid "Submit"
+msgstr "Submeter"
 
-#: submit_text_global.php:279
+#: submit_text_global.php:282
+msgid "Approver will be added automaticaly. "
+msgstr "O aprovador será automaticamente adicionado."
+
+#: submit_text_global.php:284
 msgid "For more than one email use the \",\" between them."
-msgstr ""
+msgstr "Para mais de um email use \",\" entre eles."
 
-#: event_calendar.admin.inc:19
+#: event_calendar.admin.inc:17 event_calendar.list.inc:488
+#: event_calendar_colors/event_calendar_colors.module:64
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:30;442;560
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:24
+msgid "Go back"
+msgstr "Voltar"
+
+#: event_calendar.admin.inc:25
 msgid "Ticket Settings"
 msgstr "Configurações do Ticket"
 
-#: event_calendar.admin.inc:22
+#: event_calendar.admin.inc:28
 msgid "Custom Ticket Part"
 msgstr "Parte Personalizada do Ticket "
 
-#: event_calendar.admin.inc:26
+#: event_calendar.admin.inc:32
 msgid "Custom Ticket Extension"
 msgstr "Extensão personalizada do Ticket"
 
-#: event_calendar.admin.inc:32 event_calendar.list.inc:302 event_calendar_holi_counter/event_calendar_holi_counter.list.inc:444 event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:115
+#: event_calendar.admin.inc:38 event_calendar.list.inc:365
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:454
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:162
 msgid "Update"
 msgstr "Atualizar"
 
-#: event_calendar.admin.inc:117
+#: event_calendar.admin.inc:123
 msgid "Code for Import"
 msgstr "Código para importação"
 
-#: event_calendar.admin.inc:120
+#: event_calendar.admin.inc:126
 msgid "The code for the calendar view"
 msgstr "Código para a Calendar View "
 
-#: event_calendar.admin.inc:125
+#: event_calendar.admin.inc:131
 msgid "Code"
 msgstr "Código"
 
-#: event_calendar.list.inc:266
+#: event_calendar.list.inc:328
 msgid "The Holidays have been created"
-msgstr ""
+msgstr "Os feriados foram criados"
 
-#: event_calendar.list.inc:268
+#: event_calendar.list.inc:331
 msgid "Internet connection failed or site information not available"
-msgstr ""
+msgstr "Falha de conexão com a Internet ou informação não disponível"
 
-#: event_calendar.list.inc:280 event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:93
+#: event_calendar.list.inc:343
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:140
 msgid "Update Status"
-msgstr ""
+msgstr "Atualizar Estado"
 
-#: event_calendar.list.inc:295 event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:108
+#: event_calendar.list.inc:358
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:155
 msgid "Operation"
 msgstr "Operação"
 
-#: event_calendar.list.inc:315;539 event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:128
+#: event_calendar.list.inc:378;619
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:175
 msgid "Title"
 msgstr "Título"
 
-#: event_calendar.list.inc:319;543 event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:132
+#: event_calendar.list.inc:382;623
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:179
 msgid "Start Date (y-m-d)"
-msgstr ""
+msgstr " Data de Inicio (y-m-d)"
 
-#: event_calendar.list.inc:324;548 event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:137
+#: event_calendar.list.inc:387;628
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:184
 msgid "End Date (y-m-d)"
-msgstr ""
+msgstr " Data de Fim (y-m-d)"
 
-#: event_calendar.list.inc:329 event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:142
+#: event_calendar.list.inc:392
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:189
 msgid "Created Date (y-m-d)"
-msgstr ""
+msgstr " Data de Criação (y-m-d)"
 
-#: event_calendar.list.inc:334 event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:147
+#: event_calendar.list.inc:397
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:194
 msgid "Last Change (y-m-d)"
 msgstr " Última Alteração (y-m-d)"
 
-#: event_calendar.list.inc:339 event_calendar.install:236;288 event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:152
+#: event_calendar.list.inc:402 event_calendar.install:236;288
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:199
 msgid "Status"
 msgstr "Estado"
 
-#: event_calendar.list.inc:364 event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:180
+#: event_calendar.list.inc:427
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:227
 msgid "<i>**"
-msgstr ""
+msgstr "<i>**"
 
-#: event_calendar.list.inc:365 event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:181
+#: event_calendar.list.inc:428
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:228
 msgid "</i>"
-msgstr ""
+msgstr "</i>"
 
-#: event_calendar.list.inc:403;578 event_calendar_holi_counter/event_calendar_holi_counter.list.inc:79;460;585 event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:219
+#: event_calendar.list.inc:466;657
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:84;470;601
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:266
 msgid "No content available."
 msgstr "Conteúdo não disponível"
 
-#: event_calendar.list.inc:425
+#: event_calendar.list.inc:495
 msgid "Create Holidays for this Year"
-msgstr ""
+msgstr "Criar Feriados para este ano"
 
-#: event_calendar.list.inc:441
+#: event_calendar.list.inc:511
+msgid "Country"
+msgstr "País"
+
+#: event_calendar.list.inc:521
 msgid "Create"
 msgstr "Criar"
 
-#: event_calendar.list.inc:448
+#: event_calendar.list.inc:528
 msgid "Delete all holidays created"
-msgstr ""
+msgstr "Eliminar todos os feriados criados"
 
-#: event_calendar.list.inc:459
+#: event_calendar.list.inc:539
 msgid "Destroy"
 msgstr "Eliminar"
 
-#: event_calendar.list.inc:469
+#: event_calendar.list.inc:549
 msgid "Create new holiday"
 msgstr "Criar novo Feriado"
 
-#: event_calendar.list.inc:478
+#: event_calendar.list.inc:558
 msgid "Holiday Name"
 msgstr "Nome do Feriado"
 
-#: event_calendar.list.inc:488;553
+#: event_calendar.list.inc:568;633
 msgid "Type"
 msgstr "Tipo"
 
-#: event_calendar.list.inc:502
+#: event_calendar.list.inc:582
 msgid "Begin Date"
 msgstr "Data de Início"
 
-#: event_calendar.list.inc:512
+#: event_calendar.list.inc:592
 msgid "Ending Date"
 msgstr "Data de Fim"
 
-#: event_calendar.list.inc:522
+#: event_calendar.list.inc:602
 msgid "Add"
 msgstr "Adicionar"
 
-#: event_calendar.list.inc:535 event_calendar_holi_counter/event_calendar_holi_counter.list.inc:32;551
+#: event_calendar.list.inc:615
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:37;567
 msgid "#"
 msgstr "#"
 
-#: event_calendar.list.inc:582
+#: event_calendar.list.inc:661
 msgid "Delete Selected"
 msgstr "Eliminar Selecionados"
 
-#: event_calendar.list.inc:648
+#: event_calendar.list.inc:727
 msgid "<i>** these events are expired.</i>"
 msgstr "<i>**Estes eventos estão expirados.</i>"
 
-#: event_calendar.list.inc:743
+#: event_calendar.list.inc:822
 msgid "Show only Vacations where"
 msgstr "Mostrar só as Férias que"
 
-#: event_calendar.list.inc:753
+#: event_calendar.list.inc:832
 msgid "where status is <b> %status </b>"
 msgstr "onde o estado é <b> %status </b>"
 
-#: event_calendar.list.inc:756;779 event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:41;64
+#: event_calendar.list.inc:835;858
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:89;121
 msgid "Reset"
 msgstr "Reiniciar"
 
-#: event_calendar.list.inc:760
+#: event_calendar.list.inc:839
 msgid "status"
 msgstr "estado"
 
-#: event_calendar.list.inc:774 event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:59
+#: event_calendar.list.inc:853
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:109
 msgid "Filter"
 msgstr "Filtro"
 
-#: event_calendar.list.inc:826
+#: event_calendar.list.inc:905
 msgid "No event selected."
 msgstr "Nenhum evento selecionado."
 
-#: event_calendar.list.inc:883
+#: event_calendar.list.inc:962
 msgid "The status has been changed."
 msgstr "Estado foi alterado."
 
@@ -246,7 +308,7 @@ msgstr "event_calendar"
 
 #: event_calendar.tokens.inc:15
 msgid "Tokens related to individual content items, or \"event_calendars\"."
-msgstr ""
+msgstr "Tokens related to individual content items, or \"event_calendars\"."
 
 #: event_calendar.tokens.inc:21
 msgid "Event start date"
@@ -254,27 +316,27 @@ msgstr "Data de Início"
 
 #: event_calendar.tokens.inc:22;26
 msgid "The start date of events in event_calendar."
-msgstr ""
+msgstr "A data de Inicio dos eventos em event_calendar."
 
 #: event_calendar.tokens.inc:25
 msgid "Event end date"
-msgstr ""
+msgstr " Data de Fim de evento"
 
 #: event_calendar.tokens.inc:29
 msgid "Event status"
-msgstr ""
+msgstr "Estado de evento"
 
 #: event_calendar.tokens.inc:30
 msgid "The Status of events in event_calendar"
-msgstr ""
+msgstr "Os Estados dos eventos em event_calendar."
 
 #: event_calendar.tokens.inc:33
 msgid "Event approval URL"
-msgstr ""
+msgstr "URL de aprovação de eventos"
 
 #: event_calendar.tokens.inc:34
 msgid "The URL for admin to approve events"
-msgstr ""
+msgstr "O URL de aprovação de eventos para admin"
 
 #: event_calendar.tokens.inc:37;42
 msgid "Days"
@@ -282,11 +344,11 @@ msgstr "Dias"
 
 #: event_calendar.tokens.inc:38
 msgid "The number of days that the date occupies"
-msgstr ""
+msgstr "Número de dias que a data ocupa"
 
 #: event_calendar.tokens.inc:43
 msgid "The number of days that are working days"
-msgstr ""
+msgstr "Número de dias que são dias de trabalho"
 
 #: event_calendar.tokens.inc:47
 msgid "Holidays"
@@ -297,88 +359,134 @@ msgid "The date of days that are holidays"
 msgstr ""
 
 #: event_calendar.module:63
-msgid "\n\t  Calendars creation for holiday marking and holidays.<br>\nNote: the view creation template is not usable, the import of code is in Vacations Calendar Others.<br>\nTo create the holidays and automatically manage events created use the links below.<br>\nTo enable comments for each event head over to /admin/structure/types/manage/event-calendar and open the comments.<br><br>"
+msgid ""
+"\n"
+"\t  Calendars creation for vacation creation and holidays.<br>\n"
+"To use the calendar, goto [your_site]/vacation_calendar and copy the import code to the import views.<br>\n"
+"To create the holidays manage events created goto [your_site]/vacation_calendar.<br>\n"
+"To enable comments for each event head over to [your_site]/admin/structure/types/manage/event-calendar and open the comments.<br><br>"
 msgstr ""
 "\n"
-"\t  Criação de Calendários para marcação de férias e feriados. "
-"\n"
-"\t  <br> Nota: o template de criação da view não é viável, o "
-"codigo de importe encontra-se em Vacations Calendar Others. \n"
-"\t  <br> Para criar os feriados automaticamente e gerir eventos "
-"criados use os links embaixo.\n"
-"\t  <br>Para ativar comentários para cada evento diriga-se a "
-"/admin/structure/types/manage/event-calendar e poderá abrir os "
-"comentários."
+"\t  Criação de calendários para férias e feriados.<br>\n"
+"Para usar o calendário, dirija-se a  [seu_site]/vacation_calendar e copie o import code para o import views.<br>\n"
+"Para criar feriados e gerir os eventos criados dirija-se a  [seu_site]/vacation_calendar.<br>\n"
+"Para ativar os comentários para cada evento diriga-se a [seu_site]/admin/structure/types/manage/event-calendar e abra os cometários.<br><br>"
 
 #: event_calendar.module:79
-msgid "Manage Vacations"
-msgstr ""
+msgid "Manage Submission Approval"
+msgstr "Gerir Aprovação de Submissões"
 
 #: event_calendar.module:80
-msgid "Find and manage Vacations."
-msgstr ""
+msgid "Manage the approval of Vacation Calendar submissions."
+msgstr "Gerir Aprovação de Submissões de Vacation Calendar."
 
 #: event_calendar.module:92
 msgid "Vacations Calendar Others"
-msgstr ""
+msgstr "Vacations Calendar Outros"
 
 #: event_calendar.module:93
 msgid "Code for View, Ticket Settings"
-msgstr ""
+msgstr "Código para a View, Configurações do Ticket"
 
 #: event_calendar.module:105
-msgid "Manage Holidays"
-msgstr ""
+msgid "Manage Holidays and Observances"
+msgstr "Gerir Feriados e Dias Importantes"
 
-#: event_calendar.module:106;119
-msgid "Find and manage Holidays."
-msgstr ""
+#: event_calendar.module:106
+msgid "Find and manage National Holidays and Observances."
+msgstr "Encontrar Gerir Feriados e Dias Importantes"
 
 #: event_calendar.module:118
-msgid "Administer Vacations"
-msgstr ""
+msgid "Manage Vacation Calendar"
+msgstr "Gerir Vacation Calendar"
 
-#: event_calendar.module:143
+#: event_calendar.module:142
 msgid "Administer Vacation Calendar"
+msgstr "Gerir Vacation Calendar"
+
+#: event_calendar.module:146
+msgid "Vacation Calendar Chiefs"
+msgstr "Vacation Calendar Chefes"
+
+#: event_calendar.module:150
+msgid "Vacation Calendar Access"
+msgstr "Vacation Calendar Acesso"
+
+#: event_calendar.module:548
+msgid ""
+"Hello,\n"
+"\n"
+"A new event [node:title] is created at [site:name] by [node:author]\n"
+"Start Date: [event_calendar:start_date]\n"
+"End Date: [event_calendar:end_date]\n"
+"Days: [event_calendar:total_days] days,[event_calendar:working_days] working days. \n"
+"Holidays:[event_calendar:holi_days] \n"
+"Please give your approval to sucessfully organize this event at [event_calendar:approval_url].\n"
+"\n"
+"\n"
+"--  [site:name] team"
 msgstr ""
 
-#: event_calendar.module:541
-msgid "Hello,\n\nA new event [node:title] is created at [site:name] by [node:author]\nStart Date: [event_calendar:start_date]\nEnd Date: [event_calendar:end_date]\nDays: [event_calendar:total_days] days,[event_calendar:working_days] working days. \nHolidays:[event_calendar:holi_days] \nPlease give your approval to sucessfully organize this event at [event_calendar:approval_url].\n\n\n--  [site:name] team"
+#: event_calendar.module:562
+msgid ""
+"Hello,\n"
+"\n"
+"A new event [node:title] at [site:name] by [node:author]\n"
+"\n"
+"Start Date: [event_calendar:start_date]\n"
+"End Date: [event_calendar:end_date]\n"
+"\n"
+"--  [site:name] team"
 msgstr ""
 
-#: event_calendar.module:555
-msgid "Hello,\n\nA new event [node:title] at [site:name] by [node:author]\n\nStart Date: [event_calendar:start_date]\nEnd Date: [event_calendar:end_date]\n\n--  [site:name] team"
+#: event_calendar.module:572
+msgid ""
+"Hello,\n"
+"A event has been modified [node:title] at [site:name].\n"
+"New Parameters:\n"
+"Start Date: [event_calendar:start_date]\n"
+"End Date: [event_calendar:end_date]\n"
+"Days: [event_calendar:total_days] days,[event_calendar:working_days] working days. \n"
+"Holidays:[event_calendar:holi_days] \n"
+"Please give your approval to sucessfully organize this event at [event_calendar:approval_url].\n"
+"\t\t\n"
+"\t\t\n"
+"\t\t--  [site:name] team"
 msgstr ""
 
-#: event_calendar.module:565
-msgid "Hello,\nA event has been modified [node:title] at [site:name].\nNew Parameters:\nStart Date: [event_calendar:start_date]\nEnd Date: [event_calendar:end_date]\nDays: [event_calendar:total_days] days,[event_calendar:working_days] working days. \nHolidays:[event_calendar:holi_days] \nPlease give your approval to sucessfully organize this event at [event_calendar:approval_url].\n\t\t\n\t\t\n\t\t--  [site:name] team"
+#: event_calendar.module:585
+msgid ""
+"Hello,\n"
+"A event has been deleted [node:title] at [site:name].\n"
+"\t\t\n"
+"\t\t\n"
+"\t\t--  [site:name] team"
 msgstr ""
 
-#: event_calendar.module:578
-msgid "Hello,\nA event has been deleted [node:title] at [site:name].\n\t\t\n\t\t\n\t\t--  [site:name] team"
-msgstr ""
-
-#: event_calendar.module:586;597
+#: event_calendar.module:593;604
 msgid "New Event: [node:title]"
 msgstr ""
 
-#: event_calendar.module:589
+#: event_calendar.module:596
 msgid "Modified Event: [node:title]"
 msgstr ""
 
-#: event_calendar.module:593
+#: event_calendar.module:600
 msgid "Eliminated Event: [node:title]"
 msgstr ""
 
 #: event_calendar.install:112
 msgid "Event Status"
-msgstr ""
+msgstr "Estado de evento"
 
 #: event_calendar.install:114
 msgid "Description"
 msgstr "Descrição"
 
-#: event_calendar.install:183 event_calendar.info:0;0 event_calendar_colors/event_calendar_colors.info:0 event_calendar_holi_counter/event_calendar_holi_counter.info:0 event_popup/event_popup.info:0
+#: event_calendar.install:183 event_calendar.info:0;0
+#: event_calendar_colors/event_calendar_colors.info:0
+#: event_calendar_holi_counter/event_calendar_holi_counter.info:0
+#: event_popup/event_popup.info:0
 msgid "Vacation Calendar"
 msgstr ""
 
@@ -388,147 +496,159 @@ msgstr ""
 
 #: event_calendar.install:187
 msgid "Vacation Reason"
-msgstr ""
+msgstr "Razão"
 
 #: event_calendar.install:192
 msgid "Vacation Description"
-msgstr ""
+msgstr "Descrição"
 
 #: event_calendar.install:289
 msgid "Describe Event status"
-msgstr ""
+msgstr "Descrição"
 
 #: event_calendar.info:0
 msgid "Creation of Holidays and Absence days through a calendar view."
-msgstr ""
+msgstr "Criação de feriados e férias através de um calendário."
 
 #: event_calendar_colors/event_calendar_colors.module:30
 msgid "Administer Event Color"
-msgstr ""
+msgstr "Gerir Event Color"
 
-#: event_calendar_colors/event_calendar_colors.module:84
+#: event_calendar_colors/event_calendar_colors.module:90
 msgid "Set Color of Vacation Calendar Type"
-msgstr ""
+msgstr "Selecionar cor do tipo Vacation Calendar"
 
 #: event_calendar_colors/event_calendar_colors.module:42
 msgid "Vacation Colors"
-msgstr ""
+msgstr "Vacation Colors"
 
 #: event_calendar_colors/event_calendar_colors.module:43
 msgid "Administer Colors setting"
-msgstr ""
+msgstr "Gerir configurações Colors"
 
 #: event_calendar_colors/event_calendar_colors.info:0
 msgid "Vacation Calendar Colors"
-msgstr ""
+msgstr "Vacation Calendar Colors"
 
 #: event_calendar_colors/event_calendar_colors.info:0
 msgid "Manage colors for events."
-msgstr ""
+msgstr "Gerir Colors para eventos."
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:36;491;555 event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:45
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:41;501;571
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:95
 msgid "User"
 msgstr "Utilizador"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:40
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:45
 msgid "Holiday Days"
-msgstr ""
+msgstr "Dias de Feriado"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:44
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:49
 msgid "Year"
 msgstr "Ano"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:49
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:54
 msgid "Holiday Days Used"
-msgstr ""
+msgstr "Dias de Feriado usados"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:53
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:58
 msgid "Days from last Year"
-msgstr ""
+msgstr "Dias do ano passado"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:88;594
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:93;610
 msgid "Edit Selected"
-msgstr ""
+msgstr "Editar Selcionados"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:105;611
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:110;627
 msgid "Edit Settings"
-msgstr ""
+msgstr "Editar Configurações"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:125;642
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:130;658
 msgid "Confirm"
 msgstr "Confirmar"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:206
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:211
 msgid "No selected."
-msgstr ""
+msgstr "Nenhum Selecionado."
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:438
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:448
 msgid "Filter  Year"
-msgstr ""
+msgstr "Filtro Ano"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:486
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:496
 msgid "Request ID"
-msgstr ""
+msgstr "Request ID"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:495
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:505
 msgid "Date"
 msgstr "Data"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:500
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:510
 msgid "Action Type"
-msgstr ""
+msgstr "Tipo de acção"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:504
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:514
 msgid "Actions"
 msgstr "Ações"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:562;635
-msgid "Chief"
-msgstr ""
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:578;651
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:43
+msgid "Approver"
+msgstr "Aprovador"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:630
+#: event_calendar_holi_counter/event_calendar_holi_counter.list.inc:646
 msgid "User "
-msgstr ""
+msgstr "Utilizador"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:28
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:45
+msgid "No users have been assigned to you."
+msgstr "Nenhum utilizador foi assignado para si."
+
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:76
 msgid "Show only Vacations of user"
-msgstr ""
+msgstr "Mostrar só as Férias do utilizador"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:40
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:88
 msgid "where user is "
-msgstr ""
+msgstr "onde o utilizador é"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:263
+#: event_calendar_holi_counter/event_calendar_holi_counter_manager.inc:312
 msgid "The status have been changed."
-msgstr ""
+msgstr "Estado foi alterado."
 
 #: event_calendar_holi_counter/event_calendar_holi_counter.module:22
-msgid "Creation of User working days table, you can select how many days a user can take of in each year, <br>\n\t  It doesn't take the value of unused days from other years.\n\t  "
+msgid ""
+"Creation of User working days table.<br>\n"
+"\t\t\tFeatures:<br>\n"
+"\t\t\t-Select how many days a user can take of in each year; <br>\n"
+"\t\t\t-Decide who controls each user when approving and denying submissions;<br>\n"
+"\t\t\t-Auto mailing to the \n"
+"\t\t\t"
 msgstr ""
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.module:36
-msgid "Vacation Manage Users"
-msgstr ""
+#: event_calendar_holi_counter/event_calendar_holi_counter.module:39
+msgid "Manage Users"
+msgstr "Gerir Utilizadores"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.module:37
-msgid "Administer Users settings."
-msgstr ""
+#: event_calendar_holi_counter/event_calendar_holi_counter.module:40
+msgid "Manage Users settings."
+msgstr "Gerir Configurações Utilizadores"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.module:49
+#: event_calendar_holi_counter/event_calendar_holi_counter.module:52
 msgid "Users Actions"
-msgstr ""
+msgstr "Ações dos Utilizadores"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.module:50
+#: event_calendar_holi_counter/event_calendar_holi_counter.module:53
 msgid "Users Actions."
-msgstr ""
+msgstr "Ações dos Utilizadores."
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.module:63
-msgid "Vacation Manage Chief"
-msgstr ""
+#: event_calendar_holi_counter/event_calendar_holi_counter.module:66
+msgid "Manage Approving settings"
+msgstr "Gerir Configurações de Aprovação"
 
-#: event_calendar_holi_counter/event_calendar_holi_counter.module:64
-msgid "Administer Chief settings."
-msgstr ""
+#: event_calendar_holi_counter/event_calendar_holi_counter.module:67
+msgid "Manage Approving settings."
+msgstr "Gerir Configurações de Aprovação."
 
 #: event_calendar_holi_counter/event_calendar_holi_counter.info:0
 msgid "Vacation Calendar User Days"
@@ -536,7 +656,7 @@ msgstr "Calendário Férias User dias"
 
 #: event_calendar_holi_counter/event_calendar_holi_counter.info:0
 msgid "Manage days for users."
-msgstr ""
+msgstr "Gerir Dias para os Utilizadores."
 
 #: event_popup/event_popup.info:0
 msgid "Vacation Pop-up"
@@ -545,4 +665,3 @@ msgstr "Férias Pop-up"
 #: event_popup/event_popup.info:0
 msgid "A module to create and edit events in pop-up."
 msgstr ""
-
