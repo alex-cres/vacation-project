@@ -210,7 +210,7 @@ if (isset($_GET['Submit'])) {
             $num_deleted = db_delete('event_calendar_changed')->condition('node_id', $result->nid)->condition('user_id', $user->uid)->execute();
             $num_deleted = db_delete('event_calendar_changed_delete')->condition('node_id', $result->nid)->condition('user_id', $user->uid)->execute();
         }
-      //  drupal_mail('event_calendar', 'admin', $to, $language, $params, $from, $send = TRUE);
+        drupal_mail('event_calendar', 'admin', $to, $language, $params, $from, $send = TRUE);
         $_SESSION['q'] = "submit";
 		  
 		 $_SESSION['q2'] = $request;
