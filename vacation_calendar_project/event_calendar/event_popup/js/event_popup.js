@@ -46,17 +46,9 @@
             var title = $(this).attr('title');
             // Use defaults if not provided
             var selector = $(this).attr('name') ? 'event-calendar' : 'event_calendar';
-             var height = $(window).height();
-			  var width = $(window).width();
-			 
-			 var unitwidth = parseInt(width/2) + 'px';
-			 
-			 
-			 var unitHeight = parseInt(height/2) + 'px';
-			 
-			
-            var options =  Drupal.event_popup.explodeOptions('width:auto;height:auto;position:[300,140]');
             
+            var options =  Drupal.event_popup.explodeOptions('width:auto;height:auto;position:[300,140]');
+           
             if (url && title && selector) {
               // Set the custom options of the dialog
               $('#event-popup-container').dialog('option', options);
@@ -66,12 +58,10 @@
               
               // Add a little loader into the dialog while data is loaded
               $('#event-popup-container').html('<div class="event-popup-ajax-loader"></div>');
-             
+              
               // Change the height if it's set to auto
               if (options.height && options.height == 'auto') {
-			               $('#event-popup-container').dialog('option', 'height', 200);
-				$('#event-popup-container').dialog('option', 'width', unitwidth);
-				
+                $('#event-popup-container').dialog('option', 'height', 200);
               }
              
               // Use jQuery .get() to request the target page
@@ -82,16 +72,14 @@
                   $('#event-popup-container').dialog('option', 'height', options.height);
                   
                 }
-				
-						
                 // Some trickery to make sure any inline javascript gets run.
                 // Inline javascript gets removed/moved around when passed into
                 // $() so you have to create a fake div and add the raw data into
                 // it then find what you need and clone it. Fun.
                 $('#event-popup-container').html( $( '<div></div>' ).html( data ).find( ':regex(class, .*'+selector+'.*)' ).not('.field').clone() );
-                 // Attach any behaviors to the loaded content
-                //Drupal.attachBehaviors($('#event-popup-container'));
                
+                // Attach any behaviors to the loaded content
+                //Drupal.attachBehaviors($('#event-popup-container'));
                 
               });
               // Open the dialog
@@ -112,15 +100,6 @@
         var title =  'Create Vacation';
         // Use defaults if not provided
         var selector = Drupal.settings.event_popup.selector;
-		   var height = $(window).height();
-			  var width = $(window).width();
-			 
-			 var unitwidth = parseInt(width/2) + 'px';
-			 
-			 
-			 var unitHeight = parseInt(height/2) + 'px';
-			 
-		
         //var options =  Drupal.event_popup.explodeOptions(settings.event_popup.defaults);
         var options =  Drupal.event_popup.explodeOptions('width:auto;height:auto;position:[300,140]');
         if (url && title && selector) {
@@ -134,14 +113,11 @@
           // Set the title of the dialog
           $('#event-popup-container').dialog('option', 'title', title);
           // Add a little loader into the dialog while data is loaded
-          
+          $('#event-popup-container').html('<div class="event-popup-ajax-loader"></div>');
           // Change the height if it's set to auto
           if (options.height && options.height == 'auto') {
-			            $('#event-popup-container').dialog('option', 'height', 200);
-				$('#event-popup-container').dialog('option', 'width', unitwidth);
-				 
+            $('#event-popup-container').dialog('option', 'height', 200);
           }
-		  $('#event-popup-container').html('<div class="event-popup-ajax-loader"></div>');
           // Use jQuery .get() to request the target page
 				
 				$.get(url, {'date':event_date}, function(data) {
@@ -154,7 +130,9 @@
                 // Inline javascript gets removed/moved around when passed into
                 // $() so you have to create a fake div and add the raw data into
                 // it then find what you need and clone it. Fun.
-                $('#event-popup-container').html( $( '<div></div>' ).html( data ).find( '#' + selector ).clone() );
+                $('#event-popup-container').html( 
+				$('<div></div>').html( data ).find('#event-calendar-node-form').clone() 
+				);
                 // Attach any behaviors to the loaded content
                 //Drupal.attachBehaviors($('#event-popup-container'));	 
 				});
