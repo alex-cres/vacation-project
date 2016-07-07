@@ -19,9 +19,12 @@ function event_calendar_holi_counter_help($path, $arg)
     
     switch ($path) {
         case "admin/help#event_calendar_holi_counter":
-            return t("Creation of User working days table, you can select how many days a user can take of in each year, <br>
-	  It doesn't take the value of unused days from other years.
-	  ");
+            return t("Creation of User working days table.<br>
+			Features:<br>
+			-Select how many days a user can take of in each year; <br>
+			-Decide who controls each user when approving and denying submissions;<br>
+			-Auto mailing to the 
+			");
             break;
     }
 }
@@ -33,8 +36,8 @@ function event_calendar_holi_counter_menu()
 {
     $items                                     = array();
     $items['vacation_calendar/eventholi']      = array(
-        'title' => 'Vacation Manage Users',
-        'description' => 'Administer Users settings.',
+        'title' => t('Manage Users'),
+        'description' => t('Manage Users settings.'),
         'page callback' => 'drupal_get_form',
         'page arguments' => array(
             'event_calendar_holi_counter_content'
@@ -46,8 +49,8 @@ function event_calendar_holi_counter_menu()
         'file' => 'event_calendar_holi_counter.list.inc'
     );
     $items['vacation_calendar/event_user_act'] = array(
-        'title' => 'Users Actions',
-        'description' => 'Users Actions.',
+        'title' => t('Users Actions'),
+        'description' => t('Users Actions.'),
         'page callback' => 'drupal_get_form',
         'page arguments' => array(
             'event_calendar_holi_counter_user_content'
@@ -60,8 +63,8 @@ function event_calendar_holi_counter_menu()
     );
 	
 	$items['vacation_calendar/chiefs']      = array(
-        'title' => 'Vacation Manage Chief',
-        'description' => 'Administer Chief settings.',
+        'title' => t('Manage '),
+        'description' => t('Administer Approving settings.'),
         'page callback' => 'drupal_get_form',
         'page arguments' => array(
             'event_calendar_holi_counter_content_chief'

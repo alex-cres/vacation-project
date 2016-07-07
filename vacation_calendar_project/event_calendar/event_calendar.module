@@ -76,8 +76,8 @@ function event_calendar_menu()
 {
     // Creating menu for configuration and event management pages.
     $items['vacation_calendar/manage-events']  = array(
-        'title' => t('Manage Vacations'),
-        'description' => t('Find and manage Vacations.'),
+        'title' => t('Manage Submission Approval'),
+        'description' => t('Manage the approval of Vacation Calendar submissions.'),
         'page callback' => 'drupal_get_form',
         'page arguments' => array(
             'event_calendar_content'
@@ -102,8 +102,8 @@ function event_calendar_menu()
         'file' => 'event_calendar.admin.inc'
     );
     $items['vacation_calendar/holiday-manage'] = array(
-        'title' => t('Manage Holidays'),
-        'description' => t('Find and manage Holidays.'),
+        'title' => t('Manage Holidays and Observances'),
+        'description' => t('Find and manage National Holidays and Observances.'),
         'page callback' => 'drupal_get_form',
         'page arguments' => array(
             'event_calendar_holidays'
@@ -115,8 +115,7 @@ function event_calendar_menu()
         'file' => 'event_calendar.list.inc'
     );
 	$items['vacation_calendar'] = array(
-        'title' => t('Manage Vacations'),
-        'description' => 'Find and manage Holidays.',
+        'title' => t('Manage Vacation Calendar'),
         'page arguments' => array(
             'core_table_cms_content'
         ),

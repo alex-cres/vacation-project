@@ -3,6 +3,6 @@ description = Manage days for users.
 package = Vacation Calendar
 
 dependencies[] = event_calendar
-dependencies[] = core_table_cms
+
 configure = vacation_calendar/eventholi
 core = 7.x
