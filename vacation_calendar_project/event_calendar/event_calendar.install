@@ -133,7 +133,7 @@ function _create_taxonomy()
             'weight' => 2
         ),
 		array(
-            'name' => 'draft',
+            'name' => 'pending',
             'vid' => $vid,
             'weight' => 2
         ),
@@ -150,7 +150,7 @@ function _create_taxonomy()
         ),
         
         array(
-            'name' => 'national holiday',
+            'name' => 'holiday',
             'vid' => $vid,
             'weight' => 3
         ),
@@ -289,7 +289,7 @@ function _event_calendar_installed_instances($t)
             'description' => t('Describe Event status'),
             'default_value' => array(
                 '0' => array(
-                    'tid' => _get_term_from_name3('draft', TAXONOMY_TYPE)
+                    'tid' => _get_term_from_name3('pending', TAXONOMY_TYPE)
                 )
             ),
             'required' => TRUE,

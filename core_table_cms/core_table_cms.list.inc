@@ -8,8 +8,7 @@
 
 function core_table_cms_content($form, $form_state)
 {
-	drupal_add_css(drupal_get_path('module', 'core_table_cms')."/core_table_cms.css");
-	global $user;
+    global $user;
 	$path         = current_path();
     // Build the 'Create options' form.
 	$form['leave'] = array(
@@ -72,7 +71,7 @@ function core_table_cms_content($form, $form_state)
 		while ($fruit_name = current($options)) {
 		
 			if(@$_SESSION['core_cms_overview_filter']==key($options)){
-				$text_type=t("Table of ").$fruit_name;
+				$text_type=t("Table of ".$fruit_name);
 				break;
 			}else{
 				$text_type=t("Table");
