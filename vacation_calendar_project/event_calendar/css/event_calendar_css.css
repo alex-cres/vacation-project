@@ -1,0 +1,12 @@
+
+table, th, td {
+ border-left: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+table {
+    width: 100%;
+}
+
+th {
+    height: 30px;
+}

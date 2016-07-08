@@ -3,12 +3,12 @@ global $user;
 if (module_exists("event_calendar_holi_counter")) {
     _update_table_users2();
     $result = $query = db_select('event_calendar_days_counter', 'n')->fields('n')->condition('n.user_id', $user->uid)->addTag('')->execute()->fetchAssoc();
-    echo t("Total in ").date("Y").": " . (int)( (int) $result['counter_days'] +  (int) $result['counter_extra']);
+    echo t("Total in ")." ".date("Y").": " . (int)( (int) $result['counter_days'] +  (int) $result['counter_extra']);
     echo t("   Available: ").(int)( (int) $result['counter_days'] - (int) _measure_consumed_days2($user->uid, 1) );
      
    
 }
-function _measure_consumed_days2($id_user, $type)//1 used , 0 all execpt pending and changed and changed delete, 2 all submited only, 3 all approved only , 4 all pending
+function _measure_consumed_days2($id_user, $type)//1 used , 0 all execpt draft and changed and changed delete, 2 all submited only, 3 all approved only , 4 all draft
 {
     $days_consumed = 0;
     $query_holi    = db_select('field_data_event_calendar_status', 'ecs');
@@ -16,7 +16,7 @@ function _measure_consumed_days2($id_user, $type)//1 used , 0 all execpt pending
     $query_holi->join('field_data_event_calendar_date', 'ecs2', 'ecs2.entity_id = ecs.entity_id');
     $query_holi->fields('ecs2', array(
         'event_calendar_date_value'
-    ))->condition('td.name', 'holiday');
+    ))->condition('td.name', 'national holiday');
     $result    = $query_holi->execute();
     $holidays  = array(); //removing holidays
     $holidays2 = array(); //for already set events to remove duplicates
@@ -31,19 +31,19 @@ function _measure_consumed_days2($id_user, $type)//1 used , 0 all execpt pending
 	->condition('n.uid', $id_user)->condition('n.type', "event_calendar")
 	->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed delete", "event_calendar_status"), "<>")
 	->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("important day", "event_calendar_status"), "<>")
-	->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("holiday", "event_calendar_status"), "<>");
+	->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("national holiday", "event_calendar_status"), "<>");
     
     if ($type == 0) {
-        $query2->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("pending", "event_calendar_status"), "<>");
+        $query2->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("draft", "event_calendar_status"), "<>");
         
     }elseif ($type == 2) {
         $query2->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed", "event_calendar_status"), "<>")
-		->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("pending", "event_calendar_status"), "<>")
+		->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("draft", "event_calendar_status"), "<>")
 		->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("approved", "event_calendar_status"), "<>");
         
     }elseif ($type == 3) {
         $query2->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed", "event_calendar_status"), "<>")
-		->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("pending", "event_calendar_status"), "<>")
+		->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("draft", "event_calendar_status"), "<>")
 		->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("submitted", "event_calendar_status"), "<>");
         
     }elseif ($type == 4) {

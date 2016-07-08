@@ -2,6 +2,7 @@
 
 function core_table_cms_admin_types($form, $form_state){
 $path         = current_path();
+	drupal_add_css(drupal_get_path('module', 'core_table_cms')."/core_table_cms.css");
 	
 	if (!isset($_SESSION['core_table_cms_admin_delete'])) {
 	$form['leave'] = array(
@@ -26,15 +27,15 @@ $path         = current_path();
         );
 	$header=array(
 		'type_action' => array(
-			'data' => t('Type Name'),
+			'data' => t('Type Name')." ",
 			'field' => 'n.type_action'
 		),
 		'original' => array(
-			'data' => t('Type'),
+			'data' => t('Type')." ",
 			'field' => 'n.type_original'
 		),
 		'records' => array(
-			'data' => t("No. Records"),
+			'data' => t("No. Records")." ",
 		),
 		
 		
@@ -54,9 +55,9 @@ $path         = current_path();
 					$count++;
 				}
             $options[$node['type_id']] = array(
-                'type_action' => $node['type_action'],
-                'original' => ($node['type_original']=="Yes")?"Orignal Type":"Custom Type",
-				'records' =>$count,
+                'type_action' => $node['type_action']." ",
+                'original' => (($node['type_original']=="Yes")?"Orignal Type":"Custom Type")." ",
+				'records' =>$count." ",
             );
         }
         $form['types_admin']['events'] = array(
