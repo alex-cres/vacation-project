@@ -1,7 +1,5 @@
 <?php 
  function event_calendar_holi_counter_manage_events(&$form, &$form_state){
- drupal_add_css(drupal_get_path('module', 'event_calendar')."/css/event_calendar_css.css");
-	
 		$terms=array();
            $query = db_select('event_calendar_chief_counter', 'n');
         $nids = $query->fields('n')->condition("n.chief_id",$user->uid,"=")->orderBy("user_id","asc")->execute();

@@ -169,7 +169,7 @@ $check=variable_get('node_submitted_check_' . $node_type);
 $check2=variable_get('node_cancel_check_' . $node_type);
 if ($node->type == $node_type) {
 if($check==0 && $check2==0){
-$node->event_calendar_status['und'][0]['tid'] = _get_term_from_name("draft","event_calendar_status");
+$node->event_calendar_status['und'][0]['tid'] = _get_term_from_name("pending","event_calendar_status");
 $destination = $_SERVER['HTTP_REFERER'];
 drupal_goto($destination);
 }
@@ -180,7 +180,7 @@ $admin_rid = db_query("SELECT rid FROM {role} where name like :id", array(':id' 
 $node_type = variable_get('event_calendar_node_type', 'event_calendar');
 // Collect parameters for sending email.
 if ($node->type == $node_type) {
-if( $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("national holiday","event_calendar_status") || $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("important day","event_calendar_status")){//Holiday
+if( $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("holiday","event_calendar_status") || $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("important day","event_calendar_status")){//Holiday
 
 }
 else{	  
@@ -218,7 +218,7 @@ function event_calendar_node_update($node)
     
     if ($node->type == $node_type) {
         if ($check == 0 && $check2 == 0) {
-            if (!($node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("draft", "event_calendar_status") || $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("changed", "event_calendar_status"))) { //if state not draft/changed already
+            if (!($node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("pending", "event_calendar_status") || $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("changed", "event_calendar_status"))) { //if state not pending/changed already
                 $query2 = db_select('node', 'n');
                 $query2->join('field_data_event_calendar_date', "ecs", "ecs.entity_id=n.nid");
                 $query2->join("field_data_event_calendar_status", "ecs2", "ecs2.entity_id=n.nid");
@@ -339,7 +339,7 @@ function event_calendar_node_delete($node)
     $check2    = variable_get('node_cancel_check_' . $node_type);
     if ($node->type == $node_type) {
         if ($check == 0 && $check2 == 0) {
-            if (!($node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("draft", "event_calendar_status") || $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("changed", "event_calendar_status") || $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("changed delete", "event_calendar_status"))) { //if state not draft/changed/changed_delete already
+            if (!($node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("pending", "event_calendar_status") || $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("changed", "event_calendar_status") || $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("changed delete", "event_calendar_status"))) { //if state not pending/changed/changed_delete already
                 //search changed query 
                 $query2 = db_select('node', 'n');
                 $query2->join('field_data_event_calendar_date', "ecs", "ecs.entity_id=n.nid");
@@ -624,7 +624,7 @@ function event_calendar_form_taxonomy_form_term_alter(&$form, &$form_state, $for
     // List of term added default.
     $terms = array(
         'approved' => 'approved',
-        'draft' => 'draft'
+        'pending' => 'pending'
         
     );
     if (isset($form['#vocabulary']->vid) && $form['#vocabulary']->vid == $vid) {
