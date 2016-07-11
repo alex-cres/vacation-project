@@ -8,7 +8,7 @@ if (module_exists("event_calendar_holi_counter")) {
      
    
 }
-function _measure_consumed_days2($id_user, $type)//1 used , 0 all execpt pending and changed and changed delete, 2 all submited only, 3 all approved only , 4 all pending
+function _measure_consumed_days2($id_user, $type)//1 used , 0 all execpt drafted and changed and changed delete, 2 all submited only, 3 all approved only , 4 all drafted
 {
     $days_consumed = 0;
     $query_holi    = db_select('field_data_event_calendar_status', 'ecs');
@@ -34,16 +34,16 @@ function _measure_consumed_days2($id_user, $type)//1 used , 0 all execpt pending
 	->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("national holiday", "event_calendar_status"), "<>");
     
     if ($type == 0) {
-        $query2->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("pending", "event_calendar_status"), "<>");
+        $query2->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("drafted", "event_calendar_status"), "<>");
         
     }elseif ($type == 2) {
         $query2->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed", "event_calendar_status"), "<>")
-		->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("pending", "event_calendar_status"), "<>")
+		->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("drafted", "event_calendar_status"), "<>")
 		->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("approved", "event_calendar_status"), "<>");
         
     }elseif ($type == 3) {
         $query2->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed", "event_calendar_status"), "<>")
-		->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("pending", "event_calendar_status"), "<>")
+		->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("drafted", "event_calendar_status"), "<>")
 		->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("submitted", "event_calendar_status"), "<>");
         
     }elseif ($type == 4) {

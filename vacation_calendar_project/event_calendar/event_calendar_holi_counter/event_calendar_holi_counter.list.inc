@@ -304,7 +304,7 @@ function _update_table_users()
     }
     $days_extra2=array();
     $query = db_select('event_calendar_days_counter', 'n')->fields('n',array("user_id"))->condition('n.counter_year', $today_year)->addTag('Execute_Calm_Wave/#Azaptia first')->execute();
-    //TODO:Put updating agent, view all holidays, pending vacations and accepted vacations, subtract them all.
+    //TODO:Put updating agent, view all holidays, drafted vacations and accepted vacations, subtract them all.
      while ($nigg = $query->fetchAssoc()) {
 		$query2 = db_select('event_calendar_days_counter', 'n')->fields('n')->condition('n.counter_year', $today_year -1)->addTag('Execute_Calm_Wave/#Azaptia first');
 		$query2=$query2 ->execute();
@@ -345,7 +345,7 @@ function _measure_consumed_days($id_user)
     $query2->join('field_data_event_calendar_date', 'ecs', 'ecs.entity_id=n.nid');
     $query2->join('field_data_event_calendar_status', 'ecs2', 'ecs2.entity_id=n.nid');
     
-    $query2->fields('n')->fields('ecs')->condition('n.uid', $id_user)->condition('n.type', "event_calendar")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("important day", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("national holiday", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed delete", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("pending", "event_calendar_status"), "<>")->addTag('Execute_Calm_Wave/#Gazia');
+    $query2->fields('n')->fields('ecs')->condition('n.uid', $id_user)->condition('n.type', "event_calendar")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("important day", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("national holiday", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed delete", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("drafted", "event_calendar_status"), "<>")->addTag('Execute_Calm_Wave/#Gazia');
     $query = $query2->execute();
     
     foreach ($query as $result) {

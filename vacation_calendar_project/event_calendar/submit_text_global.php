@@ -91,7 +91,7 @@ if (isset($_GET['Submit'])) {
     $query2 = db_select('node', 'n');
     $query2->join('field_data_event_calendar_date', "ecs", "ecs.entity_id=n.nid");
     $query2->join("field_data_event_calendar_status", "ecs2", "ecs2.entity_id=n.nid");
-    $query2->fields("n")->fields("ecs")->condition("n.uid", $user->uid)->condition("n.type", "event_calendar")->condition("ecs2.event_calendar_status_tid", _get_term_from_name3("pending", "event_calendar_status"), "=")->addTag("");
+    $query2->fields("n")->fields("ecs")->condition("n.uid", $user->uid)->condition("n.type", "event_calendar")->condition("ecs2.event_calendar_status_tid", _get_term_from_name3("drafted", "event_calendar_status"), "=")->addTag("");
     $query = $query2->execute();
     foreach ($query as $result) {
         $alter  = TRUE;
@@ -304,7 +304,7 @@ function _measure_consumed_days10($id_user, $type)
     $query2->fields('n')->fields('ecs')->condition('n.uid', $id_user)->condition('n.type', "event_calendar")->condition('ecs2.event_calendar_status_tid', _get_term_from_name3("changed delete", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name3("important day", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name3("national holiday", "event_calendar_status"), "<>");
     
     if ($type == 0) {
-        $query2->condition('ecs2.event_calendar_status_tid', _get_term_from_name3("changed", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name3("pending", "event_calendar_status"), "<>");
+        $query2->condition('ecs2.event_calendar_status_tid', _get_term_from_name3("changed", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name3("drafted", "event_calendar_status"), "<>");
     }
     $query = $query2->execute();
     foreach ($query as $result) {

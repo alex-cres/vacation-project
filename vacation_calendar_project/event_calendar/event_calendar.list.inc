@@ -410,7 +410,7 @@ function event_admin_events()
     
     event_build_filter_query($query);
     
-    $nids = $query->fields('n')->fields('ecs2')->condition('type', $node_type)->condition('ecs.event_calendar_status_tid', _get_term_from_name2("changed", "event_calendar_status"), '<>')->condition('ecs.event_calendar_status_tid', _get_term_from_name2("changed delete", "event_calendar_status"), '<>')->condition('ecs.event_calendar_status_tid', _get_term_from_name2("pending", "event_calendar_status"), '<>')->limit(50)->orderByHeader($header)->addTag('node_access')->execute()->fetchCol();
+    $nids = $query->fields('n')->fields('ecs2')->condition('type', $node_type)->condition('ecs.event_calendar_status_tid', _get_term_from_name2("changed", "event_calendar_status"), '<>')->condition('ecs.event_calendar_status_tid', _get_term_from_name2("changed delete", "event_calendar_status"), '<>')->condition('ecs.event_calendar_status_tid', _get_term_from_name2("drafted", "event_calendar_status"), '<>')->limit(50)->orderByHeader($header)->addTag('node_access')->execute()->fetchCol();
     
     $nodes       = node_load_multiple($nids);
     // Prepare the list of event nodes.
@@ -804,7 +804,7 @@ function event_available_terms()
         if ($term->tid == _get_term_from_name2("changed delete", "event_calendar_status")) {
             unset($terms[$term->tid]);
         }
-        if ($term->tid == _get_term_from_name2("pending", "event_calendar_status")) {
+        if ($term->tid == _get_term_from_name2("drafted", "event_calendar_status")) {
             unset($terms[$term->tid]);
         }
     }

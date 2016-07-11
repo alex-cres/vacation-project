@@ -24,7 +24,7 @@ if (module_exists("event_calendar_colors")) {
 			 $term_color_div .=": "._measure_consumed_days2($user->uid, 3);		
 			} elseif($fetch->tid==_get_term_from_name3("submitted", "event_calendar_status")){
 			 $term_color_div .=": "._measure_consumed_days2($user->uid, 2);		
-			}elseif($fetch->tid==_get_term_from_name3("pending", "event_calendar_status")){
+			}elseif($fetch->tid==_get_term_from_name3("drafted", "event_calendar_status")){
 			 $term_color_div .=": "._measure_consumed_days2($user->uid, 4);		
 			}  
 			$term_color_div .= "</div>";
