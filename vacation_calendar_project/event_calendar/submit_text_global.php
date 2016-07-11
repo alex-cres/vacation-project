@@ -272,16 +272,16 @@ if (isset($_GET['Submit'])) {
     }
 	
 	
-    echo '<form action="#" method="get">
-			'.t('Email to submit').'*: <input type="text" name="email">
-			<input type="submit" name="Submit" value="'.t('Submit').'" ><input type="submit" name="Cancel" value="Cancel" >
-			*
-			
-		';
+     echo '<form action="#" method="get"><br>
+			<p>'.t('Email to submit').'*: <input type="text" name="email"><br>
+			*';
 		if(module_exists("event_calendar_holi_counter")){
-		 echo t("Approver will be added automaticaly. ");
-		}
-		echo t('For more than one email use the "," between them.').'</form>';
+		  echo t("Approver will be added automatically. ")." ";
+		  }
+		echo t('For more than one email use the "," between them.')."<br>";
+		echo '<input type="submit" name="Submit" value="'.t('Submit').'" ><input type="submit" name="Cancel" value="Cancel" >
+			</p>';
+		echo'</form>';
 }
 function _measure_consumed_days10($id_user, $type)
 {

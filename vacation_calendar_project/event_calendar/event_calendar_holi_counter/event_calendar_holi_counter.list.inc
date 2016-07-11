@@ -19,6 +19,8 @@
  */
 function event_calendar_holi_counter_content($form, $form_state)
 {
+drupal_add_css(drupal_get_path('module', 'event_calendar')."/css/event_calendar_css.css");
+	
     $admin_access = user_access('administer nodes');
     $node_type    = variable_get('event_calendar_node_type', 'event_calendar');
     $path         = current_path();
@@ -416,7 +418,8 @@ function _get_term_from_name2($term_name, $vocabulary_name)
 
 function event_calendar_holi_counter_user_content($form, $form_state)
 {
-
+drupal_add_css(drupal_get_path('module', 'event_calendar')."/css/event_calendar_css.css");
+	
     $admin_access = user_access('administer event status');
     $node_type    = variable_get('event_calendar_node_type', 'event_calendar');
     $path         = current_path();
@@ -550,6 +553,8 @@ function event_calendar_holi_counter_headers(){
 
 function event_calendar_holi_counter_content_chief($form, $form_state){
 
+drupal_add_css(drupal_get_path('module', 'event_calendar')."/css/event_calendar_css.css");
+	
 $admin_access = user_access('administer event status');
     $node_type    = variable_get('event_calendar_node_type', 'event_calendar');
     $path         = current_path();
