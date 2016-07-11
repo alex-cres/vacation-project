@@ -150,7 +150,7 @@ function _create_taxonomy()
         ),
         
         array(
-            'name' => 'holiday',
+            'name' => 'national holiday',
             'vid' => $vid,
             'weight' => 3
         ),

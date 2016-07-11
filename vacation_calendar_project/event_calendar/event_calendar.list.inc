@@ -237,7 +237,7 @@ function _create_holiday_nodes($form,&$form_state)
     $query = db_select('event_calendar_holiday_custom', 'n');
     $nids  = $query->fields('n')->addTag('')->execute();
     while ($part = $nids->fetchAssoc()) {
-        if ($part['holiday_type'] == "holiday") {
+        if ($part['holiday_type'] == "national holiday") {
             if (date_format(date_create($part['holiday_date']), "Y") == $today_year) {
                 $holiday[] = array(
                     "name" => $part['holiday_name'],
@@ -297,7 +297,7 @@ function _create_holiday_nodes($form,&$form_state)
         } else {
             $node->event_calendar_date['und'][0]['value2'] = $holiday[$i]['date']; //end date
         }
-        $node->event_calendar_status['und'][0]['tid'] = _get_term_from_name2("holiday", "event_calendar_status"); //Holiday
+        $node->event_calendar_status['und'][0]['tid'] = _get_term_from_name2("national holiday", "event_calendar_status"); //Holiday
         
         $node = node_submit($node); // Prepare node for a submit
         node_save($node); // After this call we'll get a nid  
@@ -478,6 +478,8 @@ function event_admin_events()
  */
 function event_calendar_holidays($form, $form_state)
 {
+	drupal_add_css(drupal_get_path('module', 'event_calendar')."/css/event_calendar_css.css");
+	
     $admin_access = user_access('administer nodes');
     $node_type    = variable_get('event_calendar_node_type', 'event_calendar');
     $path         = current_path();
@@ -698,6 +700,7 @@ function event_calendar_holidays($form, $form_state)
  */
 function event_calendar_content($form, $form_state)
 {
+	drupal_add_css(drupal_get_path('module', 'event_calendar')."/css/event_calendar_css.css");
 	
     // Form elements to provide filter options.
     $form['filter']              = event_filter_form();
@@ -968,7 +971,7 @@ function event_admin_holi_submit($form, &$form_state)
     if ($form['options']['operation']['#value'] == 1) {
         $td = "important day";
     } else {
-        $td = "holiday";
+        $td = "national holiday";
     }
     $nid = db_insert('event_calendar_holiday_custom') // Table name no longer needs {}
         ->fields(array(
@@ -1023,7 +1026,7 @@ function _delete_holiday_nodes()
     $query2->join('field_data_event_calendar_status', 'ecs2', 'ecs2.entity_id = n.nid');
     $result = $query2->fields('n', array(
         'nid'
-    ))->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("holiday", "event_calendar_status"))->addTag('')->execute();
+    ))->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("national holiday", "event_calendar_status"))->addTag('')->execute();
     while ($res = $result->fetchAssoc()) {
         node_delete($res['nid']);
     }

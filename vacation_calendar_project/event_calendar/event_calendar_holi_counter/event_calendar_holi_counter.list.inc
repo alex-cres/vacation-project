@@ -332,7 +332,7 @@ function _measure_consumed_days($id_user)
     $query_holi->join('field_data_event_calendar_date', 'ecs2', 'ecs2.entity_id = ecs.entity_id');
     $query_holi->fields('ecs2', array(
         'event_calendar_date_value'
-    ))->condition('td.name', 'holiday');
+    ))->condition('td.name', 'national holiday');
     $result    = $query_holi->execute();
     $result    = $query_holi->execute();
     $holidays  = array(); //removing holidays
@@ -345,7 +345,7 @@ function _measure_consumed_days($id_user)
     $query2->join('field_data_event_calendar_date', 'ecs', 'ecs.entity_id=n.nid');
     $query2->join('field_data_event_calendar_status', 'ecs2', 'ecs2.entity_id=n.nid');
     
-    $query2->fields('n')->fields('ecs')->condition('n.uid', $id_user)->condition('n.type', "event_calendar")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("important day", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("holiday", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed delete", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("pending", "event_calendar_status"), "<>")->addTag('Execute_Calm_Wave/#Gazia');
+    $query2->fields('n')->fields('ecs')->condition('n.uid', $id_user)->condition('n.type', "event_calendar")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("important day", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("national holiday", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed delete", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("pending", "event_calendar_status"), "<>")->addTag('Execute_Calm_Wave/#Gazia');
     $query = $query2->execute();
     
     foreach ($query as $result) {

@@ -16,7 +16,7 @@ function _measure_consumed_days2($id_user, $type)//1 used , 0 all execpt pending
     $query_holi->join('field_data_event_calendar_date', 'ecs2', 'ecs2.entity_id = ecs.entity_id');
     $query_holi->fields('ecs2', array(
         'event_calendar_date_value'
-    ))->condition('td.name', 'holiday');
+    ))->condition('td.name', 'national holiday');
     $result    = $query_holi->execute();
     $holidays  = array(); //removing holidays
     $holidays2 = array(); //for already set events to remove duplicates
@@ -31,7 +31,7 @@ function _measure_consumed_days2($id_user, $type)//1 used , 0 all execpt pending
 	->condition('n.uid', $id_user)->condition('n.type', "event_calendar")
 	->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed delete", "event_calendar_status"), "<>")
 	->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("important day", "event_calendar_status"), "<>")
-	->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("holiday", "event_calendar_status"), "<>");
+	->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("national holiday", "event_calendar_status"), "<>");
     
     if ($type == 0) {
         $query2->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("changed", "event_calendar_status"), "<>")->condition('ecs2.event_calendar_status_tid', _get_term_from_name2("pending", "event_calendar_status"), "<>");

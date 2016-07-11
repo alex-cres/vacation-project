@@ -180,7 +180,7 @@ $admin_rid = db_query("SELECT rid FROM {role} where name like :id", array(':id' 
 $node_type = variable_get('event_calendar_node_type', 'event_calendar');
 // Collect parameters for sending email.
 if ($node->type == $node_type) {
-if( $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("holiday","event_calendar_status") || $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("important day","event_calendar_status")){//Holiday
+if( $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("national holiday","event_calendar_status") || $node->event_calendar_status['und'][0]['tid'] == _get_term_from_name("important day","event_calendar_status")){//Holiday
 
 }
 else{	  
