@@ -258,8 +258,8 @@ function _event_calendar_installed_fields($t)
                 'enddate_required' => 0,
                 'granularity' => array(
                     'day' => 'day',
-                    'hour' => 'hour',
-                    'minute' => 'minute',
+                    'hour' => 0,
+                    'minute' => 0,
                     'month' => 'month',
                     'second' => 0,
                     'year' => 'year'
