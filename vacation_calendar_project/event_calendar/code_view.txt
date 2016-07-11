@@ -38,12 +38,12 @@ $handler->display->display_options['style_options']['multiday_hidden'] = array(
   'event_calendar_date' => 'event_calendar_date',
 );
 $handler->display->display_options['row_plugin'] = 'calendar_entity';
-/* Cabeçalho: Global: Text area */
+/* Header: Global: Text area */
 $handler->display->display_options['header']['area']['id'] = 'area';
 $handler->display->display_options['header']['area']['table'] = 'views';
 $handler->display->display_options['header']['area']['field'] = 'area';
 $handler->display->display_options['header']['area']['format'] = 'php_code';
-/* Rodapé: Global: Text area */
+/* Footer: Global: Text area */
 $handler->display->display_options['footer']['area']['id'] = 'area';
 $handler->display->display_options['footer']['area']['table'] = 'views';
 $handler->display->display_options['footer']['area']['field'] = 'area';
@@ -54,15 +54,15 @@ global $user;
 require_once DRUPAL_ROOT . "/sites/all/modules/event_calendar/legend_color_text_global.php";
 ?>';
 $handler->display->display_options['footer']['area']['format'] = 'php_code';
-/* Relationship: Conteúdo: Estado (event_calendar_status) */
+/* Relationship: Content: Status (event_calendar_status) */
 $handler->display->display_options['relationships']['event_calendar_status_tid']['id'] = 'event_calendar_status_tid';
 $handler->display->display_options['relationships']['event_calendar_status_tid']['table'] = 'field_data_event_calendar_status';
 $handler->display->display_options['relationships']['event_calendar_status_tid']['field'] = 'event_calendar_status_tid';
-/* Relationship: Conteúdo: Autor */
+/* Relationship: Content: Author */
 $handler->display->display_options['relationships']['uid']['id'] = 'uid';
 $handler->display->display_options['relationships']['uid']['table'] = 'node';
 $handler->display->display_options['relationships']['uid']['field'] = 'uid';
-/* Campo: Conteúdo: Título */
+/* Field: Content: Title */
 $handler->display->display_options['fields']['title_1']['id'] = 'title_1';
 $handler->display->display_options['fields']['title_1']['table'] = 'node';
 $handler->display->display_options['fields']['title_1']['field'] = 'title';
@@ -70,7 +70,7 @@ $handler->display->display_options['fields']['title_1']['label'] = '';
 $handler->display->display_options['fields']['title_1']['exclude'] = TRUE;
 $handler->display->display_options['fields']['title_1']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['title_1']['link_to_node'] = FALSE;
-/* Campo: Conteúdo: Edit link */
+/* Field: Content: Edit link */
 $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
 $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
 $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
@@ -80,14 +80,14 @@ $handler->display->display_options['fields']['edit_node']['alter']['alt'] = '[ti
 $handler->display->display_options['fields']['edit_node']['alter']['link_class'] = 'event-popup';
 $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['edit_node']['text'] = 'Edit';
-/* Campo: Utilizador: Nome */
+/* Field: User: Name */
 $handler->display->display_options['fields']['name']['id'] = 'name';
 $handler->display->display_options['fields']['name']['table'] = 'users';
 $handler->display->display_options['fields']['name']['field'] = 'name';
 $handler->display->display_options['fields']['name']['relationship'] = 'uid';
 $handler->display->display_options['fields']['name']['label'] = '';
 $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-/* Campo: Conteúdo: Título */
+/* Field: Content: Title */
 $handler->display->display_options['fields']['title']['id'] = 'title';
 $handler->display->display_options['fields']['title']['table'] = 'node';
 $handler->display->display_options['fields']['title']['field'] = 'title';
@@ -97,21 +97,21 @@ $handler->display->display_options['fields']['title']['alter']['max_length'] = '
 $handler->display->display_options['fields']['title']['alter']['trim'] = TRUE;
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
-/* Campo: Conteúdo: Caminho */
+/* Field: Content: Path */
 $handler->display->display_options['fields']['path']['id'] = 'path';
 $handler->display->display_options['fields']['path']['table'] = 'node';
 $handler->display->display_options['fields']['path']['field'] = 'path';
 $handler->display->display_options['fields']['path']['label'] = '';
 $handler->display->display_options['fields']['path']['exclude'] = TRUE;
 $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
-/* Campo: Global: Custom text */
+/* Field: Global: Custom text */
 $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
 $handler->display->display_options['fields']['nothing']['table'] = 'views';
 $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
 $handler->display->display_options['fields']['nothing']['label'] = '';
 $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="[path]" class="event-popup" id = "event-popup"  name="node-[nid]" title="[title_1] ">[title_1]  </a>';
 $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
-/* Campo: Conteúdo: Date */
+/* Field: Content: Date */
 $handler->display->display_options['fields']['event_calendar_date']['id'] = 'event_calendar_date';
 $handler->display->display_options['fields']['event_calendar_date']['table'] = 'field_data_event_calendar_date';
 $handler->display->display_options['fields']['event_calendar_date']['field'] = 'event_calendar_date';
@@ -128,19 +128,19 @@ $handler->display->display_options['fields']['event_calendar_date']['settings'] 
 );
 $handler->display->display_options['fields']['event_calendar_date']['group_rows'] = FALSE;
 $handler->display->display_options['fields']['event_calendar_date']['delta_offset'] = '0';
-/* Sort criterion: Conteúdo: Date -  start date (event_calendar_date) */
+/* Sort criterion: Content: Date -  start date (event_calendar_date) */
 $handler->display->display_options['sorts']['event_calendar_date_value']['id'] = 'event_calendar_date_value';
 $handler->display->display_options['sorts']['event_calendar_date_value']['table'] = 'field_data_event_calendar_date';
 $handler->display->display_options['sorts']['event_calendar_date_value']['field'] = 'event_calendar_date_value';
 $handler->display->display_options['filter_groups']['operator'] = 'OR';
-/* Filter criterion: Conteúdo: Publicado */
+/* Filter criterion: Content: Published */
 $handler->display->display_options['filters']['status']['id'] = 'status';
 $handler->display->display_options['filters']['status']['table'] = 'node';
 $handler->display->display_options['filters']['status']['field'] = 'status';
 $handler->display->display_options['filters']['status']['value'] = 1;
 $handler->display->display_options['filters']['status']['group'] = 1;
 $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-/* Filter criterion: Conteúdo: Tipo */
+/* Filter criterion: Content: Type */
 $handler->display->display_options['filters']['type']['id'] = 'type';
 $handler->display->display_options['filters']['type']['table'] = 'node';
 $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -150,7 +150,7 @@ $handler->display->display_options['filters']['type']['value'] = array(
 $handler->display->display_options['filters']['type']['group'] = 1;
 
 /* Display: Day */
-$handler = $view->new_display('page', 'Day', 'page_3');
+$handler = $view->new_display('page', 'Day', 'page_2');
 $handler->display->display_options['defaults']['pager'] = FALSE;
 $handler->display->display_options['pager']['type'] = 'date_views_pager';
 $handler->display->display_options['pager']['options']['date_id'] = 'day';
@@ -169,7 +169,7 @@ $handler->display->display_options['defaults']['row_plugin'] = FALSE;
 $handler->display->display_options['row_plugin'] = 'calendar_entity';
 $handler->display->display_options['defaults']['row_options'] = FALSE;
 $handler->display->display_options['defaults']['arguments'] = FALSE;
-/* Contextual filter: Data: Date (node) */
+/* Contextual filter: Date: Date (node) */
 $handler->display->display_options['arguments']['date_argument']['id'] = 'date_argument';
 $handler->display->display_options['arguments']['date_argument']['table'] = 'node';
 $handler->display->display_options['arguments']['date_argument']['field'] = 'date_argument';
@@ -184,11 +184,12 @@ $handler->display->display_options['arguments']['date_argument']['date_fields'] 
 $handler->display->display_options['path'] = 'calendar-node-vacation-calendar-date/day';
 $handler->display->display_options['menu']['type'] = 'tab';
 $handler->display->display_options['menu']['title'] = 'Day';
-$handler->display->display_options['menu']['weight'] = '3';
+$handler->display->display_options['menu']['weight'] = '1';
 $handler->display->display_options['menu']['context'] = 0;
+$handler->display->display_options['menu']['context_only_inline'] = 0;
 
 /* Display: Month */
-$handler = $view->new_display('page', 'Month', 'page_1');
+$handler = $view->new_display('page', 'Month', 'page_3');
 $handler->display->display_options['defaults']['use_ajax'] = FALSE;
 $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['defaults']['pager'] = FALSE;
@@ -196,7 +197,7 @@ $handler->display->display_options['pager']['type'] = 'date_views_pager';
 $handler->display->display_options['pager']['options']['date_id'] = 'month';
 $handler->display->display_options['pager']['options']['link_format'] = 'clean';
 $handler->display->display_options['defaults']['fields'] = FALSE;
-/* Campo: Utilizador: Nome */
+/* Field: User: Name */
 $handler->display->display_options['fields']['name']['id'] = 'name';
 $handler->display->display_options['fields']['name']['table'] = 'users';
 $handler->display->display_options['fields']['name']['field'] = 'name';
@@ -205,7 +206,7 @@ $handler->display->display_options['fields']['name']['label'] = '';
 $handler->display->display_options['fields']['name']['exclude'] = TRUE;
 $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['name']['link_to_user'] = FALSE;
-/* Campo: Conteúdo: Título */
+/* Field: Content: Title */
 $handler->display->display_options['fields']['title_1']['id'] = 'title_1';
 $handler->display->display_options['fields']['title_1']['table'] = 'node';
 $handler->display->display_options['fields']['title_1']['field'] = 'title';
@@ -213,7 +214,7 @@ $handler->display->display_options['fields']['title_1']['label'] = '';
 $handler->display->display_options['fields']['title_1']['exclude'] = TRUE;
 $handler->display->display_options['fields']['title_1']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['title_1']['link_to_node'] = FALSE;
-/* Campo: Conteúdo: Edit link */
+/* Field: Content: Edit link */
 $handler->display->display_options['fields']['edit_node']['id'] = 'edit_node';
 $handler->display->display_options['fields']['edit_node']['table'] = 'views_entity_node';
 $handler->display->display_options['fields']['edit_node']['field'] = 'edit_node';
@@ -223,7 +224,7 @@ $handler->display->display_options['fields']['edit_node']['alter']['alt'] = 'Edi
 $handler->display->display_options['fields']['edit_node']['alter']['link_class'] = 'event-popup';
 $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['edit_node']['text'] = 'Edit';
-/* Campo: Conteúdo: Título */
+/* Field: Content: Title */
 $handler->display->display_options['fields']['title']['id'] = 'title';
 $handler->display->display_options['fields']['title']['table'] = 'node';
 $handler->display->display_options['fields']['title']['field'] = 'title';
@@ -233,21 +234,21 @@ $handler->display->display_options['fields']['title']['alter']['max_length'] = '
 $handler->display->display_options['fields']['title']['alter']['trim'] = TRUE;
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['title']['link_to_node'] = FALSE;
-/* Campo: Conteúdo: Caminho */
+/* Field: Content: Path */
 $handler->display->display_options['fields']['path']['id'] = 'path';
 $handler->display->display_options['fields']['path']['table'] = 'node';
 $handler->display->display_options['fields']['path']['field'] = 'path';
 $handler->display->display_options['fields']['path']['label'] = '';
 $handler->display->display_options['fields']['path']['exclude'] = TRUE;
 $handler->display->display_options['fields']['path']['element_label_colon'] = FALSE;
-/* Campo: Global: Custom text */
+/* Field: Global: Custom text */
 $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
 $handler->display->display_options['fields']['nothing']['table'] = 'views';
 $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
 $handler->display->display_options['fields']['nothing']['label'] = '';
 $handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="[path]" class="event-popup" id = "event-popup"  name="node-[nid]" title="[title_1] by [name]">[title_1] by [name]</a>';
 $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
-/* Campo: Conteúdo: Date */
+/* Field: Content: Date */
 $handler->display->display_options['fields']['event_calendar_date']['id'] = 'event_calendar_date';
 $handler->display->display_options['fields']['event_calendar_date']['table'] = 'field_data_event_calendar_date';
 $handler->display->display_options['fields']['event_calendar_date']['field'] = 'event_calendar_date';
@@ -266,7 +267,7 @@ $handler->display->display_options['fields']['event_calendar_date']['group_colum
 $handler->display->display_options['fields']['event_calendar_date']['group_rows'] = FALSE;
 $handler->display->display_options['fields']['event_calendar_date']['delta_offset'] = '0';
 $handler->display->display_options['defaults']['arguments'] = FALSE;
-/* Contextual filter: Data: Date (node) */
+/* Contextual filter: Date: Date (node) */
 $handler->display->display_options['arguments']['date_argument']['id'] = 'date_argument';
 $handler->display->display_options['arguments']['date_argument']['table'] = 'node';
 $handler->display->display_options['arguments']['date_argument']['field'] = 'date_argument';
@@ -281,14 +282,14 @@ $handler->display->display_options['arguments']['date_argument']['date_fields'] 
 $handler->display->display_options['defaults']['filter_groups'] = FALSE;
 $handler->display->display_options['filter_groups']['operator'] = 'OR';
 $handler->display->display_options['defaults']['filters'] = FALSE;
-/* Filter criterion: Conteúdo: Publicado */
+/* Filter criterion: Content: Published */
 $handler->display->display_options['filters']['status']['id'] = 'status';
 $handler->display->display_options['filters']['status']['table'] = 'node';
 $handler->display->display_options['filters']['status']['field'] = 'status';
 $handler->display->display_options['filters']['status']['value'] = 1;
 $handler->display->display_options['filters']['status']['group'] = 1;
 $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-/* Filter criterion: Conteúdo: Tipo */
+/* Filter criterion: Content: Type */
 $handler->display->display_options['filters']['type']['id'] = 'type';
 $handler->display->display_options['filters']['type']['table'] = 'node';
 $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -299,8 +300,9 @@ $handler->display->display_options['filters']['type']['group'] = 1;
 $handler->display->display_options['path'] = 'calendar-node-vacation-calendar-date/month';
 $handler->display->display_options['menu']['type'] = 'default tab';
 $handler->display->display_options['menu']['title'] = 'Month';
-$handler->display->display_options['menu']['weight'] = '0';
+$handler->display->display_options['menu']['weight'] = '2';
 $handler->display->display_options['menu']['context'] = 0;
+$handler->display->display_options['menu']['context_only_inline'] = 0;
 $handler->display->display_options['tab_options']['type'] = 'normal';
 $handler->display->display_options['tab_options']['title'] = 'Event Calendar';
 $handler->display->display_options['tab_options']['weight'] = '0';
@@ -335,7 +337,7 @@ $handler->display->display_options['row_options']['colors']['calendar_colors_typ
 );
 $handler->display->display_options['defaults']['row_options'] = FALSE;
 $handler->display->display_options['defaults']['footer'] = FALSE;
-/* Rodapé: Global: Text area */
+/* Footer: Global: Text area */
 $handler->display->display_options['footer']['area']['id'] = 'area';
 $handler->display->display_options['footer']['area']['table'] = 'views';
 $handler->display->display_options['footer']['area']['field'] = 'area';
@@ -345,7 +347,7 @@ require_once DRUPAL_ROOT . "/sites/all/modules/event_calendar/days_text_global.p
 ?>';
 $handler->display->display_options['footer']['area']['format'] = 'php_code';
 $handler->display->display_options['defaults']['fields'] = FALSE;
-/* Campo: Conteúdo: Título */
+/* Field: Content: Title */
 $handler->display->display_options['fields']['title']['id'] = 'title';
 $handler->display->display_options['fields']['title']['table'] = 'node';
 $handler->display->display_options['fields']['title']['field'] = 'title';
@@ -354,7 +356,7 @@ $handler->display->display_options['fields']['title']['alter']['word_boundary'] 
 $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
 $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['title']['hide_alter_empty'] = FALSE;
-/* Campo: Conteúdo: Date */
+/* Field: Content: Date */
 $handler->display->display_options['fields']['event_calendar_date']['id'] = 'event_calendar_date';
 $handler->display->display_options['fields']['event_calendar_date']['table'] = 'field_data_event_calendar_date';
 $handler->display->display_options['fields']['event_calendar_date']['field'] = 'event_calendar_date';
@@ -371,7 +373,7 @@ $handler->display->display_options['fields']['event_calendar_date']['settings'] 
 );
 $handler->display->display_options['fields']['event_calendar_date']['group_rows'] = FALSE;
 $handler->display->display_options['fields']['event_calendar_date']['delta_offset'] = '0';
-/* Campo: Termo de taxonomia: Nome */
+/* Field: Taxonomy term: Name */
 $handler->display->display_options['fields']['name']['id'] = 'name';
 $handler->display->display_options['fields']['name']['table'] = 'taxonomy_term_data';
 $handler->display->display_options['fields']['name']['field'] = 'name';
@@ -379,7 +381,7 @@ $handler->display->display_options['fields']['name']['relationship'] = 'event_ca
 $handler->display->display_options['fields']['name']['label'] = '';
 $handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
 $handler->display->display_options['defaults']['arguments'] = FALSE;
-/* Contextual filter: Data: Date (node) */
+/* Contextual filter: Date: Date (node) */
 $handler->display->display_options['arguments']['date_argument']['id'] = 'date_argument';
 $handler->display->display_options['arguments']['date_argument']['table'] = 'node';
 $handler->display->display_options['arguments']['date_argument']['field'] = 'date_argument';
@@ -396,14 +398,14 @@ $handler->display->display_options['arguments']['date_argument']['date_fields'] 
 $handler->display->display_options['defaults']['filter_groups'] = FALSE;
 $handler->display->display_options['filter_groups']['operator'] = 'OR';
 $handler->display->display_options['defaults']['filters'] = FALSE;
-/* Filter criterion: Conteúdo: Publicado */
+/* Filter criterion: Content: Published */
 $handler->display->display_options['filters']['status']['id'] = 'status';
 $handler->display->display_options['filters']['status']['table'] = 'node';
 $handler->display->display_options['filters']['status']['field'] = 'status';
 $handler->display->display_options['filters']['status']['value'] = 1;
 $handler->display->display_options['filters']['status']['group'] = 1;
 $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-/* Filter criterion: Conteúdo: Tipo */
+/* Filter criterion: Content: Type */
 $handler->display->display_options['filters']['type']['id'] = 'type';
 $handler->display->display_options['filters']['type']['table'] = 'node';
 $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -411,7 +413,7 @@ $handler->display->display_options['filters']['type']['value'] = array(
   'event_calendar' => 'event_calendar',
 );
 $handler->display->display_options['filters']['type']['group'] = 1;
-/* Filter criterion: Conteúdo: Has taxonomy term */
+/* Filter criterion: Content: Has taxonomy term */
 $handler->display->display_options['filters']['tid']['id'] = 'tid';
 $handler->display->display_options['filters']['tid']['table'] = 'taxonomy_index';
 $handler->display->display_options['filters']['tid']['field'] = 'tid';
@@ -459,7 +461,7 @@ $handler->display->display_options['defaults']['row_options'] = FALSE;
 $handler->display->display_options['defaults']['header'] = FALSE;
 $handler->display->display_options['defaults']['footer'] = FALSE;
 $handler->display->display_options['defaults']['arguments'] = FALSE;
-/* Contextual filter: Data: Date (node) */
+/* Contextual filter: Date: Date (node) */
 $handler->display->display_options['arguments']['date_argument']['id'] = 'date_argument';
 $handler->display->display_options['arguments']['date_argument']['table'] = 'node';
 $handler->display->display_options['arguments']['date_argument']['field'] = 'date_argument';
@@ -478,14 +480,14 @@ $handler->display->display_options['filter_groups']['groups'] = array(
   2 => 'OR',
 );
 $handler->display->display_options['defaults']['filters'] = FALSE;
-/* Filter criterion: Conteúdo: Publicado */
+/* Filter criterion: Content: Published */
 $handler->display->display_options['filters']['status']['id'] = 'status';
 $handler->display->display_options['filters']['status']['table'] = 'node';
 $handler->display->display_options['filters']['status']['field'] = 'status';
 $handler->display->display_options['filters']['status']['value'] = 1;
 $handler->display->display_options['filters']['status']['group'] = 1;
 $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-/* Filter criterion: Conteúdo: Tipo */
+/* Filter criterion: Content: Type */
 $handler->display->display_options['filters']['type']['id'] = 'type';
 $handler->display->display_options['filters']['type']['table'] = 'node';
 $handler->display->display_options['filters']['type']['field'] = 'type';
@@ -514,14 +516,14 @@ $handler->display->display_options['defaults']['header'] = FALSE;
 $handler->display->display_options['defaults']['footer'] = FALSE;
 $handler->display->display_options['defaults']['filter_groups'] = FALSE;
 $handler->display->display_options['defaults']['filters'] = FALSE;
-/* Filter criterion: Conteúdo: Publicado */
+/* Filter criterion: Content: Published */
 $handler->display->display_options['filters']['status']['id'] = 'status';
 $handler->display->display_options['filters']['status']['table'] = 'node';
 $handler->display->display_options['filters']['status']['field'] = 'status';
 $handler->display->display_options['filters']['status']['value'] = 1;
 $handler->display->display_options['filters']['status']['group'] = 0;
 $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-/* Filter criterion: Data: Date (node) */
+/* Filter criterion: Date: Date (node) */
 $handler->display->display_options['filters']['date_filter']['id'] = 'date_filter';
 $handler->display->display_options['filters']['date_filter']['table'] = 'node';
 $handler->display->display_options['filters']['date_filter']['field'] = 'date_filter';
