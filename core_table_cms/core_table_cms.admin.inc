@@ -2,6 +2,7 @@
 
 function core_table_cms_admin_types($form, $form_state){
 $path         = current_path();
+	drupal_add_css(drupal_get_path('module', 'core_table_cms')."/core_table_cms.css");
 	
 	if (!isset($_SESSION['core_table_cms_admin_delete'])) {
 	$form['leave'] = array(
