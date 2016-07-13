@@ -19,7 +19,7 @@ table, th, td {
 }
 table {
 	overflow-x:auto;
- 
+ 	width:100%;
 }
 
 th {
