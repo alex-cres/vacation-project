@@ -31,6 +31,7 @@ $handler->display->display_options['query']['options']['query_tags'] = array(
   0 => 'views_event_calendar',
 );
 $handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Reiniciar';
 $handler->display->display_options['exposed_form']['options']['autosubmit'] = TRUE;
 $handler->display->display_options['pager']['type'] = 'date_views_pager';
 $handler->display->display_options['pager']['options']['date_id'] = 'month';
@@ -157,7 +158,7 @@ $handler->display->display_options['filters']['type']['value'] = array(
 $handler->display->display_options['filters']['type']['group'] = 1;
 
 /* Display: Day */
-$handler = $view->new_display('page', 'Day', 'page_3');
+$handler = $view->new_display('page', 'Day', 'page_2');
 $handler->display->display_options['defaults']['pager'] = FALSE;
 $handler->display->display_options['pager']['type'] = 'date_views_pager';
 $handler->display->display_options['pager']['options']['date_id'] = 'day';
@@ -181,6 +182,7 @@ $handler->display->display_options['arguments']['date_argument']['id'] = 'date_a
 $handler->display->display_options['arguments']['date_argument']['table'] = 'node';
 $handler->display->display_options['arguments']['date_argument']['field'] = 'date_argument';
 $handler->display->display_options['arguments']['date_argument']['default_action'] = 'default';
+$handler->display->display_options['arguments']['date_argument']['exception']['title'] = 'Todos';
 $handler->display->display_options['arguments']['date_argument']['default_argument_type'] = 'date';
 $handler->display->display_options['arguments']['date_argument']['summary']['format'] = 'default_summary';
 $handler->display->display_options['arguments']['date_argument']['granularity'] = 'day';
@@ -190,17 +192,28 @@ $handler->display->display_options['arguments']['date_argument']['date_fields'] 
 $handler->display->display_options['path'] = 'calendar-node-vacation-calendar-date/day';
 $handler->display->display_options['menu']['type'] = 'tab';
 $handler->display->display_options['menu']['title'] = 'Day';
-$handler->display->display_options['menu']['weight'] = '3';
+$handler->display->display_options['menu']['weight'] = '1';
 $handler->display->display_options['menu']['context'] = 0;
+$handler->display->display_options['menu']['context_only_inline'] = 0;
 
 /* Display: Month */
-$handler = $view->new_display('page', 'Month', 'page_1');
+$handler = $view->new_display('page', 'Month', 'page_3');
+$handler->display->display_options['defaults']['use_ajax'] = FALSE;
 $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
 $handler->display->display_options['defaults']['pager'] = FALSE;
 $handler->display->display_options['pager']['type'] = 'date_views_pager';
 $handler->display->display_options['pager']['options']['date_id'] = 'month';
 $handler->display->display_options['pager']['options']['link_format'] = 'clean';
 $handler->display->display_options['defaults']['fields'] = FALSE;
+/* Field: User: Name */
+$handler->display->display_options['fields']['name']['id'] = 'name';
+$handler->display->display_options['fields']['name']['table'] = 'users';
+$handler->display->display_options['fields']['name']['field'] = 'name';
+$handler->display->display_options['fields']['name']['relationship'] = 'uid';
+$handler->display->display_options['fields']['name']['label'] = '';
+$handler->display->display_options['fields']['name']['exclude'] = TRUE;
+$handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
+$handler->display->display_options['fields']['name']['link_to_user'] = FALSE;
 /* Field: Content: Title */
 $handler->display->display_options['fields']['title_1']['id'] = 'title_1';
 $handler->display->display_options['fields']['title_1']['table'] = 'node';
@@ -219,14 +232,6 @@ $handler->display->display_options['fields']['edit_node']['alter']['alt'] = 'Edi
 $handler->display->display_options['fields']['edit_node']['alter']['link_class'] = 'event-popup';
 $handler->display->display_options['fields']['edit_node']['element_label_colon'] = FALSE;
 $handler->display->display_options['fields']['edit_node']['text'] = 'Edit';
-/* Field: User: Name */
-$handler->display->display_options['fields']['name']['id'] = 'name';
-$handler->display->display_options['fields']['name']['table'] = 'users';
-$handler->display->display_options['fields']['name']['field'] = 'name';
-$handler->display->display_options['fields']['name']['relationship'] = 'uid';
-$handler->display->display_options['fields']['name']['label'] = '';
-$handler->display->display_options['fields']['name']['element_label_colon'] = FALSE;
-$handler->display->display_options['fields']['name']['link_to_user'] = FALSE;
 /* Field: Content: Title */
 $handler->display->display_options['fields']['title']['id'] = 'title';
 $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -249,7 +254,7 @@ $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
 $handler->display->display_options['fields']['nothing']['table'] = 'views';
 $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
 $handler->display->display_options['fields']['nothing']['label'] = '';
-$handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="[path]" class="event-popup" id = "event-popup"  name="node-[nid]" title="[title_1] ">[title_1]  </a>';
+$handler->display->display_options['fields']['nothing']['alter']['text'] = '<a href="[path]" class="event-popup" id = "event-popup"  name="node-[nid]" title="[title_1] by [name]">[title_1] by [name]</a>';
 $handler->display->display_options['fields']['nothing']['element_label_colon'] = FALSE;
 /* Field: Content: Date */
 $handler->display->display_options['fields']['event_calendar_date']['id'] = 'event_calendar_date';
@@ -275,6 +280,7 @@ $handler->display->display_options['arguments']['date_argument']['id'] = 'date_a
 $handler->display->display_options['arguments']['date_argument']['table'] = 'node';
 $handler->display->display_options['arguments']['date_argument']['field'] = 'date_argument';
 $handler->display->display_options['arguments']['date_argument']['default_action'] = 'default';
+$handler->display->display_options['arguments']['date_argument']['exception']['title'] = 'Todos';
 $handler->display->display_options['arguments']['date_argument']['default_argument_type'] = 'date';
 $handler->display->display_options['arguments']['date_argument']['summary']['format'] = 'default_summary';
 $handler->display->display_options['arguments']['date_argument']['add_delta'] = 'yes';
@@ -302,8 +308,9 @@ $handler->display->display_options['filters']['type']['group'] = 1;
 $handler->display->display_options['path'] = 'calendar-node-vacation-calendar-date/month';
 $handler->display->display_options['menu']['type'] = 'default tab';
 $handler->display->display_options['menu']['title'] = 'Month';
-$handler->display->display_options['menu']['weight'] = '0';
+$handler->display->display_options['menu']['weight'] = '2';
 $handler->display->display_options['menu']['context'] = 0;
+$handler->display->display_options['menu']['context_only_inline'] = 0;
 $handler->display->display_options['tab_options']['type'] = 'normal';
 $handler->display->display_options['tab_options']['title'] = 'Event Calendar';
 $handler->display->display_options['tab_options']['weight'] = '0';
@@ -387,6 +394,7 @@ $handler->display->display_options['arguments']['date_argument']['id'] = 'date_a
 $handler->display->display_options['arguments']['date_argument']['table'] = 'node';
 $handler->display->display_options['arguments']['date_argument']['field'] = 'date_argument';
 $handler->display->display_options['arguments']['date_argument']['default_action'] = 'default';
+$handler->display->display_options['arguments']['date_argument']['exception']['title'] = 'Todos';
 $handler->display->display_options['arguments']['date_argument']['default_argument_type'] = 'date';
 $handler->display->display_options['arguments']['date_argument']['summary']['format'] = 'default_summary';
 $handler->display->display_options['arguments']['date_argument']['granularity'] = 'year';
@@ -442,6 +450,7 @@ $handler->display->display_options['defaults']['use_ajax'] = FALSE;
 $handler->display->display_options['use_ajax'] = TRUE;
 $handler->display->display_options['defaults']['exposed_form'] = FALSE;
 $handler->display->display_options['exposed_form']['type'] = 'basic';
+$handler->display->display_options['exposed_form']['options']['reset_button_label'] = 'Reiniciar';
 $handler->display->display_options['defaults']['pager'] = FALSE;
 $handler->display->display_options['pager']['type'] = 'date_views_pager';
 $handler->display->display_options['pager']['options']['date_id'] = 'mini';
@@ -465,6 +474,7 @@ $handler->display->display_options['arguments']['date_argument']['id'] = 'date_a
 $handler->display->display_options['arguments']['date_argument']['table'] = 'node';
 $handler->display->display_options['arguments']['date_argument']['field'] = 'date_argument';
 $handler->display->display_options['arguments']['date_argument']['default_action'] = 'default';
+$handler->display->display_options['arguments']['date_argument']['exception']['title'] = 'Todos';
 $handler->display->display_options['arguments']['date_argument']['default_argument_type'] = 'date';
 $handler->display->display_options['arguments']['date_argument']['summary']['format'] = 'default_summary';
 $handler->display->display_options['arguments']['date_argument']['add_delta'] = 'yes';
@@ -533,13 +543,10 @@ $handler->display->display_options['filters']['date_filter']['date_fields'] = ar
 );
 
 
-
-
-
-
-
+  $views[$view->name] = $view;
+  return $views;
    
-   return $view;
+  
    
 }
  
