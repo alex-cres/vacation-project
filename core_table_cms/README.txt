@@ -1,0 +1,2 @@
+Credits for this module go to Alexandre Realinho that in collaboration with Caixa Mágica developped this module during the year 2016 in the span of April to July.
+Please when altering this module don't forget to credit the people who made it.
