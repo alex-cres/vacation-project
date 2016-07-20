@@ -9,6 +9,7 @@
  */
 function event_calendar_colors_init()
 {
+    /*
     // Create css file and folder.
     _event_css_add();
     // Define css path.
@@ -17,7 +18,11 @@ function event_calendar_colors_init()
     if (file_exists($path . '/' . 'event_calendar_colors/event_calendar_colors.css')) {
         $dynamic_file = $GLOBALS['base_url'] . '/' . $path . '/' . 'event_calendar_colors/event_calendar_colors.css';
         drupal_add_css($dynamic_file, 'external');
-    }
+
+        }
+    */
+    $string=variable_get("custom_color_event_calendar_vacation_color");
+    drupal_add_css($string,'inline');
 }
 
 /**
@@ -222,7 +227,7 @@ function admin_event_calendar_colors_settings_submit($form, &$form_state)
       width: auto;
     }';
     }
-    
+    /*
     $path         = $_SERVER['DOCUMENT_ROOT'] . base_path() . variable_get('file_public_path', conf_path() . '/files/');
     $dynamic_file = $path . '/event_calendar_colors/event_calendar_colors.css';
     if (is_dir($path . '/event_calendar_colors')) {
@@ -236,6 +241,8 @@ function admin_event_calendar_colors_settings_submit($form, &$form_state)
         chmod($dynamic_file, 0755);
     }
     fwrite($handle, $css);
+*/
+    variable_set("custom_color_event_calendar_vacation_color",$css);
 }
 
 /**
